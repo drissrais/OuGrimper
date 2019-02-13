@@ -14,14 +14,27 @@
 	<packaging>pom</packaging>
 
 	<!-- ===== Informations générales ===== -->
-	<name>ougrimper</name>
-	<url>http://maven.apache.org</url>
+	<name>${projectName}</name>
+	<url>http://example.org</url>
+	<description>
+        Le super projet d'escalade !
+    </description>
+
+	<organization>
+		<name>OpenClassrooms</name>
+		<url>https://openclassrooms.fr</url>
+	</organization>
 
 	<!-- =============================================================== -->
 	<!-- Properties -->
 	<!-- =============================================================== -->
 	<properties>
+		<projectName>OuGrimper</projectName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<spring.version>4.3.11.RELEASE</spring.version>
+		<struts.version>2.5.14.1</struts.version>
 	</properties>
 
 	<!-- =============================================================== -->
@@ -41,34 +54,131 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- ===== Modules ===== -->
-            <dependency>
-                <groupId>org.driss</groupId>
-                <artifactId>ougrimper-webapp</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.driss</groupId>
-                <artifactId>ougrimper-business</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.driss</groupId>
-                <artifactId>ougrimper-consumer</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.driss</groupId>
-                <artifactId>ougrimper-model</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.driss</groupId>
-                <artifactId>ougrimper-technical</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
+			<dependency>
+				<groupId>org.driss</groupId>
+				<artifactId>ougrimper-webapp</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.driss</groupId>
+				<artifactId>ougrimper-business</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.driss</groupId>
+				<artifactId>ougrimper-consumer</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.driss</groupId>
+				<artifactId>ougrimper-model</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.driss</groupId>
+				<artifactId>ougrimper-technical</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
 
-            <!-- ===== Bibliothèques tierces ===== -->
+			<!-- ===== Bibliothèques tierces ===== -->
+			
+			<!-- API Validation Beans -->
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>1.1.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.bval</groupId>
+				<artifactId>bval-jsr</artifactId>
+				<version>1.1.2</version>
+				<scope>runtime</scope>
+			</dependency>
 
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.1.0</version>
+				<scope>provided</scope>
+			</dependency>
+			
+			<!-- Framework Spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Framework Apache Struts -->
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-bom</artifactId>
+				<version>${struts.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- JSR-250 -->
+			<dependency>
+				<groupId>javax.annotation</groupId>
+				<artifactId>javax.annotation-api</artifactId>
+				<version>1.2</version>
+			</dependency>
+			
+			<!-- JSR-330 -->
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+			</dependency>
+			
+			<!-- Drivers JDBC PostgreSQL -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.4.1212</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<!-- Gestion des logs avec Log4j -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>2.9.1</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-jcl</artifactId>
+				<version>2.9.1</version>
+				<scope>runtime</scope>
+			</dependency>
+			
+			<!-- Tests JUnit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>
