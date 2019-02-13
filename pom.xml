@@ -8,7 +8,7 @@
 	<!-- Informations du projet -->
 	<!-- =============================================================== -->
 	<!-- ===== Informations Maven ===== -->
-	<groupId>org.driss.ougrimper</groupId>
+	<groupId>org.driss</groupId>
 	<artifactId>ougrimper</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -42,27 +42,27 @@
 		<dependencies>
 			<!-- ===== Modules ===== -->
             <dependency>
-                <groupId>org.driss.ougrimper</groupId>
+                <groupId>org.driss</groupId>
                 <artifactId>ougrimper-webapp</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.driss.ougrimper</groupId>
+                <groupId>org.driss</groupId>
                 <artifactId>ougrimper-business</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.driss.ougrimper</groupId>
+                <groupId>org.driss</groupId>
                 <artifactId>ougrimper-consumer</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.driss.ougrimper</groupId>
+                <groupId>org.driss</groupId>
                 <artifactId>ougrimper-model</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.driss.ougrimper</groupId>
+                <groupId>org.driss</groupId>
                 <artifactId>ougrimper-technical</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>

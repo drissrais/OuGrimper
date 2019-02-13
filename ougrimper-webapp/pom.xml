@@ -9,8 +9,8 @@
 	<!-- =============================================================== -->
 	<!-- ===== Informations Maven ===== -->
 	<parent>
+		<groupId>org.driss</groupId>
 		<artifactId>ougrimper</artifactId>
-		<groupId>org.driss.ougrimper</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>ougrimper-webapp</artifactId>

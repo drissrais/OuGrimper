@@ -4,22 +4,22 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-
+	
 	<!-- =============================================================== -->
 	<!-- Informations du projet -->
 	<!-- =============================================================== -->
 	<!-- ===== Projet Parent Maven ===== -->
 	<parent>
-		<groupId>org.driss.ougrimper</groupId>
+		<groupId>org.driss</groupId>
 		<artifactId>ougrimper</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	
 	<!-- ===== Informations Maven ===== -->
-	<artifactId>ougrimper-consumer</artifactId>
+	<artifactId>ougrimper-model</artifactId>
 
 	<!-- ===== Informations générales ===== -->
-	<name>${projectName} - Consumer</name>
+	<name>${projectName} - Model</name>
 	<url>http://maven.apache.org</url>
 
 	<!-- =============================================================== -->
@@ -28,18 +28,14 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+	
 	<!-- =============================================================== -->
 	<!-- Gestion des dépendances -->
 	<!-- =============================================================== -->
 	<dependencies>
 		<!-- ===== Modules ===== -->
 		<dependency>
-			<groupId>org.driss.ougrimper</groupId>
-			<artifactId>ougrimper-model</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.driss.ougrimper</groupId>
+			<groupId>org.driss</groupId>
 			<artifactId>ougrimper-technical</artifactId>
 		</dependency>
 		

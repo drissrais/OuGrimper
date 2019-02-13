@@ -10,7 +10,7 @@
 	<!-- =============================================================== -->
 	<!-- ===== Projet Parent Maven ===== -->
 	<parent>
-		<groupId>org.driss.ougrimper</groupId>
+		<groupId>org.driss</groupId>
 		<artifactId>ougrimper</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
