@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="abstractManager" abstract="true">
+		<property name="daoFactory" ref="daoFactory" />
+	</bean>
+
+	<!-- ===== Déclaration des Managers ===== -->
+	<bean id="siteManager"
+		class="org.driss.ougrimper.business.impl.manager.SiteManagerImpl"
+		parent="abstractManager" />
+	<bean id="topoManager"
+		class="org.driss.ougrimper.business.impl.manager.TopoManagerImpl"
+		parent="abstractManager" />
+
+	<!-- ===== ManagerFactory ===== -->
+	<bean id="managerFactory"
+		class="org.driss.ougrimper.business.impl.ManagerFactoryImpl">
+		<property name="siteManager" ref="siteManager" />
+		<property name="topoManager" ref="topoManager" />
+	</bean>
+
 </beans>

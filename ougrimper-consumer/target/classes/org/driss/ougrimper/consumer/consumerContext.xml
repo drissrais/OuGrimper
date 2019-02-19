@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- ===== Déclaration des DAO ===== -->
+	<bean id="siteDao"
+		class="org.driss.ougrimper.consumer.impl.dao.SiteDaoImpl" />
+	<bean id="paysDao"
+		class="org.driss.ougrimper.consumer.impl.dao.PaysDaoImpl" />
+	<bean id="villeDao"
+		class="org.driss.ougrimper.consumer.impl.dao.VilleDaoImpl" />
+	<bean id="utilisateurDao"
+		class="org.driss.ougrimper.consumer.impl.dao.UtilisateurDaoImpl" />
+		<bean id="topoDao"
+		class="org.driss.ougrimper.consumer.impl.dao.TopoDaoImpl" />
+
+	<!-- ===== DaoFactory ===== -->
+	<bean id="daoFactory"
+		class="org.driss.ougrimper.consumer.impl.DaoFactoryImpl">
+		<property name="siteDao" ref="siteDao" />
+		<property name="paysDao" ref="paysDao" />
+		<property name="villeDao" ref="villeDao" />
+		<property name="utilisateurDao" ref="utilisateurDao" />
+		<property name="topoDao" ref="topoDao" />
+	</bean>
+
 </beans>

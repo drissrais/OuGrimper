@@ -5,7 +5,8 @@
 <head>
 <%@ include file="_include/head.jsp"%>
 <title>GRIMPO</title>
-<link href="style.css" rel="stylesheet" media="screen" type="text/css" title="main_css">
+<link href="style.css" rel="stylesheet" media="screen" type="text/css"
+	title="main_css">
 </head>
 <body>
 	<div class="container">
@@ -31,30 +32,31 @@
 					cheminement appelé voie, avec ou sans aide de matériel. Le terrain
 					de pratique va des blocs de faible hauteur aux parois de plusieurs
 					centaines de mètres, en passant par les murs d'escalade. Le
-					pratiquant est couramment appelé « grimpeur ». <br>
-					L'escalade développe de nombreuses qualités physiques, comme la
-					force musculaire, la souplesse, l'endurance musculaire, l'équilibre
-					et de bonnes capacités psychomotrices. Elle sollicite
-					particulièrement la musculature des bras, du tronc et des jambes.<br>
-					<small class="pull-right">Wikipedia</small><br>
+					pratiquant est couramment appelé « grimpeur ». <br> L'escalade
+					développe de nombreuses qualités physiques, comme la force
+					musculaire, la souplesse, l'endurance musculaire, l'équilibre et de
+					bonnes capacités psychomotrices. Elle sollicite particulièrement la
+					musculature des bras, du tronc et des jambes.<br> <small
+						class="pull-right">Wikipedia</small><br>
 				</blockquote>
 			</div>
 		</section>
 		<section class="row">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<h4 class="">Une courte vidéo de présentation</h4>
 				Admirez cette agréable pratique sportive...
 			</div>
-			<div class="col-lg-8">
+			<div class="col-sm-8">
 				<div class="embed-responsive embed-responsive-16by9">
 					<iframe class="embed-responsive-item"
-						src="https://www.youtube.com/embed/A9d1OtIzOZw" frameborder="0" allowfullscreen></iframe>
+						src="https://www.youtube.com/embed/A9d1OtIzOZw" frameborder="0"
+						allowfullscreen></iframe>
 				</div>
 			</div>
 		</section>
-		<section class="row">
-			<div class="col-lg-2 col-lg-offset-5">
-				<button class="btn btn-warning btn-lg">VOIR LES SITES</button>
+		<section class="row row-centered">
+			<div class="col-xs-3">
+				<button class="btn btn-warning" id="btn-voir-site" onclick="site_list">voir les sites</button>
 			</div>
 		</section>
 	</div>

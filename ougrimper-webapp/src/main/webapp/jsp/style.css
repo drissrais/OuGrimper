@@ -13,6 +13,18 @@ section {
 	padding: 20px;
 }
 
+.row-centered {
+	margin: auto;
+	max-width: 200px;
+	padding-bottom: 20px;
+}
+
+#btn-voir-site {
+	line-height: 40px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
 #connexion {
 	margin-top: 60px;
 }

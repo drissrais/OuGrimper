@@ -17,4 +17,4 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<%-- <s:head /> --%>
+<s:head />
