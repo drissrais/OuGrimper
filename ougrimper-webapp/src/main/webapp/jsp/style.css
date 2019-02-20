@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-	background-color: red;
+	background-color: #ddd;
 }
 
 section {
@@ -13,9 +13,8 @@ section {
 	padding: 20px;
 }
 
-row-centered {
-	margin: 0 auto;
-	max-width: 200px;
+.centered {
+	float: none;
 	padding-bottom: 20px;
 }
 
@@ -24,7 +23,12 @@ row-centered {
 	margin: 0px 0px 5px 0px;
 	padding: 5px 0px 5px 0px;
 	background-color: #ff6600;
-	line-height: 40px;
+}
+
+.site_name {
+	text-decoration: none;
+	color: #ff6600;
+	font-weight: bold;
 }
 
 .site {

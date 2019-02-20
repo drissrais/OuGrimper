@@ -52,8 +52,8 @@
 				</div>
 			</div>
 		</section>
-		<section class="row row-centered">
-			<div class="col-xs-3">
+		<section class="row">
+			<div class="col-xs-3 center-block centered">
 				<s:a class="btn btn-warning" id="btn-voir-site" action="site_list">voir les sites</s:a>
 			</div>
 		</section>

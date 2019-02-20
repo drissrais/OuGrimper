@@ -33,8 +33,8 @@
 		</header>
 		<section class="row">
 			<s:iterator value="listSite">
-				<div class="col-xs-6 col-sm-6 col-md-4" id="site">
-					<h3><s:a action=""><s:property value="nom"/></s:a></h3>
+				<div class="col-xs-6 col-sm-6 col-md-4 site">
+					<h3><s:a action="" class="site_name"><s:property value="nom"/></s:a></h3>
 					<s:property value="pays.nom"/>  -  <s:property value="region"/>
 					<div class="row">
 						<div class="col-md-12">
