@@ -1,0 +1,9 @@
+org\driss\ougrimper\business\contract\manager\SiteManager.class
+org\driss\ougrimper\business\impl\manager\AbstractManager.class
+org\driss\ougrimper\business\impl\manager\SiteManagerImpl.class
+org\driss\ougrimper\business\contract\manager\TopoManager.class
+org\driss\ougrimper\business\impl\manager\TopoManagerImpl.class
+org\driss\ougrimper\business\impl\manager\UtilisateurManagerImpl.class
+org\driss\ougrimper\business\impl\ManagerFactoryImpl.class
+org\driss\ougrimper\business\contract\manager\UtilisateurManager.class
+org\driss\ougrimper\business\contract\ManagerFactory.class

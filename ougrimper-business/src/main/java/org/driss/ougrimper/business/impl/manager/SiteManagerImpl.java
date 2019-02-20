@@ -6,6 +6,7 @@ import org.driss.ougrimper.business.contract.manager.SiteManager;
 import org.driss.ougrimper.model.bean.site.Pays;
 import org.driss.ougrimper.model.bean.site.Site;
 import org.driss.ougrimper.model.bean.site.Ville;
+import org.driss.ougrimper.model.exception.NotFoundException;
 
 public class SiteManagerImpl extends AbstractManager implements SiteManager {
 
@@ -19,15 +20,16 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	public List<Site> getListSite() {
 		List<Site> listSite = getDaoFactory().getSiteDao().getListSite();
 		for (Site site : listSite) {
-			Pays vPays = getDaoFactory().getPaysDao()
-					.getPays(site.getPays().getNom());
+			Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getNom());
+			Ville vVille = getDaoFactory().getVilleDo().getVille(site.getVillePlusProche().getId());
 			site.setPays(vPays);
+			site.setVillePlusProche(vVille);
 		}
 		return listSite;
 	}
 
 	@Override
-	public Pays getPays(String paysNom) {
+	public Pays getPays(String paysNom) throws NotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

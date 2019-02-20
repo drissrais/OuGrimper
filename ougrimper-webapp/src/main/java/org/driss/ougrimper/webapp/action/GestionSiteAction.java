@@ -17,6 +17,7 @@ public class GestionSiteAction extends ActionSupport {
 	
 	// ----- Eléments en sortie
 	private List<Site> listSite;
+	private Site site;
 	
 	// ==================== Getters/Setters ====================
 	public List<Site> getListSite() {
@@ -24,6 +25,12 @@ public class GestionSiteAction extends ActionSupport {
 	}
 	public void setListSite(List<Site> listSite) {
 		this.listSite = listSite;
+	}
+	public Site getSite() {
+		return site;
+	}
+	public void setSite(Site site) {
+		this.site = site;
 	}
 	
 	// ==================== Méthodes ===========================

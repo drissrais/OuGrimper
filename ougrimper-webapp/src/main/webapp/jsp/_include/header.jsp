@@ -19,7 +19,7 @@
 					data-toggle="dropdown" href="#">SITES D'ESCALADE <b
 						class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">LISTE SITES D'ESCALADE</a></li>
+						<li><s:a action="site_list">LISTE SITES D'ESCALADE</s:a></li>
 						<li class="divider"></li>
 						<li><a href="#">SITES D'ESCALADE PAR PAYS</a></li>
 						<li class="divider"></li>

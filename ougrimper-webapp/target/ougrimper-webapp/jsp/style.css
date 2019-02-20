@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+body {
+	background-color: #ddd;
+}
+
+section {
+	margin-bottom: 20px;
+}
+
+.well {
+	background-color: #CCC;
+	padding: 20px;
+}
+
+.row-centered {
+	margin: auto;
+	max-width: 200px;
+	padding-bottom: 20px;
+}
+
+#btn-voir-site {
+	line-height: 40px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#connexion {
+	margin-top: 60px;
+}
+
+#site-title, #topo-title {
+	line-height: 1em;
+	color: #ff6600;
+	margin: 20px 0px 0px 0px;
+}
+
+#recherche {
+	width: 100%;
+	margin: 0px 0px 5px 0px;
+	padding: 5px 0px 5px 0px;
+	background-color: #ff6600;
+}
+
+#site-new, #topo-new {
+	width: 100%;
+}

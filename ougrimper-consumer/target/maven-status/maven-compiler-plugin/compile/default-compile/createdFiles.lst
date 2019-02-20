@@ -1,0 +1,16 @@
+org\driss\ougrimper\consumer\impl\dao\AbstractDaoImpl.class
+org\driss\ougrimper\consumer\impl\dao\UtilisateurDaoImpl.class
+org\driss\ougrimper\consumer\contract\dao\SiteDao.class
+org\driss\ougrimper\consumer\impl\rowmapper\site\PaysRM.class
+org\driss\ougrimper\consumer\impl\DaoFactoryImpl.class
+org\driss\ougrimper\consumer\contract\dao\VilleDao.class
+org\driss\ougrimper\consumer\impl\rowmapper\site\SiteRM.class
+org\driss\ougrimper\consumer\impl\dao\PaysDaoImpl.class
+org\driss\ougrimper\consumer\contract\dao\TopoDao.class
+org\driss\ougrimper\consumer\impl\dao\VilleDaoImpl.class
+org\driss\ougrimper\consumer\contract\dao\PaysDao.class
+org\driss\ougrimper\consumer\contract\DaoFactory.class
+org\driss\ougrimper\consumer\contract\dao\UtilisateurDao.class
+org\driss\ougrimper\consumer\impl\dao\TopoDaoImpl.class
+org\driss\ougrimper\consumer\impl\rowmapper\site\VilleRM.class
+org\driss\ougrimper\consumer\impl\dao\SiteDaoImpl.class

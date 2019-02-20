@@ -5,8 +5,6 @@
 <head>
 <%@ include file="_include/head.jsp"%>
 <title>GRIMPO</title>
-<link href="style.css" rel="stylesheet" media="screen" type="text/css"
-	title="main_css">
 </head>
 <body>
 	<div class="container">
@@ -56,7 +54,7 @@
 		</section>
 		<section class="row row-centered">
 			<div class="col-xs-3">
-				<button class="btn btn-warning" id="btn-voir-site" onclick="site_list">voir les sites</button>
+				<s:a class="btn btn-warning" id="btn-voir-site" action="site_list">voir les sites</s:a>
 			</div>
 		</section>
 	</div>

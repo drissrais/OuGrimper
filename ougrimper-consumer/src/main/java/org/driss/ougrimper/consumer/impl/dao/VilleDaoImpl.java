@@ -3,6 +3,7 @@ package org.driss.ougrimper.consumer.impl.dao;
 import org.driss.ougrimper.consumer.contract.dao.VilleDao;
 import org.driss.ougrimper.consumer.impl.rowmapper.site.VilleRM;
 import org.driss.ougrimper.model.bean.site.Ville;
+import org.driss.ougrimper.model.exception.NotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
