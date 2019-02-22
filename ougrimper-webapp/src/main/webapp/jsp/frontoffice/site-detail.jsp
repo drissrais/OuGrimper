@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
-		<section class="row" id="recherche">
+		<section class="row recherche">
 			<div class="col-lg-4">
 				<select class="form-control">
 					<option value="" selected disabled hidden>Pays</option>
@@ -27,9 +27,22 @@
 			</div>
 		</section>
 		<header class="page-header">
-			<h1>Nom du site</h1>
+			<h1 class="site-detail-h1"><s:property value="site.nom"/></h1>
+			<h3 class="site-detail-h3"><s:property value="site.pays.nom"/>  -  <s:property value="site.ville.nom"/> (ville plus proche)  -  <s:property value="site.region"/></h3>
+			<img alt="Site d'escalade" title="<s:property value="site.nom"/>" src="<s:property value="site.plan"/>">
 		</header>
-		<section></section>
+		<section class="row">
+			<div class="col-md-8">
+				<h2 class="site-detail-h2"><s:property value="site.nom"/></h2>
+				<p class="site-detail-p"><s:property value="site.description"/></p>
+			</div>
+		</section>
+		<section class="row">
+			<div class="col-md-8">
+				<h3>Accès & Approche</h3>
+				<p class="site-detail-p"><s:property value="site.localite"/></p>
+			</div>
+		</section>
 		<div class="row">
 			<section class="col-lg-8">
 				<form action="" class="well well-lg well-sm">
@@ -54,7 +67,7 @@
 						<address class="thumbnail">
 							<p>
 								<a>Identifiez-vous</a> pour pouvoir
-								commencer des discussions... ou <a>inscrivez-vous</a>
+								commencer une discussion... ou <a>inscrivez-vous</a>
 							</p>
 						</address>
 					</div>

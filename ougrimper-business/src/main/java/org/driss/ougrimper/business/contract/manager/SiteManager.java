@@ -11,7 +11,7 @@ public interface SiteManager {
 	
 	Site getSite(Integer siteId);
 	List<Site> getListSite();
-	Pays getPays(String paysNom) throws NotFoundException;
+	Pays getPays(String paysNom);
 	Ville getVille(Integer villeId);
 
 }

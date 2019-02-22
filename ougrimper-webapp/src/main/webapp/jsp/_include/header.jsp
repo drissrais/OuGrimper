@@ -10,11 +10,11 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">GRIMPO</a>
+			<s:a class="navbar-brand" action="index">GRIMPO</s:a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">ACCUEIL</a></li>
+				<li class="active"><s:a action="index">ACCUEIL</s:a></li>
 				<li class="dropdown"><a id="site_dropdown"
 					data-toggle="dropdown" href="#">SITES D'ESCALADE <b
 						class="caret"></b></a>
@@ -25,7 +25,7 @@
 						<li class="divider"></li>
 						<li><a href="#">SITES D'ESCALADE PAR REGION</a></li>
 					</ul></li>
-				<li><a href="#">TOPOS</a></li>
+				<li><s:a action="topo_list">TOPOS</s:a></li>
 				<li class="dropdown"><a id="admin_dropdown"
 					data-toggle="dropdown" href="#">ADMINISTRATION <b class="caret"></b></a>
 					<ul class="dropdown-menu">

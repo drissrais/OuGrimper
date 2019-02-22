@@ -3,7 +3,6 @@ package org.driss.ougrimper.consumer.impl.dao;
 import org.driss.ougrimper.consumer.contract.dao.PaysDao;
 import org.driss.ougrimper.consumer.impl.rowmapper.site.PaysRM;
 import org.driss.ougrimper.model.bean.site.Pays;
-import org.driss.ougrimper.model.exception.NotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 

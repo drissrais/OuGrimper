@@ -15,11 +15,20 @@ public class GestionSiteAction extends ActionSupport {
 	@Inject
 	private ManagerFactory managerFactory;
 	
+	// ----- Eléments en entrée
+	private Integer id;
+	
 	// ----- Eléments en sortie
 	private List<Site> listSite;
 	private Site site;
 	
 	// ==================== Getters/Setters ====================
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public List<Site> getListSite() {
 		return listSite;
 	}
@@ -38,5 +47,23 @@ public class GestionSiteAction extends ActionSupport {
 		listSite = managerFactory.getSiteManager().getListSite();
 		return ActionSupport.SUCCESS;
 	}
+	
+	/**
+     * Action affichant les détails d'un {@link Projet}
+     * @return success / error
+     */
+    public String doDetail() {
+        if (id == null) {
+            this.addActionError("Vous devez sélectionner un site !");
+        } else {
+        	site = managerFactory.getSiteManager().getSite(id);
+//            try {
+//            }
+//            catch (NotFoundException pE) {
+//                this.addActionError(getText("error.project.notfound", Collections.singletonList(id)));
+//            }
+        }
+        return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+    }
 
 }

@@ -10,7 +10,8 @@
 	<div class="container">
 		<%@ include file="_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Le site de l'escalade</h1>
+			<h1>GRIMPO, le site de l'escalade</h1>
+<%-- 			<img title="Escalade" alt="Escalade" src="${pageContext.request.contextPath}/jsp/images/home.jpg" /> --%>
 		</header>
 		<section class="row">
 			<div class="col-lg-12">

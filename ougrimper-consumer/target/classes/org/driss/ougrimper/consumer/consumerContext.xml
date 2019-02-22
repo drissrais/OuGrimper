@@ -15,7 +15,9 @@
 		class="org.driss.ougrimper.consumer.impl.dao.VilleDaoImpl" />
 	<bean id="utilisateurDao"
 		class="org.driss.ougrimper.consumer.impl.dao.UtilisateurDaoImpl" />
-		<bean id="topoDao"
+	<bean id="proprietaireTopoDao"
+		class="org.driss.ougrimper.consumer.impl.dao.ProprietaireTopoDaoImpl" />
+	<bean id="topoDao"
 		class="org.driss.ougrimper.consumer.impl.dao.TopoDaoImpl" />
 
 	<!-- ===== DaoFactory ===== -->
@@ -25,6 +27,7 @@
 		<property name="paysDao" ref="paysDao" />
 		<property name="villeDao" ref="villeDao" />
 		<property name="utilisateurDao" ref="utilisateurDao" />
+		<property name="proprietaireTopoDao" ref="proprietaireTopoDao" />
 		<property name="topoDao" ref="topoDao" />
 	</bean>
 	

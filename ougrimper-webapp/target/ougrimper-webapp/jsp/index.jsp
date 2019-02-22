@@ -5,14 +5,13 @@
 <head>
 <%@ include file="_include/head.jsp"%>
 <title>GRIMPO</title>
-<link href="style.css" rel="stylesheet" media="screen" type="text/css"
-	title="main_css">
 </head>
 <body>
 	<div class="container">
 		<%@ include file="_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Le site de l'escalade</h1>
+			<h1>GRIMPO, le site de l'escalade</h1>
+<%-- 			<img title="Escalade" alt="Escalade" src="${pageContext.request.contextPath}/jsp/images/home.jpg" /> --%>
 		</header>
 		<section class="row">
 			<div class="col-lg-12">
@@ -54,8 +53,8 @@
 				</div>
 			</div>
 		</section>
-		<section class="row row-centered">
-			<div class="col-xs-3">
+		<section class="row">
+			<div class="col-xs-3 center-block centered">
 				<s:a class="btn btn-warning" id="btn-voir-site" action="site_list">voir les sites</s:a>
 			</div>
 		</section>

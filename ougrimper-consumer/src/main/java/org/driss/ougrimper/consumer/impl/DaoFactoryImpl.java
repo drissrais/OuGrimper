@@ -2,6 +2,7 @@ package org.driss.ougrimper.consumer.impl;
 
 import org.driss.ougrimper.consumer.contract.DaoFactory;
 import org.driss.ougrimper.consumer.contract.dao.PaysDao;
+import org.driss.ougrimper.consumer.contract.dao.ProprietaireTopoDao;
 import org.driss.ougrimper.consumer.contract.dao.SiteDao;
 import org.driss.ougrimper.consumer.contract.dao.TopoDao;
 import org.driss.ougrimper.consumer.contract.dao.UtilisateurDao;
@@ -14,6 +15,7 @@ public class DaoFactoryImpl implements DaoFactory {
 	private UtilisateurDao utilisateurDao;
 	private PaysDao paysDao;
 	private VilleDao villeDao;
+	private ProprietaireTopoDao proprietaireTopoDao;
 
 	@Override
 	public SiteDao getSiteDao() {
@@ -63,6 +65,16 @@ public class DaoFactoryImpl implements DaoFactory {
 	@Override
 	public void setVilleDao(VilleDao villeDao) {
 		this.villeDao = villeDao;
+	}
+
+	@Override
+	public ProprietaireTopoDao getProprietaireTopoDao() {
+		return this.proprietaireTopoDao;
+	}
+
+	@Override
+	public void setProprietaireTopoDao(ProprietaireTopoDao proprietaireTopoDao) {
+		this.proprietaireTopoDao = proprietaireTopoDao;
 	}
 
 }

@@ -13,11 +13,38 @@
 			<result>/jsp/index.jsp</result>
 		</action>
 
-		<!-- Action listant les sites -->
+		<!-- Action listant les sites d'escalade -->
 		<action name="site_list"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doList">
 			<result>/jsp/frontoffice/listSite.jsp</result>
 		</action>
+		
+		<!-- Action affichant le détail d'un site d'escalade -->
+        <action name="site_detail" class="org.driss.ougrimper.webapp.action.GestionSiteAction" method="doDetail">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result>/jsp/frontoffice/site-detail.jsp</result>
+        </action>
+        
+        <!-- Action listant les topos de sites d'escalade -->
+		<action name="topo_list"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doList">
+			<result>/jsp/frontoffice/listTopo.jsp</result>
+		</action>
+		
+		<!-- Action affichant le détail d'un topo de site d'escalade -->
+        <action name="topo_detail" class="org.driss.ougrimper.webapp.action.GestionTopoAction" method="doDetail">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result>/jsp/frontoffice/topo-detail.jsp</result>
+        </action>
 	</package>
 </struts>

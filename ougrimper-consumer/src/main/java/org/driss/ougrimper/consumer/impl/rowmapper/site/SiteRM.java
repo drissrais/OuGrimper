@@ -29,7 +29,7 @@ public class SiteRM implements RowMapper<Site> {
 		Integer villeId = rs.getInt("ville_plus_proche");
 		Ville vVille = new Ville();
 		vVille.setId(villeId);
-		vSite.setVillePlusProche(vVille);
+		vSite.setVille(vVille);
 		
 		return vSite;
 	}

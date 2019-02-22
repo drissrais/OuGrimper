@@ -25,13 +25,27 @@ section {
 	background-color: #ff6600;
 }
 
-.site_name {
+.site_name, .topo_name {
 	text-decoration: none;
 	color: #ff6600;
 	font-weight: bold;
 }
 
-.site {
+.site-detail-h1, .topo-detail-h1 {
+	font-weight: bold;
+}
+
+.site-detail-h2, .site-detail-h3, .topo-detail-h2, .topo-detail-h3 {
+	color: #ff6600;
+	font-weight: bold;
+}
+
+.site-detail-p, .topo-detail-p, .listSite-span, .listTopo-span {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.site, .topo {
 	margin-bottom: 20px;
 }
 

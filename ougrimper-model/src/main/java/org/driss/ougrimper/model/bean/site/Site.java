@@ -30,8 +30,17 @@ public class Site {
 	@Max(value = 255, message = "trop long")
 	private String plan;
 	
-	private Ville villePlusProche;
+	private Ville ville;
 	private Pays pays;
+	
+	// ==================== Constructors =================
+	public Site() {
+		// TODO Auto-generated constructor stub
+	}
+	public Site(Integer id) {
+		super();
+		this.id = id;
+	}
 	
 	// ==================== Getters/Setters ==============
 	public Integer getId() {
@@ -76,11 +85,11 @@ public class Site {
 	public void setPlan(String plan) {
 		this.plan = plan;
 	}
-	public Ville getVillePlusProche() {
-		return villePlusProche;
+	public Ville getVille() {
+		return ville;
 	}
-	public void setVillePlusProche(Ville villePlusProche) {
-		this.villePlusProche = villePlusProche;
+	public void setVille(Ville villePlusProche) {
+		this.ville = villePlusProche;
 	}
 	public Pays getPays() {
 		return pays;

@@ -4,8 +4,6 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<link href="../style.css" rel="stylesheet" media="screen"
-	type="text/css" title="main_css">
 <title>Connexion</title>
 </head>
 <body>

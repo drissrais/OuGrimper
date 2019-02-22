@@ -28,18 +28,24 @@
 		</section>
 		<header class="page-header">
 			<h1 id="site-title">Tous les sites d'escalade</h1>
-			<span>Accédez à la liste des sites d'escalade que nous avons
+			<span class="listSite-span">Accédez à la liste des sites d'escalade que nous avons
 				répertorié pour vous.</span>
 		</header>
 		<section class="row">
 			<s:iterator value="listSite">
 				<div class="col-xs-6 col-sm-6 col-md-4 site">
-					<h3><s:a action="" class="site_name"><s:property value="nom"/></s:a></h3>
+					<h3>
+						<s:a action="site_detail" class="site_name">
+							<s:param name="id" value="id" />
+							<s:property value="nom"/>
+						</s:a>
+					</h3>
 					<s:property value="pays.nom"/>  -  <s:property value="region"/>
 					<div class="row">
 						<div class="col-md-12">
-							<s:a action="">
-								<img alt="<s:property value="nom"/>" src="<s:property value="photo"/>">
+							<s:a action="site_detail">
+								<s:param name="id" value="id" />
+								<img title="<s:property value="nom"/>" src="<s:property value="photo"/>">
 							</s:a>
 						</div>
 					</div>

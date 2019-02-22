@@ -10,9 +10,27 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Nom du topo</h1>
+			<h1 class="topo-detail-h1"><s:property value="topo.nom"/></h1>
+			<h3 class="topo-detail-h3"><s:property value="topo.site.pays.nom"/>   -  <s:property value="topo.site.region"/></h3>
+			<img alt="Site d'escalade" title="<s:property value="topo.site.nom"/>" src="<s:property value="topo.site.plan"/>">
 		</header>
-		<section></section>
+		<section class="row">
+			<div class="col-md-8">
+				<h2 class="topo-detail-h2"><s:property value="topo.nom"/></h2>
+				<p class="topo-detail-p"><s:property value="topo.description"/></p>
+			</div>
+		</section>
+		<section class="row">
+			<div class="col-md-8">
+				<h3>Disponibilité & Propriétaire</h3>
+				<s:set var="disponible"><s:property value="topo.disponible"/></s:set>
+				<p class="topo-detail-p">
+					<s:if test="%{#disponible=='true'}">- Disponible pour prêt.</s:if>
+					<s:else>- Non disponible pour prêt.</s:else>
+				</p>
+				<p class="topo-detail-p">- Email du propriétaire de topo : <s:property value="topo.proprietaire.email"/></p>
+			</div>
+		</section>
 		<div class="row">
 			<section class="col-lg-8">
 				<form action="" class="well well-lg well-sm">
