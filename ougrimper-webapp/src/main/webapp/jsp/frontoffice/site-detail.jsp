@@ -45,7 +45,7 @@
 		</section>
 		<div class="row">
 			<section class="col-lg-8">
-				<form action="" class="well well-lg well-sm">
+				<form action="addNewComment" class="well well-lg well-sm">
 					<h4>
 						<span class="label label-lg label-default">Votre avis sur
 							le site</span>
@@ -53,25 +53,37 @@
 					<h4>Comment l'avez-vous trouvé ?</h4>
 					<fieldset>
 						<label for="textarea">Commencer la discussion...</label>
-						<textarea id="textarea" class="form-control" rows="4"></textarea>
+						<textarea id="textarea" name="" class="form-control" rows="4"></textarea>
 						<p class="help-block">Vous pouvez agrandir la fenêtre</p>
-						<button class="btn btn-primary" type="submit">
-							<span class="glyphicon glyphicon-ok-sign"> Envoyer</span>
-						</button>
+						<s:if test="#session.user">
+							<button class="btn btn-primary" type="submit">
+								<span class="glyphicon glyphicon-ok-sign"> Envoyer</span>
+							</button>
+						</s:if>
+						<s:else>
+							<button class="btn btn-primary" type="submit" disabled>
+								<span class="glyphicon glyphicon-ok-sign"> Envoyer</span>
+							</button>
+						</s:else>
 					</fieldset>
 				</form>
 			</section>
 			<section class="col-sm-4">
 				<div class="row">
 					<div class="col-lg-12">
-						<address class="thumbnail">
-							<p>
-								<a>Identifiez-vous</a> pour pouvoir
-								commencer une discussion... ou <a>inscrivez-vous</a>
+						<address class="well well-lg well-sm">
+							<p class="site-detail-p">
+								<s:a action="login">Identifiez-vous</s:a> pour pouvoir
+								commencer une discussion... ou <s:a action="inscription">inscrivez-vous</s:a>
 							</p>
 						</address>
 					</div>
-					<button class="btn btn-warning col-lg-offset-3 col-lg-6">VOIR LES DISCUSSIONS</button>
+					<s:if test="#session.user">
+						<button class="btn btn-warning col-lg-offset-3 col-lg-6">VOIR LES DISCUSSIONS</button>
+					</s:if>
+					<s:else>
+						<button class="btn btn-warning col-lg-offset-3 col-lg-6" disabled>VOIR LES DISCUSSIONS</button>
+					</s:else>
 				</div>
 			</section>
 		</div>

@@ -17,12 +17,16 @@
 	<bean id="topoManager"
 		class="org.driss.ougrimper.business.impl.manager.TopoManagerImpl"
 		parent="abstractManager" />
+	<bean id="utilisateurManager"
+		class="org.driss.ougrimper.business.impl.manager.UtilisateurManagerImpl"
+		parent="abstractManager" />
 
 	<!-- ===== ManagerFactory ===== -->
 	<bean id="managerFactory"
 		class="org.driss.ougrimper.business.impl.ManagerFactoryImpl">
 		<property name="siteManager" ref="siteManager" />
 		<property name="topoManager" ref="topoManager" />
+		<property name="utilisateurManager" ref="utilisateurManager" />
 	</bean>
 
 </beans>

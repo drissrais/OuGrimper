@@ -13,7 +13,7 @@ public class VilleRM implements RowMapper<Ville> {
 		Ville vVille = new Ville();
 		vVille.setId(rs.getInt("id"));
 		vVille.setNom(rs.getString("nom"));
-		return null;
+		return vVille;
 	}
 
 }
