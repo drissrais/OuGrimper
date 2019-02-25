@@ -12,6 +12,7 @@
 		<section class="row">
 			<div class="col-lg-8">
 				<s:form class="well form-horizontal" action="inscription">
+					<input type="hidden" id="role" name="utilisateur.role" value="user">
 					<div class="form-group">
 						<legend>Créer votre compte</legend>
 					</div>
@@ -84,7 +85,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<s:submit class="btn btn-primary pull-right" value="Créer" />
+						<button class="btn btn-primary pull-right" type="submit">Créer</button>
 					</div>
 				</s:form>
 			</div>

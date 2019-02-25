@@ -1,26 +1,40 @@
 package org.driss.ougrimper.webapp.action;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.struts2.interceptor.SessionAware;
 import org.driss.ougrimper.business.contract.ManagerFactory;
+import org.driss.ougrimper.model.bean.site.CommentaireSite;
+import org.driss.ougrimper.model.bean.site.Secteur;
 import org.driss.ougrimper.model.bean.site.Site;
+import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class GestionSiteAction extends ActionSupport {
+public class GestionSiteAction extends ActionSupport implements SessionAware {
 	
 	// ==================== Attributs ==========================
+	// ----- Eléments Struts
+    private Map<String, Object> session;
+	
 	@Inject
 	private ManagerFactory managerFactory;
 	
 	// ----- Eléments en entrée
 	private Integer id;
+	private String textComment;
 	
 	// ----- Eléments en sortie
 	private List<Site> listSite;
 	private Site site;
+	private List<CommentaireSite> listCommentaire;
+	private CommentaireSite commentaireSite;
+	private List<Secteur> listSecteur;
+	private Secteur secteur;
 	
 	// ==================== Getters/Setters ====================
 	public Integer getId() {
@@ -28,6 +42,12 @@ public class GestionSiteAction extends ActionSupport {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getTextComment() {
+		return textComment;
+	}
+	public void setTextComment(String textComment) {
+		this.textComment = textComment;
 	}
 	public List<Site> getListSite() {
 		return listSite;
@@ -40,6 +60,35 @@ public class GestionSiteAction extends ActionSupport {
 	}
 	public void setSite(Site site) {
 		this.site = site;
+	}
+	public CommentaireSite getCommentaireSite() {
+		return commentaireSite;
+	}
+	public void setCommentaireSite(CommentaireSite commentaireSite) {
+		this.commentaireSite = commentaireSite;
+	}
+	public List<CommentaireSite> getListCommentaire() {
+		return listCommentaire;
+	}
+	public void setListCommentaire(List<CommentaireSite> listCommentaire) {
+		this.listCommentaire = listCommentaire;
+	}
+	public List<Secteur> getListSecteur() {
+		return listSecteur;
+	}
+	public void setListSecteur(List<Secteur> listSecteur) {
+		this.listSecteur = listSecteur;
+	}
+	public Secteur getSecteur() {
+		return secteur;
+	}
+	public void setSecteur(Secteur secteur) {
+		this.secteur = secteur;
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
 	}
 	
 	// ==================== Méthodes ===========================
@@ -57,6 +106,7 @@ public class GestionSiteAction extends ActionSupport {
             this.addActionError("Vous devez sélectionner un site !");
         } else {
         	site = managerFactory.getSiteManager().getSite(id);
+        	listSecteur = managerFactory.getSiteManager().getListSecteur(id);
 //            try {
 //            }
 //            catch (NotFoundException pE) {
@@ -65,5 +115,27 @@ public class GestionSiteAction extends ActionSupport {
         }
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
+    
+    /**
+     * Action permettant de créer un nouveau {@link Commentaire} sur un {@link Site} 
+     * @return success / error
+     */
+    public String doAddNewComment() {
+//    	if (textComment == null) {
+//			this.addActionError(getText("error.textComment.missing.name"));
+//		} else {
+			Utilisateur vUtilisateur = (Utilisateur) session.get("user");
+			commentaireSite = new CommentaireSite(textComment, new Timestamp(0), vUtilisateur);
+			site = managerFactory.getSiteManager().getSite(id);
+			managerFactory.getSiteManager().addNewComment(site, commentaireSite);
+//		}
 
+		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+    }
+    
+    public String doListComment() {
+    	listCommentaire = managerFactory.getSiteManager().getListCommentaire(id);
+    	return ActionSupport.SUCCESS;
+    }
+    
 }

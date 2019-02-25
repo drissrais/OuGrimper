@@ -1,6 +1,6 @@
 package org.driss.ougrimper.model.bean.site;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -15,10 +15,22 @@ public class CommentaireSite {
 	private String contenu;
 
 	@NotNull(message = "date cannot be null")
-	private Date date;
+	private Timestamp date;
 
 	private Utilisateur redacteur;
 	private Site site;
+	
+	// ==================== Constructors =================
+	public CommentaireSite() {
+		// TODO Auto-generated constructor stub
+	}
+	public CommentaireSite(String contenu, Timestamp date, Utilisateur redacteur) {
+		super();
+		this.contenu = contenu;
+		this.date = date;
+		this.redacteur = redacteur;
+	}
+
 
 	// ==================== Getters/Setters ==============
 	public String getContenu() {
@@ -29,11 +41,11 @@ public class CommentaireSite {
 		this.contenu = contenu;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

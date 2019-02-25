@@ -18,7 +18,7 @@ public class GestionUtilisateurAction extends ActionSupport {
 
 	// ----- Eléments en sortie
 
-	// ----- Eléments en entrée et sortie
+	// ----- Eléments en entrée et en sortie
 	private Utilisateur utilisateur;
 	
 	// ==================== Getters/Setters ====================

@@ -2,6 +2,7 @@ package org.driss.ougrimper.consumer.contract;
 
 import org.driss.ougrimper.consumer.contract.dao.PaysDao;
 import org.driss.ougrimper.consumer.contract.dao.ProprietaireTopoDao;
+import org.driss.ougrimper.consumer.contract.dao.SecteurDao;
 import org.driss.ougrimper.consumer.contract.dao.SiteDao;
 import org.driss.ougrimper.consumer.contract.dao.TopoDao;
 import org.driss.ougrimper.consumer.contract.dao.UtilisateurDao;
@@ -21,5 +22,7 @@ public interface DaoFactory {
 	void setVilleDao(VilleDao villeDao);
 	ProprietaireTopoDao getProprietaireTopoDao();
 	void setProprietaireTopoDao(ProprietaireTopoDao proprietaireTopoDao);
+	SecteurDao getSecteurDao();
+	void setSecteurDao(SecteurDao secteurDao);
 
 }

@@ -1,6 +1,6 @@
 package org.driss.ougrimper.model.bean.topo;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ public class CommentaireTopo {
 	private String contenu;
 	
 	@NotNull(message = "date cannot be null")
-	private Date date;
+	private Timestamp date;
 	
 	private Utilisateur redacteur;
 	private Topo topo;
@@ -27,10 +27,10 @@ public class CommentaireTopo {
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public Utilisateur getRedacteur() {
