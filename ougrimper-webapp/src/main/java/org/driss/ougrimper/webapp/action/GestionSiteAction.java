@@ -11,6 +11,7 @@ import org.driss.ougrimper.business.contract.ManagerFactory;
 import org.driss.ougrimper.model.bean.site.CommentaireSite;
 import org.driss.ougrimper.model.bean.site.Secteur;
 import org.driss.ougrimper.model.bean.site.Site;
+import org.driss.ougrimper.model.bean.site.Voie;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -35,6 +36,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private CommentaireSite commentaireSite;
 	private List<Secteur> listSecteur;
 	private Secteur secteur;
+	private List<Voie> listVoie;
 	
 	// ==================== Getters/Setters ====================
 	public Integer getId() {
@@ -84,6 +86,12 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	}
 	public void setSecteur(Secteur secteur) {
 		this.secteur = secteur;
+	}
+	public List<Voie> getListVoie() {
+		return listVoie;
+	}
+	public void setListVoie(List<Voie> listVoie) {
+		this.listVoie = listVoie;
 	}
 	
 	@Override
@@ -136,6 +144,20 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     public String doListComment() {
     	listCommentaire = managerFactory.getSiteManager().getListCommentaire(id);
     	return ActionSupport.SUCCESS;
+    }
+    
+    /**
+     * Action "AJAX" renvoyant la liste des voies d'un secteur
+     * @return success / error
+     */
+    public String doAjaxGetListVoie() {
+        if (secteur == null) {
+            addActionError("Le secteur doit être précisé !");
+        } else {
+            listVoie = managerFactory.getSiteManager().getListVoie(secteur);
+        }
+
+        return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
     
 }

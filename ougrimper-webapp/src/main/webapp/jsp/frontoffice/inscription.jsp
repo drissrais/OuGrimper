@@ -80,7 +80,7 @@
 						<div class="form-group">
 							<label for="password" class="col-lg-4 control-label">Confirmer mot de passe : </label>
 							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control" name="utilisateur.motDePasse">
+								<input id="password" type="password" class="form-control">
 							</div>
 						</div>
 					</div>

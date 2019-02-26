@@ -100,5 +100,12 @@ public class Utilisateur {
 	}
 	
 	// ==================== Méthodes ====================
+
+	@Override
+	public String toString() {
+		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", civilite=" + civilite
+				+ ", dateDeNaissance=" + dateDeNaissance + ", email=" + email + ", pseudo=" + pseudo + ", motDePasse="
+				+ motDePasse + ", role=" + role + "]";
+	}
 	
 }

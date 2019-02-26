@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.driss.ougrimper.business.contract.manager.TopoManager;
 import org.driss.ougrimper.model.bean.site.Site;
+import org.driss.ougrimper.model.bean.topo.Reservation;
 import org.driss.ougrimper.model.bean.topo.Topo;
 import org.driss.ougrimper.model.bean.utilisateur.ProprietaireTopo;
+import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
 public class TopoManagerImpl extends AbstractManager implements TopoManager {
 
@@ -34,6 +36,23 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 			topo.setSite(site);
 		}
 		return listTopo;
+	}
+
+	@Override
+	public List<Reservation> getListReservation(Integer topoId) {
+		List<Reservation> listReservation = getDaoFactory().getReservationDao().getListReservation(topoId);
+		for (Reservation reservation : listReservation) {
+			Utilisateur vUtilisateur = getDaoFactory().getUtilisateurDao().getUtilisateur(reservation.getUtilisateur().getId());
+			Topo vTopo = getDaoFactory().getTopoDao().getTopo(reservation.getTopo().getId());
+			reservation.setUtilisateur(vUtilisateur);
+			reservation.setTopo(vTopo);
+		}
+		return listReservation;
+	}
+
+	@Override
+	public void addNewReservation(Topo topo, Reservation reservation) {
+		getDaoFactory().getReservationDao().addNewReservation(topo, reservation);
 	}
 
 }

@@ -33,37 +33,53 @@
 		</section>
 		<div class="row">
 			<section class="col-lg-8">
-				<form action="" class="well well-lg well-sm">
+				<form class="well well-lg well-sm" action="addNewReservation">
+					<s:hidden name="id" value="%{topo.id}" />
 					<h4>
 						<span class="label label-lg label-default">Si vous voulez réserver le topo</span>
 					</h4>
 					<h4>Choisissez la période :</h4>
 					<fieldset>
 						<div class="form-group">
-							<label for="depuis">De :</label>
-							<input id="depuis" class="form-control" type="date"></input>
+							<label for="depuis">Période de :</label>
+							<input id="depuis" name="dateDebut" class="form-control" type="date"></input>
 						</div>
 						<div class="form-group">
 							<label for="jusqu'a">Jusqu'à :</label>
-							<input id="jusqu'a" class="form-control" type="date"></input>
+							<input id="jusqu'a" name="dateFin" class="form-control" type="date"></input>
 						</div>
-						<button class="btn btn-primary" type="submit">
-							<span class="glyphicon glyphicon-ok-sign"> Confirmer</span>
-						</button>
+						<s:if test="#session.user">
+							<button class="btn btn-primary" type="submit">
+								<span class="glyphicon glyphicon-ok-sign"> Confirmer</span>
+							</button>
+						</s:if>
+						<s:else>
+							<button class="btn btn-primary" type="submit" disabled>
+								<span class="glyphicon glyphicon-ok-sign"> Confirmer</span>
+							</button>
+						</s:else>
 					</fieldset>
 				</form>
 			</section>
 			<section class="col-sm-4">
 				<div class="row">
 					<div class="col-lg-12">
-						<address class="thumbnail">
-							<p>
-								<a>Identifiez-vous</a> pour pouvoir
-								réserver des topos... ou <a>inscrivez-vous</a>
+						<address class="well well-lg well-sm">
+							<p class="topo-detail-p">
+								<s:a action="login">Connectez-vous</s:a> pour pouvoir
+								réserver des topos... ou <s:a action="inscription">inscrivez-vous</s:a>
 							</p>
 						</address>
 					</div>
-					<button class="btn btn-warning col-lg-offset-2 col-lg-8">LISTE DES RESERVATIONS</button>
+					<s:if test="#session.user">
+						<s:a class="btn btn-warning col-lg-offset-2 col-lg-8" action="reservation_list">
+							LISTE DES RESERVATIONS
+							<s:param name="id" value="topo.id" />
+						</s:a>
+					</s:if>
+					<s:else>
+						<button class="btn btn-warning col-lg-offset-2 col-lg-8" disabled>LISTE DES RESERVATIONS</button>
+					</s:else>
 				</div>
 			</section>
 		</div>

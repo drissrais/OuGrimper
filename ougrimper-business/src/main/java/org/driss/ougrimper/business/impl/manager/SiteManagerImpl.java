@@ -8,6 +8,7 @@ import org.driss.ougrimper.model.bean.site.Pays;
 import org.driss.ougrimper.model.bean.site.Secteur;
 import org.driss.ougrimper.model.bean.site.Site;
 import org.driss.ougrimper.model.bean.site.Ville;
+import org.driss.ougrimper.model.bean.site.Voie;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
 public class SiteManagerImpl extends AbstractManager implements SiteManager {
@@ -36,25 +37,13 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	}
 
 	@Override
-	public Pays getPays(String paysNom) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Ville getVille(Integer villeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void addNewComment(Site site, CommentaireSite commentaireSite) {
-		getDaoFactory().getSiteDao().addNewComment(site, commentaireSite);
+		getDaoFactory().getCommentaireSiteDao().addNewComment(site, commentaireSite);
 	}
 
 	@Override
 	public List<CommentaireSite> getListCommentaire(Integer siteId) {
-		List<CommentaireSite> listCommentaire = getDaoFactory().getSiteDao().getListCommentaire(siteId);
+		List<CommentaireSite> listCommentaire = getDaoFactory().getCommentaireSiteDao().getListCommentaire(siteId);
 		for (CommentaireSite commentaireSite : listCommentaire) {
 			Utilisateur vUtilisateur = getDaoFactory().getUtilisateurDao().getUtilisateur(commentaireSite.getRedacteur().getId());
 			Site vSite = getDaoFactory().getSiteDao().getSite(commentaireSite.getSite().getId());
@@ -72,6 +61,16 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 			secteur.setSite(vSite);
 		}
 		return listSecteur;
+	}
+
+	@Override
+	public List<Voie> getListVoie(Secteur secteur) {
+		List<Voie> listVoie = getDaoFactory().getVoieDao().getListVoie(secteur);
+		for (Voie voie : listVoie) {
+			Secteur vSecteur = getDaoFactory().getSecteurDao().getSecteur(secteur.getId());
+			voie.setSecteur(vSecteur);
+		}
+		return listVoie;
 	}
 
 }

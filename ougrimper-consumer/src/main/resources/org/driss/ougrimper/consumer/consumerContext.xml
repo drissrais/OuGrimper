@@ -9,29 +9,38 @@
 	<!-- ===== Déclaration des DAO ===== -->
 	<bean id="siteDao"
 		class="org.driss.ougrimper.consumer.impl.dao.SiteDaoImpl" />
+	<bean id="commentaireSiteDao"
+		class="org.driss.ougrimper.consumer.impl.dao.CommentaireSiteDaoImpl" />
 	<bean id="paysDao"
 		class="org.driss.ougrimper.consumer.impl.dao.PaysDaoImpl" />
 	<bean id="villeDao"
 		class="org.driss.ougrimper.consumer.impl.dao.VilleDaoImpl" />
 	<bean id="secteurDao"
 		class="org.driss.ougrimper.consumer.impl.dao.SecteurDaoImpl" />
+	<bean id="voieDao"
+		class="org.driss.ougrimper.consumer.impl.dao.VoieDaoImpl" />
 	<bean id="utilisateurDao"
 		class="org.driss.ougrimper.consumer.impl.dao.UtilisateurDaoImpl" />
 	<bean id="proprietaireTopoDao"
 		class="org.driss.ougrimper.consumer.impl.dao.ProprietaireTopoDaoImpl" />
 	<bean id="topoDao"
 		class="org.driss.ougrimper.consumer.impl.dao.TopoDaoImpl" />
+	<bean id="reservationDao"
+		class="org.driss.ougrimper.consumer.impl.dao.ReservationDaoImpl" />
 
 	<!-- ===== DaoFactory ===== -->
 	<bean id="daoFactory"
 		class="org.driss.ougrimper.consumer.impl.DaoFactoryImpl">
 		<property name="siteDao" ref="siteDao" />
+		<property name="commentaireSiteDao" ref="commentaireSiteDao" />
 		<property name="paysDao" ref="paysDao" />
 		<property name="villeDao" ref="villeDao" />
 		<property name="secteurDao" ref="secteurDao" />
+		<property name="voieDao" ref="voieDao" />
 		<property name="utilisateurDao" ref="utilisateurDao" />
 		<property name="proprietaireTopoDao" ref="proprietaireTopoDao" />
 		<property name="topoDao" ref="topoDao" />
+		<property name="reservationDao" ref="reservationDao" />
 	</bean>
 	
 </beans>

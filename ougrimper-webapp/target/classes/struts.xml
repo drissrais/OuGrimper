@@ -31,7 +31,7 @@
 
 			<result>/jsp/frontoffice/site-detail.jsp</result>
 		</action>
-		
+
 		<!-- Action permettant de poster un commentaire sur un site d'escalade -->
 		<action name="addNewComment"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
@@ -41,12 +41,29 @@
 				<param name="id">${site.id}</param>
 			</result>
 		</action>
-		
+
 		<!-- Action listant les commentaires sur les sites d'escalade -->
 		<action name="comment_list"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doListComment">
 			<result>/jsp/frontoffice/listComment.jsp</result>
+		</action>
+		
+		<!-- Action permettant de reserver un topo d'escalade -->
+		<action name="addNewReservation"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAddNewReservation">
+			<result name="success" type="redirectAction">
+				<param name="actionName">reservation_list</param>
+				<param name="id">${topo.id}</param>
+			</result>
+		</action>
+		
+		<!-- Action listant les réservations des topos d'escalade -->
+		<action name="reservation_list"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doListReservation">
+			<result>/jsp/frontoffice/listReservation.jsp</result>
 		</action>
 
 		<!-- Action listant les topos de sites d'escalade -->
@@ -99,8 +116,30 @@
 
 			<result name="input">/jsp/frontoffice/inscription.jsp</result>
 			<result name="success" type="redirectAction">
-				<param name="actionName">login</param>
+				<param name="actionName">index</param>
 			</result>
 		</action>
+	</package>
+
+	<!-- ===== Package pour les actions AJAX ===== -->
+	<package name="ajax" extends="struts-default, json-default">
+	
+		<global-results>
+			<result name="error" type="json">
+				<param name="statusCode">400</param>
+				<param name="includeProperties">actionErrors.*,fieldErrors.*</param>
+				<!-- Pour accéder au attributs des classes parentes à la classe d'action -->
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</global-results>
+		
+		<!-- Action renvoyant la liste des Voies d'un Secteur -->
+        <action name="demo_ajax_getListVoie"
+                class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+                method="doAjaxGetListVoie">
+            <result name="success" type="json">
+                <param name="root">listVoie</param>
+            </result>
+        </action>
 	</package>
 </struts>

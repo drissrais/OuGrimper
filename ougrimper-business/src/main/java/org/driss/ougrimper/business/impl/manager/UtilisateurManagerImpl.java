@@ -17,9 +17,4 @@ public class UtilisateurManagerImpl extends AbstractManager implements Utilisate
 		getDaoFactory().getUtilisateurDao().insertUtilisateur(utilisateur);
 	}
 
-	@Override
-	public int lastIndexId() {
-		return getDaoFactory().getUtilisateurDao().lastIndexId();
-	}
-
 }

@@ -7,5 +7,6 @@ import org.driss.ougrimper.model.bean.site.Secteur;
 public interface SecteurDao {
 	
 	List<Secteur> getListSecteur(Integer siteId);
+	Secteur getSecteur(Integer secteurId);
 
 }

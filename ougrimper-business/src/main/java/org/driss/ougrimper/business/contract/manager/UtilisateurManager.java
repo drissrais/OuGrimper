@@ -6,6 +6,5 @@ public interface UtilisateurManager {
 	
 	Utilisateur getUtilisateur(String email, String motDePasse);
 	void insertUtilisateur(Utilisateur utilisateur);
-	int lastIndexId();
 	
 }

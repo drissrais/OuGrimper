@@ -22,7 +22,20 @@ public class Reservation {
 	private Utilisateur utilisateur;
 	private Topo topo;
 	
-	// ==================== Getters/Setters ==============
+	// ==================== Constructors ==================
+	public Reservation() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Reservation(Date dateDebut, Date dateFin, Utilisateur utilisateur) {
+		super();
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.utilisateur = utilisateur;
+	}
+	
+	
+	// ==================== Getters/Setters ===============
 	public Date getDateDebut() {
 		return dateDebut;
 	}
