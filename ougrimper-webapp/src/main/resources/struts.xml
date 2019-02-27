@@ -10,6 +10,12 @@
 
 		<!-- Action "index" -->
 		<action name="index">
+		
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		
 			<result>/jsp/index.jsp</result>
 		</action>
 
@@ -89,12 +95,6 @@
 		<action name="login"
 			class="org.driss.ougrimper.webapp.action.LoginAction"
 			method="doLogin">
-
-			<interceptor-ref name="store">
-				<param name="operationMode">RETRIEVE</param>
-			</interceptor-ref>
-			<interceptor-ref name="defaultStack" />
-
 			<result name="input">/jsp/frontoffice/connexion.jsp</result>
 			<result name="success" type="redirectAction">index</result>
 		</action>
@@ -141,5 +141,23 @@
                 <param name="root">listVoie</param>
             </result>
         </action>
+        
+        <!-- Action AJAX permettant d'ajouter un commentaire sur un site -->
+		<action name="ajax_addNewComment"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxAddNewComment">
+			<result name="success" type="json">
+				<param name="root">commentaireSite</param>
+			</result>
+		</action>
+		
+		<!-- Action AJAX permettant d'ajouter un commentaire sur un site -->
+		<action name="ajax_addNewReservation"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAjaxAddNewReservation">
+			<result name="success" type="json">
+				<param name="root">reservation</param>
+			</result>
+		</action>
 	</package>
 </struts>

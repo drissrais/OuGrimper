@@ -142,6 +142,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     }
     
     public String doListComment() {
+    	site = managerFactory.getSiteManager().getSite(id);
     	listCommentaire = managerFactory.getSiteManager().getListCommentaire(id);
     	return ActionSupport.SUCCESS;
     }
@@ -159,5 +160,18 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 
         return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
+    
+    public String doAjaxAddNewMessage() {
+		if (textComment == null) {
+			this.addActionError("");
+		} else {
+			Utilisateur vUtilisateur = (Utilisateur) session.get("user");
+			commentaireSite = new CommentaireSite(textComment, new Timestamp(0), vUtilisateur);
+			site = managerFactory.getSiteManager().getSite(id);
+			managerFactory.getSiteManager().addNewComment(site, commentaireSite);
+		}
+
+		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
     
 }

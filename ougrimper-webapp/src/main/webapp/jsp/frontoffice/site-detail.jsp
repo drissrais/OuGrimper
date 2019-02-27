@@ -62,13 +62,12 @@
 			<div class="col-sm-8 table-responsive">
 				<h3>Secteurs & Voies</h3>
 				<div class="panel panel-primary">
-				<div class="panel-heading">
+					<table class="table table-striped table-condensed">
+						<div class="panel-heading">
 							<h3 class="panel-title">
 								<s:property value="site.nom" />
 							</h3>
 						</div>
-					<table class="table table-striped table-condensed">
-						
 						<thead>
 							<tr>
 								<th>Secteurs</th>
@@ -79,18 +78,18 @@
 						<tbody>
 							<tr>
 								<td>
-<!-- 									<select id="selectSecteur" name="secteur" onchange="onSelectSecteurChange()"> -->
-<!-- 										<option disabled selected></option> -->
-<%-- 										<s:iterator value="listSecteur"> --%>
-<%-- 											<option value=""><s:property value="nom" /></option> --%>
-<%-- 										</s:iterator> --%>
-<!-- 									</select> -->
-									<s:select id="selectSecteur" name="secteur"
-               							list="listSecteur" listKey="id" listValue="nom"
-               							onchange="alert('hhgd')"/> 
+									<select id="selectSecteur" name="secteur" onchange="onSelectSecteurChange()">
+										<option disabled selected></option>
+										<s:iterator value="listSecteur">
+											<option value=""><s:property value="nom" /></option>
+										</s:iterator>
+									</select>
+<%-- 									<s:select id="selectSecteur" name="secteur" --%>
+<%--                							list="listSecteur" listKey="id" listValue="nom" --%>
+<%--                							onchange="onSelectSecteurChange()"/>  --%>
 								</td>
 								<td>
-									<s:select id="selectVoie" name="voie" list="{}"/>
+									<select id="selectVoie" name="voie"></select>
 								</td>
 								<td></td>
 							</tr>
@@ -152,39 +151,37 @@
 			</section>
 		</div>
 	</div>
-<!-- 	<script type="text/javascript" src="../script.js"></script> -->
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
 		function onSelectSecteurChange() {
 			// URL de l'action AJAX
-			alert("dddddddddd");
-// 			var url = "<s:url action='demo_ajax_getListVoie'/>";
+			var url = "<s:url action='demo_ajax_getListVoie'/>";
 	
-// 			// Paramètres de la requête AJAX
-// 			var params = {
-// 				secteur : jQuery("#selectSecteur").val()
-// 			};
-// 			alert(jQuery("#selectSecteur").val());
-// 			// Action AJAX en POST
-// 			jQuery.post(
-// 					url,
-// 					params,
-// 					function(data) {
-// 						var $selectVoie = jQuery("#selectVoie");
-// 						$selectVoie.empty();
-// 						jQuery.each(data, function(key, val) {
-// 							$selectVoie.append(jQuery("<option>")
-// 									.text(val.nom)
-// 									.val(val.nom));
-// 						});
-// 					}).fail(function(data) {
-// 				if (typeof data.responseJSON === 'object') {
-// 					console.log(data.responseJSON);
-// 				} else {
-// 					console.log(data);
-// 				}
-// 				alert("Une erreur s'est produite.");
-// 			});
+			// Paramètres de la requête AJAX
+			var params = {
+				secteur : jQuery("#selectSecteur").val()
+			};
+			
+			// Action AJAX en POST
+			jQuery.post(
+					url,
+					params,
+					function(data) {
+						var $selectVoie = jQuery("#selectVoie");
+						$selectVoie.empty();
+						jQuery.each(data, function(key, val) {
+							$selectVoie.append(jQuery("<option>")
+									.text(val.nom)
+									.val(val.nom));
+						});
+					}).fail(function(data) {
+				if (typeof data.responseJSON === 'object') {
+					console.log(data.responseJSON);
+				} else {
+					console.log(data);
+				}
+				alert("Une erreur s'est produite.");
+			});
 		}
 	</script>
 </body>

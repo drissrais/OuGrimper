@@ -1,7 +1,10 @@
 package org.driss.ougrimper.webapp.action;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
+import org.apache.struts2.interceptor.SessionAware;
 import org.driss.ougrimper.business.contract.ManagerFactory;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
@@ -10,11 +13,15 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * Action de gestion des {@link Utilisateur}
  */
-public class GestionUtilisateurAction extends ActionSupport {
+public class GestionUtilisateurAction extends ActionSupport implements SessionAware {
 
 	// ==================== Attributs ====================
+	
 	@Inject
 	private ManagerFactory managerFactory;
+	
+	// ----- Eléments Struts
+	private Map<String, Object> session;
 
 	// ----- Eléments en sortie
 
@@ -27,6 +34,12 @@ public class GestionUtilisateurAction extends ActionSupport {
 	}
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+	
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
 	}
 
 	// ==================== Méthodes ====================
@@ -48,10 +61,15 @@ public class GestionUtilisateurAction extends ActionSupport {
 			// Si pas d'erreur, ajout du projet...
 			if (!this.hasErrors()) {
 				managerFactory.getUtilisateurManager().insertUtilisateur(this.utilisateur);
+				
+				utilisateur = managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getEmail(), utilisateur.getMotDePasse());
+				// Ajout de l'utilisateur en session
+				this.session.put("user", utilisateur);
+				
 				// Si ajout avec succès -> Result "success"
 				vResult = ActionSupport.SUCCESS;
 				this.addActionMessage(
-						"Votre nouveau compte a été créé avec succès. Veuillez saisir vos nouveaux identifiants !");
+						"Félicitations ! Votre nouveau compte a été créé avec succès.");
 //                try {
 //
 //                } catch (FunctionalException pEx) {
@@ -70,4 +88,5 @@ public class GestionUtilisateurAction extends ActionSupport {
 		
 		return vResult;
 	}
+	
 }

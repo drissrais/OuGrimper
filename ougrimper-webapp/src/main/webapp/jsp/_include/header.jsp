@@ -42,7 +42,7 @@
 			</ul>
 			<div class="pull-right">
 				<s:if test="#session.user">
-					<span style="font-weight: bold; color: white; font-size: 1.1em; margin-right: 10px;">Bienvenue <s:property value="#session.user.pseudo" /></span>
+					<span style="font-weight: bold; color: white; font-size: 1.1em; margin-right: 10px;">Bienvenue <span id="pseudo"><s:property value="#session.user.pseudo" /></span></span>
 					<s:a type="submit" class="btn navbar-btn btn-primary btn-sm" action="logout">Déconnexion</s:a>
 				</s:if>
 				<s:else>

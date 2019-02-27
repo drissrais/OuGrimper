@@ -18,8 +18,8 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 
 	// ==================== Attributs ==========================
 	// ----- Eléments Struts
-    private Map<String, Object> session;
-	
+	private Map<String, Object> session;
+
 	@Inject
 	private ManagerFactory managerFactory;
 
@@ -38,46 +38,59 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public List<Topo> getListTopo() {
 		return this.listTopo;
 	}
+
 	public void setListTopo(List<Topo> listTopo) {
 		this.listTopo = listTopo;
 	}
+
 	public Topo getTopo() {
 		return this.topo;
 	}
+
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
+
 	public List<Reservation> getListReservation() {
 		return listReservation;
 	}
+
 	public void setListReservation(List<Reservation> listReservation) {
 		this.listReservation = listReservation;
 	}
+
 	public Reservation getReservation() {
 		return reservation;
 	}
+
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
 	public Date getDateDebut() {
 		return dateDebut;
 	}
+
 	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
+
 	public Date getDateFin() {
 		return dateFin;
 	}
+
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-	
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -114,6 +127,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	 * @return success / error
 	 */
 	public String doListReservation() {
+		topo = managerFactory.getTopoManager().getTopo(id);
 		listReservation = managerFactory.getTopoManager().getListReservation(id);
 		return ActionSupport.SUCCESS;
 	}
@@ -128,6 +142,24 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		reservation = new Reservation(dateDebut, dateFin, vUtilisateur);
 		topo = managerFactory.getTopoManager().getTopo(id);
 		managerFactory.getTopoManager().addNewReservation(topo, reservation);
+
+		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
+	/**
+	 * Action AJAX permettant de réserver un {@link Topo}
+	 * 
+	 * @return success / error
+	 */
+	public String doAjaxAddNewReservation() {
+//    	if (dateDebut == null || dateFin == null) {
+//			this.addActionError(getText(""));
+//		} else {
+		Utilisateur vUtilisateur = (Utilisateur) session.get("user");
+		reservation = new Reservation(dateDebut, dateFin, vUtilisateur);
+		topo = managerFactory.getTopoManager().getTopo(id);
+		managerFactory.getTopoManager().addNewReservation(topo, reservation);
+//		}
 
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}

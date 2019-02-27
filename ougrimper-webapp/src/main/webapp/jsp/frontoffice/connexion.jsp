@@ -9,11 +9,6 @@
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
-		<section class=""row>
-			<div class="col-lg-8">
-				<s:actionmessage class="label-success"/>
-			</div>
-		</section>
 		<section class="row">
 			<div class="col-lg-offset-3 col-lg-6" id="connexion">
 				<form class="well" action="login">

@@ -41,7 +41,7 @@ section {
 	font-weight: bold;
 }
 
-.site-detail-p, .topo-detail-p, .listSite-span, .listTopo-span {
+.site-detail-p, .topo-detail-p, .listSite-span, .listTopo-span, .actionMessage {
 	font-weight: bold;
 	font-size: 1.1em;
 }
