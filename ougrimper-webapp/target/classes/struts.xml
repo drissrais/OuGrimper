@@ -134,7 +134,7 @@
 		</global-results>
 		
 		<!-- Action renvoyant la liste des Voies d'un Secteur -->
-        <action name="demo_ajax_getListVoie"
+        <action name="ajax_getListVoie"
                 class="org.driss.ougrimper.webapp.action.GestionSiteAction"
                 method="doAjaxGetListVoie">
             <result name="success" type="json">

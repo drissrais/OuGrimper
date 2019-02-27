@@ -14,6 +14,6 @@ public interface SiteManager {
 	void addNewComment(Site site, CommentaireSite commentaireSite);
 	List<CommentaireSite> getListCommentaire(Integer siteId);
 	List<Secteur> getListSecteur(Integer siteId);
-	List<Voie> getListVoie(Secteur secteur);
+	List<Voie> getListVoie(Integer secteurId);
 
 }

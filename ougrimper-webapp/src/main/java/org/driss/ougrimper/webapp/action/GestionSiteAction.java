@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.struts2.interceptor.SessionAware;
 import org.driss.ougrimper.business.contract.ManagerFactory;
 import org.driss.ougrimper.model.bean.site.CommentaireSite;
+import org.driss.ougrimper.model.bean.site.Cotation;
 import org.driss.ougrimper.model.bean.site.Secteur;
 import org.driss.ougrimper.model.bean.site.Site;
 import org.driss.ougrimper.model.bean.site.Voie;
@@ -28,6 +29,8 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	// ----- Eléments en entrée
 	private Integer id;
 	private String textComment;
+	private Integer secteurId;
+	private Integer voieId;
 	
 	// ----- Eléments en sortie
 	private List<Site> listSite;
@@ -37,6 +40,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private List<Secteur> listSecteur;
 	private Secteur secteur;
 	private List<Voie> listVoie;
+	private Cotation cotation;
 	
 	// ==================== Getters/Setters ====================
 	public Integer getId() {
@@ -87,11 +91,29 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	public void setSecteur(Secteur secteur) {
 		this.secteur = secteur;
 	}
+	public Integer getSecteurId() {
+		return secteurId;
+	}
+	public void setSecteurId(Integer secteurId) {
+		this.secteurId = secteurId;
+	}
 	public List<Voie> getListVoie() {
 		return listVoie;
 	}
 	public void setListVoie(List<Voie> listVoie) {
 		this.listVoie = listVoie;
+	}
+	public Integer getVoieId() {
+		return voieId;
+	}
+	public void setVoieId(Integer voieId) {
+		this.voieId = voieId;
+	}
+	public Cotation getCotation() {
+		return cotation;
+	}
+	public void setCotation(Cotation cotation) {
+		this.cotation = cotation;
 	}
 	
 	@Override
@@ -152,16 +174,16 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
      * @return success / error
      */
     public String doAjaxGetListVoie() {
-        if (secteur == null) {
+        if (secteurId == null) {
             addActionError("Le secteur doit être précisé !");
         } else {
-            listVoie = managerFactory.getSiteManager().getListVoie(secteur);
+            listVoie = managerFactory.getSiteManager().getListVoie(secteurId);
         }
 
         return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
     
-    public String doAjaxAddNewMessage() {
+    public String doAjaxAddNewComment() {
 		if (textComment == null) {
 			this.addActionError("");
 		} else {

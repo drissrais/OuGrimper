@@ -77,21 +77,21 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>
-									<select id="selectSecteur" name="secteur" onchange="onSelectSecteurChange()">
+								<td><select id="selectSecteur" name="secteur"
+									onchange="onSelectSecteurChange()">
 										<option disabled selected></option>
 										<s:iterator value="listSecteur">
-											<option value=""><s:property value="nom" /></option>
+											<option value="<s:property value="id" />"><s:property
+													value="nom" /></option>
 										</s:iterator>
-									</select>
-<%-- 									<s:select id="selectSecteur" name="secteur" --%>
-<%--                							list="listSecteur" listKey="id" listValue="nom" --%>
-<%--                							onchange="onSelectSecteurChange()"/>  --%>
+								</select> <%-- 									<s:select id="selectSecteur" name="secteur" --%>
+									<%--                							list="listSecteur" listKey="id" listValue="nom" --%>
+									<%--                							onchange="onSelectSecteurChange()"/>  --%>
 								</td>
-								<td>
-									<select id="selectVoie" name="voie"></select>
-								</td>
-								<td></td>
+								<td><select id="selectVoie" name="voie">
+										<option disabled selected></option>
+								</select></td>
+								<td><span id="cotation"></span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -151,29 +151,36 @@
 			</section>
 		</div>
 	</div>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
 		function onSelectSecteurChange() {
 			// URL de l'action AJAX
-			var url = "<s:url action='demo_ajax_getListVoie'/>";
-	
+			var url = "<s:url action='ajax_getListVoie'/>";
+
 			// Paramètres de la requête AJAX
 			var params = {
-				secteur : jQuery("#selectSecteur").val()
+				secteurId : jQuery("#selectSecteur").val()
 			};
-			
+			// alert(secteurId);
 			// Action AJAX en POST
 			jQuery.post(
 					url,
 					params,
 					function(data) {
+						// alert(data);
 						var $selectVoie = jQuery("#selectVoie");
+						var $cotation = jQuery("#cotation");
 						$selectVoie.empty();
+						
+						firstVoieCotation="";
 						jQuery.each(data, function(key, val) {
-							$selectVoie.append(jQuery("<option>")
-									.text(val.nom)
-									.val(val.nom));
+							$selectVoie.append(jQuery("<option>").text(val.nom)
+									.val(val.id));
+							if(firstVoieCotation == "") firstVoieCotation = val.cotation.cotation;
+							
 						});
+						$cotation.html(firstVoieCotation);
 					}).fail(function(data) {
 				if (typeof data.responseJSON === 'object') {
 					console.log(data.responseJSON);

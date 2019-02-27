@@ -69,14 +69,16 @@
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_addNewComment'/>";
 
-			var pseudo = jQuery("#pseudo").text().trim();
-			var nomSite = jQuery("#nomSite").text().trim();
+
+			var idSite = jQuery("#nomSite").text().trim();
 			var textComment = jQuery("#textComment").val().trim();
 
+alert(idSite);
+alert(textComment);
 			// Paramètres de la requête AJAX
 			var params = {
-				pseudo : pseudo,
-				nomSite : nomSite,
+				
+				idSite : idSite,
 				textComment : textComment,
 			};
 

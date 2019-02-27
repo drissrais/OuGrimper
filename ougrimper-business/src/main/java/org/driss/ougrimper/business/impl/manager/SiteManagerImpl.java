@@ -64,10 +64,10 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	}
 
 	@Override
-	public List<Voie> getListVoie(Secteur secteur) {
-		List<Voie> listVoie = getDaoFactory().getVoieDao().getListVoie(secteur);
+	public List<Voie> getListVoie(Integer secteurId) {
+		List<Voie> listVoie = getDaoFactory().getVoieDao().getListVoie(secteurId);
 		for (Voie voie : listVoie) {
-			Secteur vSecteur = getDaoFactory().getSecteurDao().getSecteur(secteur.getId());
+			Secteur vSecteur = getDaoFactory().getSecteurDao().getSecteur(secteurId);
 			voie.setSecteur(vSecteur);
 		}
 		return listVoie;
