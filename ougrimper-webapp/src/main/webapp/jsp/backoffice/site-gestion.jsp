@@ -4,16 +4,27 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Gestion des sites d'escalade</title>
+<title>Gestion de sites d'escalade</title>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Gestion Site</h1>
+			<h1>Gestion de sites d'escalade</h1>
 		</header>
+		<section class="row">
+			<div class="col-xs-1">
+				<s:a title="Nouveau site" class="btn btn-success btn-lg" id="site-new" action="site_new">
+					<i class="fas fa-folder-plus fa-2x"></i>
+				</s:a>
+			</div>
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<a class="btn btn-large btn-primary" data-toggle="confirmation" data-title="Open Google?" -->
+<!--    					href="https://google.com" target="_blank">Confirmation</a> -->
+<!-- 			</div> -->
+		</section>
 		<div class="row">
-			<div class="col-lg-9">
+			<div class="col-lg-10">
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
@@ -23,26 +34,35 @@
 							<tr>
 								<th>Nom de site</th>
 								<th>Pays</th>
-								<th>Modifier</th>
-								<th>Supprimer</th>								
+								<th style="text-align: center;"></th>
+								<th style="text-align: center;"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Taghia</td>
-								<td>Maroc</td>
-								<td><button class="btn btn-warning">Modifier</button></td>
-								<td><button class="btn btn-danger">Supprimer</button></td>
-							</tr>
+							<s:iterator value="listSite">
+								<tr>
+									<td><s:property value="nom" /></td>
+									<td><s:property value="pays.nom" /></td>
+									<td style="text-align: center;">
+										<s:a action="site_dataToEdit" title="Editer">
+											<i class="far fa-edit" style="color: #698ABC;"></i>
+											<s:param name="id" value="id" />
+										</s:a>
+									</td>
+									<td style="text-align: center;">
+										<s:a action="" title="Supprimer">
+											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
+										</s:a>
+									</td>
+								</tr>
+							</s:iterator>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="col-lg-2 col-lg-offset-1">
-				<button class="btn btn-success" id="site-new">Nouveau site</button>
-			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 </body>
 </html>

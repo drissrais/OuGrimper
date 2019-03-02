@@ -10,6 +10,9 @@ import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 public class Reservation {
 
 	// ==================== Attributs ====================
+	@NotNull(message = "id cannot be null")
+	private Integer id;
+	
 	@NotNull(message = "dateDebut cannot be null")
 	private Date dateDebut;
 	
@@ -36,6 +39,12 @@ public class Reservation {
 	
 	
 	// ==================== Getters/Setters ===============
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Date getDateDebut() {
 		return dateDebut;
 	}

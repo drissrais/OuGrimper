@@ -1,5 +1,7 @@
 package org.driss.ougrimper.consumer.impl.dao;
 
+import java.util.List;
+
 import org.driss.ougrimper.consumer.contract.dao.PaysDao;
 import org.driss.ougrimper.consumer.impl.rowmapper.site.PaysRM;
 import org.driss.ougrimper.model.bean.site.Pays;
@@ -21,6 +23,21 @@ public class PaysDaoImpl extends AbstractDaoImpl implements PaysDao {
 		}
 
 		return vPays;
+	}
+
+	@Override
+	public List<Pays> getListPays() {
+		String vSQL = "SELECT * FROM public.pays";
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		RowMapper<Pays> vRowMapper = new PaysRM();
+		
+		List<Pays> listPays = vJdbcTemplate.query(vSQL, vRowMapper);
+		return listPays;
+	}
+
+	@Override
+	public void addNewPays(Pays vPays) {
+		
 	}
 
 }

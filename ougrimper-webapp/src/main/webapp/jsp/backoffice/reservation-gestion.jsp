@@ -17,31 +17,37 @@
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
-							<h3 class="panel-title">Liste de tous les réservations</h3>
+							<h3 class="panel-title">Liste de toutes les réservations</h3>
 						</div>
 						<thead>
 							<tr>
-								<th>Réservé par</th>
 								<th>Topo</th>
+								<th>Réservé par</th>
 								<th>De</th>
 								<th>Jusqu'à</th>	
-								<th>Annulation</th>															
+								<th></th>															
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>driss</td>
-								<td>Taghia topo</td>
-								<td>16/02/2019</td>
-								<td>16/03/2019</td>
-								<td><button class="btn btn-danger">Annuler</button></td>
-							</tr>
+							<s:iterator value="listReservation">
+								<tr>
+									<td><s:property value="topo.nom" /></td>
+									<td><s:property value="utilisateur.pseudo" /></td>
+									<td><s:property value="dateDebut" /></td>
+									<td><s:property value="dateFin" /></td>
+									<td style="text-align: center;"><s:a action=""
+											title="Supprimer">
+											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
+										</s:a></td>
+								</tr>
+							</s:iterator>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 </body>
 </html>

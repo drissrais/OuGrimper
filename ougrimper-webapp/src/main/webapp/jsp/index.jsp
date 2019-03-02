@@ -54,11 +54,12 @@
 			</div>
 		</section>
 		<section class="row">
-			<div class="col-xs-3 center-block centered">
-				<s:a class="btn btn-warning" id="btn-voir-site" action="site_list">voir les sites</s:a>
+			<div class="col-xs-4 col-xs-offset-4">
+				<s:a class="btn btn-warning btn-block" id="btn-voir-site" action="site_list">voir les sites d'escalade</s:a>
 			</div>
 		</section>
 	</div>
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 </body>
 </html>

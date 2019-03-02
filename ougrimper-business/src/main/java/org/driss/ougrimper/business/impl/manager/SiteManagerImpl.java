@@ -19,7 +19,7 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		site = getDaoFactory().getSiteDao().getSite(siteId);
 		Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getNom());
 		site.setPays(vPays);
-		Ville vVille = getDaoFactory().getVilleDo().getVille(site.getVille().getId());
+		Ville vVille = getDaoFactory().getVilleDao().getVille(site.getVille().getId());
 		site.setVille(vVille);
 		return site;
 	}
@@ -29,7 +29,7 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		List<Site> listSite = getDaoFactory().getSiteDao().getListSite();
 		for (Site site : listSite) {
 			Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getNom());
-			Ville vVille = getDaoFactory().getVilleDo().getVille(site.getVille().getId());
+			Ville vVille = getDaoFactory().getVilleDao().getVille(site.getVille().getId());
 			site.setPays(vPays);
 			site.setVille(vVille);
 		}
@@ -37,8 +37,8 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	}
 
 	@Override
-	public void addNewComment(Site site, CommentaireSite commentaireSite) {
-		getDaoFactory().getCommentaireSiteDao().addNewComment(site, commentaireSite);
+	public void addNewComment(CommentaireSite commentaireSite) {
+		getDaoFactory().getCommentaireSiteDao().addNewComment(commentaireSite);
 	}
 
 	@Override
@@ -71,6 +71,50 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 			voie.setSecteur(vSecteur);
 		}
 		return listVoie;
+	}
+
+	@Override
+	public Voie getVoie(Integer voieId) {
+		Voie voie = getDaoFactory().getVoieDao().getVoie(voieId);
+		return voie;
+	}
+
+	@Override
+	public List<CommentaireSite> getListCommentaire() {
+		List<CommentaireSite> listCommentaire = getDaoFactory().getCommentaireSiteDao().getListCommentaire();
+		for (CommentaireSite commentaireSite : listCommentaire) {
+			Site vSite = getDaoFactory().getSiteDao().getSite(commentaireSite.getSite().getId());
+			Utilisateur redacteur = getDaoFactory().getUtilisateurDao().getUtilisateur(commentaireSite.getRedacteur().getId());
+			commentaireSite.setRedacteur(redacteur);
+			commentaireSite.setSite(vSite);
+		}
+		return listCommentaire;
+	}
+
+	@Override
+	public List<Pays> getListPays() {
+		List<Pays> listPays = getDaoFactory().getPaysDao().getListPays();
+		return listPays;
+	}
+
+	@Override
+	public List<Ville> getListVille(String paysNom) {
+		List<Ville> listVille = getDaoFactory().getVilleDao().getListVille(paysNom);
+		for (Ville ville : listVille) {
+			Pays vPays = getDaoFactory().getPaysDao().getPays(ville.getPays().getNom());
+			ville.setPays(vPays);
+		}
+		return listVille;
+	}
+
+	@Override
+	public void updateSite(Site site) {
+		getDaoFactory().getSiteDao().updateSite(site);
+	}
+
+	@Override
+	public void addNewPays(Pays vPays) {
+		getDaoFactory().getPaysDao().addNewPays(vPays);
 	}
 
 }

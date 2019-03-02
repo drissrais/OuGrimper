@@ -10,6 +10,9 @@ import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 public class CommentaireSite {
 
 	// ==================== Attributs ====================
+	@NotNull(message = "id cannot be null")
+	private Integer id;
+	
 	@NotNull(message = "contenu cannot be null")
 	@Max(value = 1000, message = "trop long")
 	private String contenu;
@@ -19,20 +22,16 @@ public class CommentaireSite {
 
 	private Utilisateur redacteur;
 	private Site site;
-	
-	// ==================== Constructors =================
-	public CommentaireSite() {
-		// TODO Auto-generated constructor stub
-	}
-	public CommentaireSite(String contenu, Timestamp date, Utilisateur redacteur) {
-		super();
-		this.contenu = contenu;
-		this.date = date;
-		this.redacteur = redacteur;
-	}
-
 
 	// ==================== Getters/Setters ==============
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getContenu() {
 		return contenu;
 	}

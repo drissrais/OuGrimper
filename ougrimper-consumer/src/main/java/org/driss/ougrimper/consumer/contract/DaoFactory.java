@@ -21,7 +21,7 @@ public interface DaoFactory {
 	void setUtilisateurDao(UtilisateurDao utilisateurDao);
 	PaysDao getPaysDao();
 	void setPaysDao(PaysDao paysDao);
-	VilleDao getVilleDo();
+	VilleDao getVilleDao();
 	void setVilleDao(VilleDao villeDao);
 	ProprietaireTopoDao getProprietaireTopoDao();
 	void setProprietaireTopoDao(ProprietaireTopoDao proprietaireTopoDao);

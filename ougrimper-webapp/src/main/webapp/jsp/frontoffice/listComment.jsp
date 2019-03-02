@@ -11,10 +11,14 @@
 
 <body>
 	<%@ include file="../_include/header.jsp"%>
+	
+	<% String id=request.getParameter("id"); %>
+	<input type="hidden" id="idsite" value="<%=id%>" >
+	
 	<div class="container">
 		<div class="row">
 			<section class="col-lg-8">
-				<form class="well well-lg well-sm">
+				<div class="well well-sm well-lg">
 					<h4>
 						<span class="label label-lg label-default">Votre avis sur <span id="nomSite"><s:property
 								value="site.nom" /></span></span>
@@ -29,7 +33,7 @@
 							<span class="glyphicon glyphicon-ok-sign"> Envoyer</span>
 						</button>
 					</fieldset>
-				</form>
+				</div>
 			</section>
 		</div>
 		<div class="row">
@@ -52,8 +56,8 @@
 						<tbody  id="listCommentaire">
 							<s:iterator value="listCommentaire">
 								<tr>
-									<td><i class="fa fa-user"></i> <s:property
-											value="redacteur.pseudo" /> <s:text name=" : "></s:text></td>
+									<td><i class="fa fa-user"></i> <span class="label label-info"><s:property
+											value="redacteur.pseudo" /></span></td>
 									<td><s:property value="contenu" /></td>
 									<td><s:property value="date" /></td>
 								</tr>
@@ -64,21 +68,20 @@
 			</section>
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
 		function addNewComment() {
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_addNewComment'/>";
-
-
-			var idSite = jQuery("#nomSite").text().trim();
+			
+			var pseudo = jQuery("#pseudo").html().trim();
+			var idSite = jQuery("#idsite").val().trim();
 			var textComment = jQuery("#textComment").val().trim();
-
-alert(idSite);
-alert(textComment);
+			
 			// Paramètres de la requête AJAX
-			var params = {
-				
-				idSite : idSite,
+			var params = {				
+				id : idSite,
 				textComment : textComment,
 			};
 
@@ -88,14 +91,12 @@ alert(textComment);
 					params,
 					function(data) {
 						var $listCommentaire = jQuery("#listCommentaire");
-
-						jQuery.each(data, function(key, val) {
-							$listCommentaire.append(jQuery("<td>").append("<i class='fa fa-user'></i> " + pseudo + " :"));
-							$listCommentaire.append(jQuery("<td>").append(textComment));
-							$listCommentaire.append(jQuery("<td>").text(val.date).val(val.date));
-							//alert(val.message);	
-							//alert(val.author.pseudo);
-						});
+					
+						$listCommentaire.append($('<tr>')
+							  .append($('<td>').append("<i class='fa fa-user'></i> <span class='label label-info'>" + pseudo + "</span>"))
+							  .append($('<td>').append(textComment))
+							  .append($('<td>').append(data.date))
+						);
 						//alert(data);
 					}).fail(function() {
 				alert("Une erreur s'est produite.");

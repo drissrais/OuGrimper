@@ -1,5 +1,7 @@
 package org.driss.ougrimper.business.impl.manager;
 
+import java.util.List;
+
 import org.driss.ougrimper.business.contract.manager.UtilisateurManager;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
@@ -15,6 +17,12 @@ public class UtilisateurManagerImpl extends AbstractManager implements Utilisate
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) {
 		getDaoFactory().getUtilisateurDao().insertUtilisateur(utilisateur);
+	}
+
+	@Override
+	public List<Utilisateur> getListUtilisateur() {
+		List<Utilisateur> listUtilisateur = getDaoFactory().getUtilisateurDao().getListUtilisateur();
+		return listUtilisateur;
 	}
 
 }

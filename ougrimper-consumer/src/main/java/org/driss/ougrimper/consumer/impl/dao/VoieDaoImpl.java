@@ -21,4 +21,15 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
 		return listVoie;
 	}
 
+	@Override
+	public Voie getVoie(Integer voieId) {
+		String vSQL = "SELECT * FROM public.voie WHERE id = ?";
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		
+		RowMapper<Voie> vRowMapper = new VoieRM();
+		Voie voie = vJdbcTemplate.queryForObject(vSQL, new Object[] { voieId }, vRowMapper);
+		
+		return voie;
+	}
+
 }

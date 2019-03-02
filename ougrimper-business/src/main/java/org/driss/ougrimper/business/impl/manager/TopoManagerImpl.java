@@ -51,8 +51,20 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 
 	@Override
-	public void addNewReservation(Topo topo, Reservation reservation) {
-		getDaoFactory().getReservationDao().addNewReservation(topo, reservation);
+	public void addNewReservation(Reservation reservation) {
+		getDaoFactory().getReservationDao().addNewReservation(reservation);
+	}
+
+	@Override
+	public List<Reservation> getListReservation() {
+		List<Reservation> listReservation = getDaoFactory().getReservationDao().getListReservation();
+		for (Reservation reservation : listReservation) {
+			Utilisateur membre = getDaoFactory().getUtilisateurDao().getUtilisateur(reservation.getUtilisateur().getId());
+			Topo vTopo = getDaoFactory().getTopoDao().getTopo(reservation.getTopo().getId());
+			reservation.setUtilisateur(membre);
+			reservation.setTopo(vTopo);
+		}
+		return listReservation;
 	}
 
 }

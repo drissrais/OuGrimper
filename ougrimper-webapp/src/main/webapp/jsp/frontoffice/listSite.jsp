@@ -53,6 +53,7 @@
 			</s:iterator>
 		</section>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package org.driss.ougrimper.consumer.impl.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.driss.ougrimper.consumer.contract.dao.UtilisateurDao;
 import org.driss.ougrimper.consumer.impl.rowmapper.utilisateur.UtilisateurRM;
@@ -54,6 +55,18 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 		}
 
 		return vUtilisateur;
+	}
+
+	@Override
+	public List<Utilisateur> getListUtilisateur() {
+		String vSQL = "SELECT * FROM public.compte_utilisateur";
+		
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		RowMapper<Utilisateur> vRowMapper = new UtilisateurRM();
+		
+		List<Utilisateur> listUtilisateur = vJdbcTemplate.query(vSQL, vRowMapper);
+		
+		return listUtilisateur;
 	}
 
 }

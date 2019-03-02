@@ -10,7 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Gestion Commentaire</h1>
+			<h1>Gestion des commentaires</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-9">
@@ -23,21 +23,27 @@
 							<tr>
 								<th>Posté par</th>
 								<th>Contenu</th>
-								<th>Supprimer</th>								
+								<th></th>								
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>driss</td>
-								<td>Super site idéal pour apprendre le terrain vague</td>
-								<td><button class="btn btn-danger">Supprimer</button></td>
-							</tr>
+							<s:iterator value="listCommentaire">
+								<tr>
+									<td><s:property value="redacteur.pseudo" /></td>
+									<td><s:property value="contenu" /></td>
+									<td style="text-align: center;"><s:a action=""
+											title="Supprimer">
+											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
+										</s:a></td>
+								</tr>
+							</s:iterator>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@ public class ReservationRM implements RowMapper<Reservation> {
 	@Override
 	public Reservation mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Reservation vReservation = new Reservation();
+		vReservation.setId(rs.getInt("id"));
 		vReservation.setDateDebut(rs.getDate("date_debut"));
 		vReservation.setDateFin(rs.getDate("date_fin"));
 		

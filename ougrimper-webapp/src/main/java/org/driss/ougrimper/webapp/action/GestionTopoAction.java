@@ -131,6 +131,16 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		listReservation = managerFactory.getTopoManager().getListReservation(id);
 		return ActionSupport.SUCCESS;
 	}
+	
+	/**
+	 * Action listant la liste de toutes les réservations
+	 * 
+	 * @return success / error
+	 */
+	public String doListAllReservation() {
+		listReservation = managerFactory.getTopoManager().getListReservation();
+		return ActionSupport.SUCCESS;
+	}
 
 	/**
 	 * Action permettant de créer une nouvelle {@link Reservation} d'un {@link Topo}
@@ -141,7 +151,8 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		Utilisateur vUtilisateur = (Utilisateur) session.get("user");
 		reservation = new Reservation(dateDebut, dateFin, vUtilisateur);
 		topo = managerFactory.getTopoManager().getTopo(id);
-		managerFactory.getTopoManager().addNewReservation(topo, reservation);
+		reservation.setTopo(topo);
+		managerFactory.getTopoManager().addNewReservation(reservation);
 
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
@@ -152,14 +163,15 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	 * @return success / error
 	 */
 	public String doAjaxAddNewReservation() {
-//    	if (dateDebut == null || dateFin == null) {
-//			this.addActionError(getText(""));
-//		} else {
-		Utilisateur vUtilisateur = (Utilisateur) session.get("user");
-		reservation = new Reservation(dateDebut, dateFin, vUtilisateur);
-		topo = managerFactory.getTopoManager().getTopo(id);
-		managerFactory.getTopoManager().addNewReservation(topo, reservation);
-//		}
+    	if (dateDebut == null || dateFin == null) {
+			this.addActionError("");
+		} else {
+			Utilisateur vUtilisateur = (Utilisateur) session.get("user");
+			reservation = new Reservation(dateDebut, dateFin, vUtilisateur);
+			topo = managerFactory.getTopoManager().getTopo(id);
+			reservation.setTopo(topo);
+			managerFactory.getTopoManager().addNewReservation(reservation);
+		}
 
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}

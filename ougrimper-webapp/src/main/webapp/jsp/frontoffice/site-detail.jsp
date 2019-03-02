@@ -27,6 +27,7 @@
 			</div>
 		</section>
 		<header class="page-header">
+			<s:actionmessage class="label-success actionMessage"/>
 			<h1 class="site-detail-h1">
 				<s:property value="site.nom" />
 			</h1>
@@ -73,25 +74,26 @@
 								<th>Secteurs</th>
 								<th>Voies</th>
 								<th>Cotation</th>
+								<th>Nombre de longueurs</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><select id="selectSecteur" name="secteur"
-									onchange="onSelectSecteurChange()">
+								<td>
+									<select id="selectSecteur" name="secteur" onchange="onSelectSecteurChange()">
 										<option disabled selected></option>
 										<s:iterator value="listSecteur">
-											<option value="<s:property value="id" />"><s:property
-													value="nom" /></option>
+											<option value="<s:property value="id" />">
+												<s:property value="nom" />
+											</option>
 										</s:iterator>
-								</select> <%-- 									<s:select id="selectSecteur" name="secteur" --%>
-									<%--                							list="listSecteur" listKey="id" listValue="nom" --%>
-									<%--                							onchange="onSelectSecteurChange()"/>  --%>
+									</select>
 								</td>
-								<td><select id="selectVoie" name="voie">
-										<option disabled selected></option>
-								</select></td>
+								<td>
+									<select id="selectVoie" name="voie" onchange="onSelectVoieChange(this)"></select>
+								</td>
 								<td><span id="cotation"></span></td>
+								<td><span id="nbLongueur"></span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -171,16 +173,54 @@
 						// alert(data);
 						var $selectVoie = jQuery("#selectVoie");
 						var $cotation = jQuery("#cotation");
+						var $nbLongueur = jQuery("#nbLongueur");
 						$selectVoie.empty();
-						
-						firstVoieCotation="";
+
+						firstVoieCotation = "";
+						firstVoieNbLongueur = "";
 						jQuery.each(data, function(key, val) {
 							$selectVoie.append(jQuery("<option>").text(val.nom)
 									.val(val.id));
-							if(firstVoieCotation == "") firstVoieCotation = val.cotation.cotation;
-							
+							if (firstVoieCotation == "") {
+								firstVoieCotation = val.cotation;
+								firstVoieNbLongueur = val.nbLongueur;
+							}
 						});
-						$cotation.html(firstVoieCotation);
+						$cotation.html("<span class='label label-success'>" + firstVoieCotation + "</span>");
+						$nbLongueur.html("<span class='label label-warning'>" + firstVoieNbLongueur + "</span>");
+					}).fail(function(data) {
+				if (typeof data.responseJSON === 'object') {
+					console.log(data.responseJSON);
+				} else {
+					console.log(data);
+				}
+				alert("Une erreur s'est produite.");
+			});
+		}
+	</script>
+	<script type="text/javascript">
+		function onSelectVoieChange(val) {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_getVoie'/>";
+
+			// Paramètres de la requête AJAX
+			var params = {
+				voieId : val.value
+			};
+			
+// 			alert(val.value);
+
+			// Action AJAX en POST
+			jQuery.post(
+					url,
+					params,
+					function(data) {
+// 						alert(data);
+						var $cotation = jQuery("#cotation");
+						var $nbLongueur = jQuery("#nbLongueur");
+						
+						$cotation.html("<span class='label label-success'>" + data.cotation + "</span>");
+						$nbLongueur.html("<span class='label label-warning'>" + data.nbLongueur + "</span>");
 					}).fail(function(data) {
 				if (typeof data.responseJSON === 'object') {
 					console.log(data.responseJSON);

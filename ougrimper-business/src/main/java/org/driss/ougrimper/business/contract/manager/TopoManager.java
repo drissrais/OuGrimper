@@ -10,6 +10,7 @@ public interface TopoManager {
 	Topo getTopo(Integer topoId);
 	List<Topo> getListTopo();
 	List<Reservation> getListReservation(Integer id);
-	void addNewReservation(Topo topo, Reservation reservation);
+	void addNewReservation(Reservation reservation);
+	List<Reservation> getListReservation();
 
 }

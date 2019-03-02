@@ -20,25 +20,26 @@
 						class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><s:a action="site_list">LISTE SITES D'ESCALADE</s:a></li>
-						<li class="divider"></li>
 						<li><a href="#">SITES D'ESCALADE PAR PAYS</a></li>
-						<li class="divider"></li>
 						<li><a href="#">SITES D'ESCALADE PAR REGION</a></li>
 					</ul></li>
 				<li><s:a action="topo_list">TOPOS</s:a></li>
-				<li class="dropdown"><a id="admin_dropdown"
-					data-toggle="dropdown" href="#">ADMINISTRATION <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">GESTION SITES D"ESCALADE</a></li>
-						<li class="divider"></li>
-						<li><a href="#">GESTION TOPOS D"ESCALADE</a></li>
-						<li class="divider"></li>
-						<li><a href="#">GESTION UTILISATEURS</a></li>
-						<li class="divider"></li>
-						<li><a href="#">GESTION COMMENTAIRES</a></li>
-						<li class="divider"></li>
-						<li><a href="#">GESTION RESERVATIONS</a></li>
-					</ul></li>
+				<s:if test="%{#session.user.role=='admin'}">
+					<li class="dropdown"><a id="admin_dropdown"
+						data-toggle="dropdown" href="#">ADMINISTRATION <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><s:a action="site_gestion">GESTION SITES D'ESCALADE</s:a></li>
+							<li class="divider"></li>
+							<li><s:a action="topo_gestion">GESTION TOPOS D'ESCALADE</s:a></li>
+							<li class="divider"></li>
+							<li><s:a action="utilisateur_gestion">GESTION UTILISATEURS</s:a></li>
+							<li class="divider"></li>
+							<li><s:a action="commentaire_gestion">GESTION COMMENTAIRES</s:a></li>
+							<li class="divider"></li>
+							<li><s:a action="reservation_gestion">GESTION RESERVATIONS</s:a></li>
+						</ul>
+					</li>
+				</s:if>
 			</ul>
 			<div class="pull-right">
 				<s:if test="#session.user">

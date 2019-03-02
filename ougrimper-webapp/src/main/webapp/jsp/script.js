@@ -9,3 +9,5 @@ $('#site_dropdown').mouseover(function() {
 $('#admin_dropdown').mouseover(function() {
 	$(this).dropdown('toggle');
 });
+
+$('[data-toggle="confirmation"]').confirmation();

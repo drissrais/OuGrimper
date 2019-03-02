@@ -6,33 +6,37 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Réserver <s:property value="topo.nom"/></title>
+<title>Réserver <s:property value="topo.nom" /></title>
 </head>
 
 <body>
 	<%@ include file="../_include/header.jsp"%>
+	<s:hidden id="topoId" value="%{topo.id}" />
+
 	<div class="container">
 		<div class="row">
 			<section class="col-lg-8">
-				<form class="well well-lg well-sm">
+				<div class="well well-sm well-lg">
 					<h4>
-						<span class="label label-lg label-default">Si vous voulez réserver <span id="nomTopo"><s:property value="topo.nom"/></span></span>
+						<span class="label label-lg label-default">Si vous voulez
+							réserver <span><s:property value="topo.nom" /></span>
+						</span>
 					</h4>
 					<h4>Choisissez la période :</h4>
 					<fieldset>
 						<div class="form-group">
-							<label for="depuis">Période de :</label>
-							<input id="depuis" name="dateDebut" class="form-control" type="date"></input>
+							<label for="depuis">Période de :</label> <input id="depuis"
+								class="form-control" type="date"></input>
 						</div>
 						<div class="form-group">
-							<label for="jusqu'a">Jusqu'à :</label>
-							<input id="jusqu'a" name="dateFin" class="form-control" type="date"></input>
+							<label for="jusqua">Jusqu'à :</label> <input id="jusqua"
+								class="form-control" type="date"></input>
 						</div>
 						<button class="btn btn-primary" onclick="addNewReservation()">
 							<span class="glyphicon glyphicon-ok-sign"> Confirmer</span>
 						</button>
 					</fieldset>
-				</form>
+				</div>
 			</section>
 		</div>
 		<div class="row">
@@ -41,7 +45,7 @@
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								Liste des réservations de : 
+								Liste Réservations :
 								<s:property value="topo.nom" />
 							</h3>
 						</div>
@@ -49,7 +53,7 @@
 							<tr>
 								<th>Période de</th>
 								<th>Jusqu'à</th>
-								<th>Membre</th>
+								<th>Réservé par</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -57,7 +61,9 @@
 								<tr>
 									<td><s:property value="dateDebut" /></td>
 									<td><s:property value="dateFin" /></td>
-									<td><s:property value="utilisateur.pseudo" /></td>
+									<td><i class="fa fa-user"></i> <span
+										class="label label-info"><s:property
+												value="utilisateur.pseudo" /></span></td>
 								</tr>
 							</s:iterator>
 						</tbody>
@@ -66,20 +72,24 @@
 			</section>
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
-		function addNewReservation() {
+		function addNewReservation(val) {
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_addNewReservation'/>";
 
-			var pseudo = jQuery("#pseudo").text().trim();
-			var nomTopo = jQuery("#nomTopo").text().trim();
-			var dateDebut = jQuery("#depuis").val().trim();
-			var dateFin = jQuery("#jusqu'a").val().trim();
+			var topoId = jQuery("#topoId").val();
+			var dateDebut = jQuery("#depuis").val();
+			var dateFin = jQuery("#jusqu'a").val();
+			
+			alert(jQuery('#topoId').val());
+			alert(jQuery('#depuis').val());
+			alert(jQuery('#jusqua').val());
 
 			// Paramètres de la requête AJAX
 			var params = {
-				pseudo : pseudo,
-				nomTopo : nomTopo,
+				id : topoId,
 				dateDebut : dateDebut,
 				dateFin : dateFin,
 			};
@@ -89,16 +99,15 @@
 					url,
 					params,
 					function(data) {
-						var $listReservation = jQuery("#listReservation");
-
-						jQuery.each(data, function(key, val) {
-							$listReservation.append(jQuery("<td>").text(val.date).val(val.dateDebut));
-							$listReservation.append(jQuery("<td>").text(val.date).val(val.dateFin));
-							$listReservation.append(jQuery("<td>").append("<i class='fa fa-user'></i> " + pseudo));
-							//alert(val.message);	
-							//alert(val.author.pseudo);
-						});
 						//alert(data);
+						var $listReservation = jQuery("#listReservation");
+						$listReservation.append($('<tr>')
+							.append($('<td>').append(dateDebut))
+							.append($('<td>').append(dateFin))
+							.append($('<td>').append("<i class='fa fa-user'></i> <span class='label label-info'>" + data.utilisateur.pseudo + "</span>"))
+						);
+						//alert(val.message);	
+						//alert(val.author.pseudo);
 					}).fail(function() {
 				alert("Une erreur s'est produite.");
 			});

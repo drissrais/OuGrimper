@@ -15,7 +15,7 @@ public class Voie {
 	
 	@NotNull(message = "nbLongueur cannot be null")
 	private Integer nbLongueur;
-	private Cotation cotation;
+	private String cotation;
 	private Secteur secteur;
 	
 	// ==================== Getters/Setters ==============
@@ -37,10 +37,10 @@ public class Voie {
 	public void setNbLongueur(Integer nbLongueur) {
 		this.nbLongueur = nbLongueur;
 	}
-	public Cotation getCotation() {
+	public String getCotation() {
 		return cotation;
 	}
-	public void setCotation(Cotation cotation) {
+	public void setCotation(String cotation) {
 		this.cotation = cotation;
 	}
 	public Secteur getSecteur() {

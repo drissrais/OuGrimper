@@ -10,6 +10,9 @@ import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 public class CommentaireTopo {
 
 	// ==================== Attributs ====================
+	@NotNull(message = "id cannot be null")
+	private Integer id;
+	
 	@NotNull(message = "contenu cannot be null")
 	@Max(value=1000, message="trop long")
 	private String contenu;
@@ -21,6 +24,12 @@ public class CommentaireTopo {
 	private Topo topo;
 	
 	// ==================== Getters/Setters ==============
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getContenu() {
 		return contenu;
 	}

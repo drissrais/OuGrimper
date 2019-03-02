@@ -13,6 +13,7 @@ public class CommentaireSiteRM implements RowMapper<CommentaireSite> {
 	@Override
 	public CommentaireSite mapRow(ResultSet rs, int rowNum) throws SQLException {
 		CommentaireSite vCommentaireSite = new CommentaireSite();
+		vCommentaireSite.setId(rs.getInt("id"));
 		
 		Integer utilisateurId = rs.getInt("utilisateur_id");
 		Utilisateur vUtilisateur = new Utilisateur();

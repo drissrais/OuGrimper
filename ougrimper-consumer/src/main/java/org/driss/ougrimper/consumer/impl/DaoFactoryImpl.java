@@ -66,7 +66,7 @@ public class DaoFactoryImpl implements DaoFactory {
 	}
 
 	@Override
-	public VilleDao getVilleDo() {
+	public VilleDao getVilleDao() {
 		return this.villeDao;
 	}
 

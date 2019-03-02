@@ -16,7 +16,7 @@ public class Longueur {
 	@Max(value = 100, message = "trop long")
 	private String verticalite;
 	
-	private Cotation cotation;
+	private String cotation;
 	private Voie voie;
 	
 	// ==================== Getters/Setters ==============
@@ -38,10 +38,10 @@ public class Longueur {
 	public void setVerticalite(String verticalite) {
 		this.verticalite = verticalite;
 	}
-	public Cotation getCotation() {
+	public String getCotation() {
 		return cotation;
 	}
-	public void setCotation(Cotation cotation) {
+	public void setCotation(String cotation) {
 		this.cotation = cotation;
 	}
 	public Voie getVoie() {

@@ -1,5 +1,6 @@
 package org.driss.ougrimper.webapp.action;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 	private Map<String, Object> session;
 
 	// ----- Eléments en sortie
+	private List<Utilisateur> listUtilisateur;
 
 	// ----- Eléments en entrée et en sortie
 	private Utilisateur utilisateur;
@@ -34,6 +36,12 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 	}
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+	public List<Utilisateur> getListUtilisateur() {
+		return listUtilisateur;
+	}
+	public void setListUtilisateur(List<Utilisateur> listUtilisateur) {
+		this.listUtilisateur = listUtilisateur;
 	}
 	
 
@@ -87,6 +95,11 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 		}
 		
 		return vResult;
+	}
+	
+	public String doList() {
+		listUtilisateur = managerFactory.getUtilisateurManager().getListUtilisateur();
+		return ActionSupport.SUCCESS;
 	}
 	
 }

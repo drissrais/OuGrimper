@@ -3,6 +3,7 @@ package org.driss.ougrimper.consumer.impl.rowmapper.site;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.driss.ougrimper.model.bean.site.Pays;
 import org.driss.ougrimper.model.bean.site.Ville;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,6 +14,12 @@ public class VilleRM implements RowMapper<Ville> {
 		Ville vVille = new Ville();
 		vVille.setId(rs.getInt("id"));
 		vVille.setNom(rs.getString("nom"));
+		
+		String paysNom = rs.getString("pays");
+		Pays vPays = new Pays();
+		vPays.setNom(paysNom);
+		vVille.setPays(vPays);
+		
 		return vVille;
 	}
 
