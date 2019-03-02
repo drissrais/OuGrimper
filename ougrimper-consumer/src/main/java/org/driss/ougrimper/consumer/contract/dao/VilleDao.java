@@ -8,5 +8,6 @@ public interface VilleDao {
 
 	Ville getVille(Integer villeId);
 	List<Ville> getListVille(String paysNom);
+	void addNewVille(Ville vVille);
 	
 }

@@ -11,7 +11,8 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
 			<div class="col-lg-10">
-				<form class="well form-horizontal" enctype="multipart/form-data" action="site_new" method="post">
+				<form class="well form-horizontal" enctype="multipart/form-data"
+					action="site_new" method="post">
 					<div class="form-group">
 						<legend>Nouveau Site</legend>
 					</div>
@@ -57,8 +58,13 @@
 						<div class="form-group">
 							<label for="pays" class="col-lg-3 control-label">Pays : </label>
 							<div class="col-lg-9">
-								<input id="pays" name="site.pays.nom" type="text"
-									class="form-control">
+								<select id="pays" name="site.pays.nom" class="form-control"
+									onchange="onSelectPaysChange()">
+									<option selected></option>
+									<s:iterator value="listPays">
+										<option value="<s:property value="nom"/>"><s:property value="nom" /></option>
+									</s:iterator>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -67,8 +73,8 @@
 							<label for="ville" class="col-lg-3 control-label">Ville
 								la plus proche : </label>
 							<div class="col-lg-9">
-								<input id="ville" name="site.ville.nom" type="text"
-									class="form-control">
+								<select id="ville" name="site.ville.id" class="form-control">
+								</select>
 							</div>
 						</div>
 					</div>
@@ -103,5 +109,37 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+	function onSelectPaysChange() {
+		// URL de l'action AJAX
+		var url = "<s:url action='ajax_getListVille'/>";
+
+		// Paramètres de la requête AJAX
+		var params = {
+			paysNom : jQuery("#pays").val()
+		};
+		// 			alert(paysNom);
+		// Action AJAX en POST
+		jQuery.post(
+				url,
+				params,
+				function(data) {
+					// alert(data);
+					var $selectVille = jQuery("#ville");
+					$selectVille.empty();
+					jQuery.each(data, function(key, val) {
+						$selectVille.append(jQuery("<option>")
+								.text(val.nom).val(val.id));
+					});
+				}).fail(function(data) {
+			if (typeof data.responseJSON === 'object') {
+				console.log(data.responseJSON);
+			} else {
+				console.log(data);
+			}
+			alert("Une erreur s'est produite.");
+		});
+	}
+	</script>
 </body>
 </html>

@@ -11,11 +11,14 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
 			<div class="col-lg-12">
-				<form class="well form-horizontal" action="site_edit" enctype="multipart/form-data" method="post">
-				
-					<% String id=request.getParameter("id"); %>
-					<input type="hidden" name="site.id" value="<%=id%>" >
-					
+				<form class="well form-horizontal" action="site_edit"
+					enctype="multipart/form-data" method="post">
+
+					<%
+						String id = request.getParameter("id");
+					%>
+					<input type="hidden" name="site.id" value="<%=id%>">
+
 					<div class="form-group">
 						<legend>
 							Modifier Site :
@@ -36,7 +39,8 @@
 							<label for="description" class="col-lg-2 control-label">Description
 								: </label>
 							<div class="col-lg-10">
-								<textarea class="form-control" id="description" name="site.description" rows="4"><s:property
+								<textarea class="form-control" id="description"
+									name="site.description" rows="4"><s:property
 										value="site.description" /></textarea>
 							</div>
 						</div>
@@ -47,7 +51,8 @@
 								: </label>
 							<div class="col-lg-10">
 								<select id="region" class="form-control" name="site.region">
-									<option value="<s:property value="site.region"/>"><s:property value="site.region"/></option>
+									<option value="<s:property value="site.region"/>"><s:property
+											value="site.region" /></option>
 									<s:iterator value="listSite">
 										<option><s:property value="region" /></option>
 									</s:iterator>
@@ -60,7 +65,8 @@
 							<label for="localite" class="col-lg-2 control-label">Localité
 								: </label>
 							<div class="col-lg-10">
-								<textarea class="form-control" id="localite" name="site.localite" rows="4"><s:property
+								<textarea class="form-control" id="localite"
+									name="site.localite" rows="4"><s:property
 										value="site.localite" /></textarea>
 							</div>
 						</div>
@@ -69,11 +75,17 @@
 						<div class="form-group">
 							<label for="pays" class="col-lg-2 control-label">Pays : </label>
 							<div class="col-lg-10">
-								<select id="pays" name="site.pays.nom" class="form-control" onchange="onSelectPaysChange()">
-									<option value="<s:property value="site.pays.nom"/>"><s:property value="site.pays.nom"/></option>
+								<select id="pays" name="site.pays.nom" class="form-control"
+									onchange="onSelectPaysChange()">
 									<s:iterator value="listPays">
-										<option value="<s:property value="nom"/>"><s:property
+										<s:if test="nom == site.pays.nom">
+											<option value="<s:property value="nom"/>" selected><s:property
 												value="nom" /></option>
+										</s:if>
+										<s:else>
+											<option value="<s:property value="nom"/>"><s:property
+												value="nom" /></option>
+										</s:else>
 									</s:iterator>
 								</select>
 							</div>
@@ -85,17 +97,20 @@
 								la plus proche : </label>
 							<div class="col-lg-10">
 								<select id="ville" name="site.ville.id" class="form-control">
-									<option value="<s:property value="site.ville.id"/>"><s:property value="site.ville.nom"/></option>
+									<option value="<s:property value="site.ville.id"/>"><s:property
+											value="site.ville.nom" /></option>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="fileUpload" class="col-lg-2 control-label">Photo </label>
+							<label for="fileUpload" class="col-lg-2 control-label">Photo
+							</label>
 							<div class="col-lg-10">
-								<s:file id="fileUpload" name="fileUpload" label="Select a File to upload" size="40" requiredLabel="false" />
-<!-- 								<input id="fileUpload" name="fileUpload" type="file" class="form-control-file"> -->
+								<s:file id="fileUpload" name="fileUpload"
+									label="Select a File to upload" size="40" requiredLabel="false" />
+								<!-- 								<input id="fileUpload" name="fileUpload" type="file" class="form-control-file"> -->
 							</div>
 						</div>
 					</div>
@@ -118,7 +133,7 @@
 			var params = {
 				paysNom : jQuery("#pays").val()
 			};
-// 			alert(paysNom);
+			// 			alert(paysNom);
 			// Action AJAX en POST
 			jQuery.post(
 					url,
@@ -128,8 +143,8 @@
 						var $selectVille = jQuery("#ville");
 						$selectVille.empty();
 						jQuery.each(data, function(key, val) {
-							$selectVille.append(jQuery("<option>").text(val.nom)
-									.val(val.id));
+							$selectVille.append(jQuery("<option>")
+									.text(val.nom).val(val.id));
 						});
 					}).fail(function(data) {
 				if (typeof data.responseJSON === 'object') {

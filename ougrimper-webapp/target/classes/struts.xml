@@ -23,6 +23,10 @@
 		<action name="site_list"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doList">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 			<result>/jsp/frontoffice/listSite.jsp</result>
 		</action>
 
@@ -192,8 +196,7 @@
 			<interceptor-ref name="defaultStack" />
 			<result name="input">/jsp/backoffice/site-ajout.jsp</result>
 			<result name="success" type="redirectAction">
-				<param name="actionName">site_detail</param>
-				<param name="id">${site.id}</param>
+				<param name="actionName">site_list</param>
 			</result>
 		</action>
 

@@ -42,7 +42,7 @@
 		<div class="row">
 			<section class="col-sm-12 table-responsive">
 				<div class="panel panel-primary">
-					<table class="table table-striped table-condensed">
+					<table class="table table-striped table-condensed" id="listReservation">
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								Liste Réservations :
@@ -56,7 +56,7 @@
 								<th>Réservé par</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody >
 							<s:iterator value="listReservation">
 								<tr>
 									<td><s:property value="dateDebut" /></td>
@@ -75,17 +75,13 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
-		function addNewReservation(val) {
+		function addNewReservation() {
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_addNewReservation'/>";
 
 			var topoId = jQuery("#topoId").val();
 			var dateDebut = jQuery("#depuis").val();
-			var dateFin = jQuery("#jusqu'a").val();
-			
-			alert(jQuery('#topoId').val());
-			alert(jQuery('#depuis').val());
-			alert(jQuery('#jusqua').val());
+			var dateFin = jQuery("#jusqua").val();
 
 			// Paramètres de la requête AJAX
 			var params = {
@@ -99,7 +95,7 @@
 					url,
 					params,
 					function(data) {
-						//alert(data);
+						alert(data);
 						var $listReservation = jQuery("#listReservation");
 						$listReservation.append($('<tr>')
 							.append($('<td>').append(dateDebut))

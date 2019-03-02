@@ -3,6 +3,7 @@ package org.driss.ougrimper.webapp.action;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +38,14 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private Integer secteurId;
 	private Integer voieId;
 	private String paysNom;
-	
+
 	// ----- Eléments en entrée UPLOAD
 	private File fileUpload;
 	private String fileUploadFileName;
 	private String fileUploadContentType;
+	private File file2Upload;
+	private String file2UploadFileName;
+	private String file2UploadContentType;
 
 	// ----- Eléments en sortie
 	private List<Site> listSite;
@@ -176,25 +180,54 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	public void setListVille(List<Ville> listVille) {
 		this.listVille = listVille;
 	}
-	
-	// ============== Getters/Setters BackOffice ===============
+
+	// ============== Getters/Setters UPLOAD ===============
 	public String getFileUploadFileName() {
 		return fileUploadFileName;
 	}
+
 	public void setFileUploadFileName(String fileUploadFileName) {
 		this.fileUploadFileName = fileUploadFileName;
 	}
+
 	public String getFileUploadContentType() {
 		return fileUploadContentType;
 	}
+
 	public void setFileUploadContentType(String fileUploadContentType) {
 		this.fileUploadContentType = fileUploadContentType;
 	}
+
 	public File getFileUpload() {
 		return fileUpload;
 	}
+
 	public void setFileUpload(File fileUpload) {
 		this.fileUpload = fileUpload;
+	}
+
+	public String getFile2UploadFileName() {
+		return file2UploadFileName;
+	}
+
+	public void setFile2UploadFileName(String file2UploadFileName) {
+		this.file2UploadFileName = file2UploadFileName;
+	}
+
+	public String getFile2UploadContentType() {
+		return file2UploadContentType;
+	}
+
+	public void setFile2UploadContentType(String file2UploadContentType) {
+		this.file2UploadContentType = file2UploadContentType;
+	}
+
+	public File getFile2Upload() {
+		return file2Upload;
+	}
+
+	public void setFile2Upload(File file2Upload) {
+		this.file2Upload = file2Upload;
 	}
 
 	@Override
@@ -284,14 +317,18 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 			if (!this.hasErrors()) {
 //						try {
 				String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
-				File fileToCreate = new File(filePath, fileUploadFileName);
-				try {
-					FileUtils.copyFile(fileUpload, fileToCreate);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 				
-				this.site.setPlan("jsp/images/" + fileUploadFileName);
+				if (fileUploadFileName == null)
+					this.site.setPlan(null);
+				else {
+					File fileToCreate = new File(filePath, fileUploadFileName);
+					try {
+						FileUtils.copyFile(fileUpload, fileToCreate);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					this.site.setPlan("jsp/images/" + fileUploadFileName);
+				}
 				
 				managerFactory.getSiteManager().updateSite(this.site);
 				this.addActionMessage("Vos modifications ont été enregistrées avec succès !");
@@ -306,32 +343,31 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 //						}
 			}
 		}
-		
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
-	
+
 	// Action permettant à l'administrateur d'ajouter un nouveau site d'escalade
-		public String doCreateSite() {
-			// Si (this.site == null) c'est que l'on entre dans l'ajout de site
-			// Sinon, c'est que l'on vient de valider le formulaire d'ajout
+	public String doCreateSite() {
+		// Si (this.site == null) c'est que l'on entre dans l'ajout de site
+		// Sinon, c'est que l'on vient de valider le formulaire d'ajout
 
-			// Par défaut, le result est "input"
-			String vResult = ActionSupport.INPUT;
+		// Par défaut, le result est "input"
+		String vResult = ActionSupport.INPUT;
+		listPays = managerFactory.getSiteManager().getListPays();
 
-			// ===== Validation du nouveau site (site != null)
-			if (this.site != null) {
-				// Récupération du nom
-				if (this.site.getNom() == null) {
-					this.addFieldError("site.nom", "ne doit pas être vide");
-				}
+		// ===== Validation du nouveau site (site != null)
+		if (this.site != null) {
+			// Récupération du nom
+			if (this.site.getNom() == null) {
+				this.addFieldError("site.nom", "ne doit pas être vide");
+			}
 
-				// Si pas d'erreur, mise à jour du site...
-				if (!this.hasErrors()) {
+			// Si pas d'erreur, mise à jour du site...
+			if (!this.hasErrors()) {
 //							try {
-					Pays vPays = new Pays();
-					vPays.setNom(this.site.getPays().getNom());
-					managerFactory.getSiteManager().addNewPays(vPays);
-					
+				if (fileUploadFileName == null) {
+					this.site.setPhoto(null);
+				} else {
 					String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
 					File fileToCreate = new File(filePath, fileUploadFileName);
 					try {
@@ -339,13 +375,26 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					
-					this.site.setPlan("jsp/images/" + fileUploadFileName);
-					
-					managerFactory.getSiteManager().updateSite(this.site);
-					// Si ajout avec succès -> Result "success"
-					vResult = ActionSupport.SUCCESS;
-					this.addActionMessage("Vos modifications ont été enregistrées avec succès !");
+					this.site.setPhoto("jsp/images/" + fileUploadFileName);
+				}
+				
+				if (file2UploadFileName == null) {
+					this.site.setPlan(null);
+				} else {
+					String file2Path = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
+					File file2ToCreate = new File(file2Path, file2UploadFileName);
+					try {
+						FileUtils.copyFile(file2Upload, file2ToCreate);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					this.site.setPlan("jsp/images/" + file2UploadFileName);
+				}
+
+				managerFactory.getSiteManager().addNewSite(this.site);
+				// Si ajout avec succès -> Result "success"
+				vResult = ActionSupport.SUCCESS;
+				this.addActionMessage("Un nouveau site d'escalade a été ajouté avec succès !");
 //							} catch (FunctionalException pEx) {
 //								// Sur erreur fonctionnelle on reste sur la page de saisie
 //								// et on affiche un message d'erreur
@@ -355,11 +404,11 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 //								this.addActionError(pEx.getMessage());
 //								vResult = ActionSupport.ERROR;
 //							}
-				}
 			}
-			
-			return vResult;
 		}
+
+		return vResult;
+	}
 
 	/*----------- Les actions "AJAX" -----------------------*/
 

@@ -27,6 +27,7 @@
 			</div>
 		</section>
 		<header class="page-header">
+			<s:actionmessage class="label-success actionMessage"/>
 			<h1 id="site-title">Tous les sites d'escalade</h1>
 			<span class="listSite-span">Accédez à la liste des sites d'escalade que nous avons
 				répertorié pour vous.</span>

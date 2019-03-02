@@ -23,5 +23,7 @@ public interface SiteManager {
 	List<Ville> getListVille(String paysNom);
 	void updateSite(Site site);
 	void addNewPays(Pays vPays);
+	void addNewVille(Ville vVille);
+	void addNewSite(Site site);
 
 }

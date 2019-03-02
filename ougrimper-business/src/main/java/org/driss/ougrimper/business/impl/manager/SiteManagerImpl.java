@@ -117,4 +117,14 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		getDaoFactory().getPaysDao().addNewPays(vPays);
 	}
 
+	@Override
+	public void addNewVille(Ville vVille) {
+		getDaoFactory().getVilleDao().addNewVille(vVille);
+	}
+
+	@Override
+	public void addNewSite(Site site) {
+		getDaoFactory().getSiteDao().addNewSite(site);
+	}
+
 }

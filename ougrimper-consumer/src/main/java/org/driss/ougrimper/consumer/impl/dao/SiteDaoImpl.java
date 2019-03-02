@@ -37,20 +37,66 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 
 	@Override
 	public void updateSite(Site site) {
-		String vSQL = "UPDATE public.site " + 
-				"SET nom = :nom, description = :description, region = :region, localite = :localite, photo = :photo, plan = :plan, ville_plus_proche = :ville_plus_proche, pays_nom = :pays_nom WHERE id = :id";
+		String vSQL = "";
+		if (site.getPlan() == null)
+			vSQL = "UPDATE public.site "
+					+ "SET nom = :nom, description = :description, region = :region, localite = :localite , ville_plus_proche = :ville_plus_proche, pays_nom = :pays_nom WHERE id = :id";
+		else
+			vSQL = "UPDATE public.site "
+					+ "SET nom = :nom, description = :description, region = :region, localite = :localite, plan = :plan, ville_plus_proche = :ville_plus_proche, pays_nom = :pays_nom WHERE id = :id";
+		
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		
+
 		vParams.addValue("nom", site.getNom());
 		vParams.addValue("description", site.getDescription());
 		vParams.addValue("region", site.getRegion());
 		vParams.addValue("localite", site.getLocalite());
-		vParams.addValue("photo", site.getPhoto());
-		vParams.addValue("plan", site.getPlan());
+		
+		if (site.getPlan() != null)
+			vParams.addValue("plan", site.getPlan());
+		
 		vParams.addValue("ville_plus_proche", site.getVille().getId());
 		vParams.addValue("pays_nom", site.getPays().getNom());
 		vParams.addValue("id", site.getId());
+
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
+	@Override
+	public void addNewSite(Site site) {
+		String vSQL = "";
+		if (site.getPhoto() == null && site.getPlan() == null) {
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :pays_nom, :ville_plus_proche)";
+		} else if (site.getPhoto() != null && site.getPlan() == null) {
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, photo, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :photo, :pays_nom, :ville_plus_proche)";
+		} else if (site.getPhoto() == null && site.getPlan() != null) {
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, plan, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :plan, :pays_nom, :ville_plus_proche)";
+		} else {
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, photo, plan, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :photo, :plan, :pays_nom, :ville_plus_proche)";
+		}
+		
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+
+		vParams.addValue("nom", site.getNom());
+		vParams.addValue("description", site.getDescription());
+		vParams.addValue("localite", site.getLocalite());
+		vParams.addValue("region", site.getRegion());
+		
+		if (site.getPhoto() != null && site.getPlan() != null) {
+			vParams.addValue("photo", site.getPhoto());
+			vParams.addValue("plan", site.getPlan());
+		} 
+		if (site.getPhoto() != null && site.getPlan() == null) {
+			vParams.addValue("photo", site.getPhoto());
+		} 
+		if (site.getPhoto() == null && site.getPlan() != null) {
+			vParams.addValue("plan", site.getPlan());
+		}
+		
+		vParams.addValue("pays_nom", site.getPays().getNom());
+		vParams.addValue("ville_plus_proche", site.getVille().getId());
 
 		vJdbcTemplate.update(vSQL, vParams);
 	}

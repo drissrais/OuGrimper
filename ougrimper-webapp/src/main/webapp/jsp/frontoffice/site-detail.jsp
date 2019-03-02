@@ -81,7 +81,7 @@
 							<tr>
 								<td>
 									<select id="selectSecteur" name="secteur" onchange="onSelectSecteurChange()">
-										<option disabled selected></option>
+										<option selected disabled></option>
 										<s:iterator value="listSecteur">
 											<option value="<s:property value="id" />">
 												<s:property value="nom" />

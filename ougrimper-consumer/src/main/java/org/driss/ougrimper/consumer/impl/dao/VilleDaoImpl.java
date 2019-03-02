@@ -7,6 +7,8 @@ import org.driss.ougrimper.consumer.impl.rowmapper.site.VilleRM;
 import org.driss.ougrimper.model.bean.site.Ville;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class VilleDaoImpl extends AbstractDaoImpl implements VilleDao {
 
@@ -34,6 +36,18 @@ public class VilleDaoImpl extends AbstractDaoImpl implements VilleDao {
 		List<Ville> listVille = vJdbcTemplate.query(vSQL, new Object[] { paysNom }, vRowMapper);
 		
 		return listVille;
+	}
+
+	@Override
+	public void addNewVille(Ville vVille) {
+		String vSQL = "INSERT INTO public.ville (nom, pays) VALUES (:nom, :pays)";
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		
+		vParams.addValue("nom", vVille.getNom());
+		vParams.addValue("pays", vVille.getPays().getNom());
+		
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vJdbcTemplate.update(vSQL, vParams);
 	}
 
 }

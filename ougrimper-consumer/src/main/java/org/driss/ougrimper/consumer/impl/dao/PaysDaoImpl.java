@@ -7,6 +7,8 @@ import org.driss.ougrimper.consumer.impl.rowmapper.site.PaysRM;
 import org.driss.ougrimper.model.bean.site.Pays;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class PaysDaoImpl extends AbstractDaoImpl implements PaysDao {
 
@@ -37,7 +39,13 @@ public class PaysDaoImpl extends AbstractDaoImpl implements PaysDao {
 
 	@Override
 	public void addNewPays(Pays vPays) {
+		String vSQL = "INSERT INTO public.pays (nom) VALUES (:nom)";
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		
+		vParams.addValue("nom", vPays.getNom());
+		
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vJdbcTemplate.update(vSQL, vParams);
 	}
 
 }
