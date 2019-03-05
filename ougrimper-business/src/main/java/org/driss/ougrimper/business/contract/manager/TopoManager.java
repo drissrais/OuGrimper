@@ -16,5 +16,6 @@ public interface TopoManager {
 	void deleteReservationsTopo(Integer topoId);
 	void deleteTopo(Integer siteId);
 	void updateTopo(Topo topo);
+	void addNewTopo(Topo topo);
 
 }

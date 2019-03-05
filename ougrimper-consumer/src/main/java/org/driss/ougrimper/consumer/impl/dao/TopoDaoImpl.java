@@ -84,4 +84,30 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 		vJdbcTemplate.update(vSQL, vParams);
 	}
 
+	@Override
+	public void addNewTopo(Topo topo) {
+		String vSQL = "";
+		if (topo.getPlan() == null) {
+			vSQL = "INSERT INTO public.topo (nom, description, disponible, proprietaire_id, site_id) VALUES (:nom, :description, :disponible, :proprietaire_id, :site_id)";
+		} else {
+			vSQL = "INSERT INTO public.topo (nom, description, disponible, plan, proprietaire_id, site_id) VALUES (:nom, :description, :disponible, :plan, :proprietaire_id, :site_id)";
+		}
+		
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+
+		vParams.addValue("nom", topo.getNom());
+		vParams.addValue("description", topo.getDescription());
+		vParams.addValue("disponible", topo.getDisponible());
+		
+		if (topo.getPlan() != null) {
+			vParams.addValue("plan", topo.getPlan());
+		}
+		
+		vParams.addValue("proprietaire_id", topo.getProprietaire().getId());
+		vParams.addValue("site_id", topo.getSite().getId());
+
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
 }

@@ -14,14 +14,11 @@
 		</header>
 		<section class="row">
 			<div class="col-xs-1">
-				<s:a title="Nouveau site" class="btn btn-success btn-lg" id="site-new" action="site_new">
+				<s:a title="Nouveau site" class="btn btn-success btn-lg"
+					id="site-new" action="site_new">
 					<i class="fas fa-folder-plus fa-2x"></i>
 				</s:a>
 			</div>
-<!-- 			<div class="col-xs-3"> -->
-<!-- 				<a class="btn btn-large btn-primary" data-toggle="confirmation" data-title="Open Google?" -->
-<!--    					href="https://google.com" target="_blank">Confirmation</a> -->
-<!-- 			</div> -->
 		</section>
 		<div class="row">
 			<div class="col-lg-10">
@@ -45,17 +42,17 @@
 									<td id="siteId"><s:property value="id" /></td>
 									<td><s:property value="nom" /></td>
 									<td><s:property value="pays.nom" /></td>
-									<td style="text-align: center;">
-										<s:a action="site_dataToEdit" title="Editer">
+									<td style="text-align: center;"><s:a
+											action="site_dataToEdit" title="Editer">
 											<i class="far fa-edit" style="color: #698ABC;"></i>
 											<s:param name="id" value="id" />
-										</s:a>
-									</td>
-									<td style="text-align: center;">
-										<s:a class="linkDelete" onclick="deleteSite(this)" title="Supprimer">
+										</s:a></td>
+									<td style="text-align: center;"><a class="linkDelete"
+										href="deleteSite(this)" title="Supprimer Site"
+										data-toggle="confirmation" data-title="Supprimer ce site?"
+										data-placement="right" data-popout="true">
 											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
-										</s:a>
-									</td>
+									</a></td>
 								</tr>
 							</s:iterator>
 						</tbody>
@@ -70,22 +67,19 @@
 		function deleteSite(val) {
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_deleteSite' />";
-			
+
 			// Paramètres de la requête AJAX
 			var params = {
-				siteId : jQuery(val).parent().prev().prev().prev().prev().text()
+				siteId : jQuery(val).parent().prev().prev().prev().prev()
+						.text()
 			};
-			
-			
+
 			// Action AJAX en POST
-			jQuery.post(
-					url,
-					params,
-					function(data) {
-// 						alert(data);
-						$linkDelete = jQuery('.linkDelete');
-						$linkDelete.closest('tr').remove();
-					}).fail(function(data) {
+			jQuery.post(url, params, function(data) {
+				// 						alert(data);
+				$linkDelete = jQuery('.linkDelete');
+				$linkDelete.closest('tr').remove();
+			}).fail(function(data) {
 				if (typeof data.responseJSON === 'object') {
 					console.log(data.responseJSON);
 				} else {

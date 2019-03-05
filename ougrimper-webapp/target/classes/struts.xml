@@ -80,6 +80,10 @@
 		<action name="topo_list"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
 			method="doList">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 			<result>/jsp/frontoffice/listTopo.jsp</result>
 		</action>
 
@@ -244,6 +248,35 @@
 				<param name="id">${topo.id}</param>
 			</result>
 		</action>
+		
+		<!-- Action(s) permettant d'ajouter un nouveau topo d'escalade -->
+		<action name="topo_new"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doCreateTopo">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="params">
+				<param name="excludeParams">dojo\..*,^struts\..*</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="workflow">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="input">/jsp/backoffice/topo-ajout.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">topo_list</param>
+			</result>
+		</action>
 
 		<!-- Action de gestion des utilisateurs -->
 		<action name="utilisateur_gestion"
@@ -328,6 +361,13 @@
 		<action name="ajax_deleteSite"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doAjaxDeleteSite">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a l'administrateur de supprimer un topo -->
+		<action name="ajax_deleteTopo"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAjaxDeleteTopo">
 			<result name="success" type="json"></result>
 		</action>
 	</package>

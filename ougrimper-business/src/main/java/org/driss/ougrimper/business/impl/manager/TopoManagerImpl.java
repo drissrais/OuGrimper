@@ -88,4 +88,9 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 		getDaoFactory().getTopoDao().updateTopo(topo);
 	}
 
+	@Override
+	public void addNewTopo(Topo topo) {
+		getDaoFactory().getTopoDao().addNewTopo(topo);
+	}
+
 }

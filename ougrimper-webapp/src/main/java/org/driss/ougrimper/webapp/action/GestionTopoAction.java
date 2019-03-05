@@ -242,6 +242,58 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		}
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
+	
+	// Action permettant à l'administrateur d'ajouter un nouveau site d'escalade
+		public String doCreateTopo() {
+			// Si (this.topo == null) c'est que l'on entre dans l'ajout de topo
+			// Sinon, c'est que l'on vient de valider le formulaire d'ajout
+
+			// Par défaut, le result est "input"
+			String vResult = ActionSupport.INPUT;
+			listProprietaireTopo = managerFactory.getUtilisateurManager().getListProprietaireTopo();
+			listSite = managerFactory.getSiteManager().getListSite();
+
+			// ===== Validation du nouveau topo (topo != null)
+			if (this.topo != null) {
+				// Récupération du nom
+				if (this.topo.getNom() == null) {
+					this.addFieldError("topo.nom", "ne doit pas être vide");
+				}
+
+				// Si pas d'erreur, mise à jour du site...
+				if (!this.hasErrors()) {
+//								try {
+					if (fileUploadFileName == null) {
+						this.topo.setPlan(null);
+					} else {
+						String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
+						File fileToCreate = new File(filePath, fileUploadFileName);
+						try {
+							FileUtils.copyFile(fileUpload, fileToCreate);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						this.topo.setPlan("jsp/images/" + fileUploadFileName);
+					}
+
+					managerFactory.getTopoManager().addNewTopo(this.topo);
+					// Si ajout avec succès -> Result "success"
+					vResult = ActionSupport.SUCCESS;
+					this.addActionMessage("Un nouveau topo d'escalade a été ajouté avec succès !");
+//								} catch (FunctionalException pEx) {
+//									// Sur erreur fonctionnelle on reste sur la page de saisie
+//									// et on affiche un message d'erreur
+//									this.addActionError(pEx.getMessage());
+//								} catch (TechnicalException pEx) {
+//									// Sur erreur technique on part sur le result "error"
+//									this.addActionError(pEx.getMessage());
+//									vResult = ActionSupport.ERROR;
+//								}
+				}
+			}
+
+			return vResult;
+		}
 
 	/**
 	 * Action AJAX permettant de réserver un {@link Topo}

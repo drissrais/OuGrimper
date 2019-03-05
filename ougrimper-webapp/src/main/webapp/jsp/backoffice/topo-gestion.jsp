@@ -14,9 +14,9 @@
 		</header>
 		<section class="row">
 			<div class="col-xs-1">
-				<button title="Nouveau topo" class="btn btn-success btn-lg" id="topo-new">
+				<s:a title="Nouveau topo" class="btn btn-success btn-lg" id="topo-new" action="topo_new">
 					<i class="fas fa-folder-plus fa-2x"></i>
-				</button>
+				</s:a>
 			</div>
 		</section>
 		<div class="row">

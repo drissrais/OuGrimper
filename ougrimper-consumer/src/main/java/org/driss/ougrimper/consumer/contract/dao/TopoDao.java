@@ -11,5 +11,6 @@ public interface TopoDao {
 	Topo getTopoSite(Integer siteId);
 	void deleteTopo(Integer siteId);
 	void updateTopo(Topo topo);
+	void addNewTopo(Topo topo);
 	
 }
