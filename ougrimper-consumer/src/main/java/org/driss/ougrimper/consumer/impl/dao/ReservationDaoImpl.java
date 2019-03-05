@@ -49,4 +49,15 @@ public class ReservationDaoImpl extends AbstractDaoImpl implements ReservationDa
 		return listReservation;
 	}
 
+	@Override
+	public void deleteReservationsTopo(Integer topoId) {
+		String vSQL = "DELETE FROM public.reservation WHERE topo_id = :topo_id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("topo_id", topoId);
+		
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
 }

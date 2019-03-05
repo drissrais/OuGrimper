@@ -17,7 +17,7 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	public Site getSite(Integer siteId) {
 		Site site = null;
 		site = getDaoFactory().getSiteDao().getSite(siteId);
-		Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getNom());
+		Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getId());
 		site.setPays(vPays);
 		Ville vVille = getDaoFactory().getVilleDao().getVille(site.getVille().getId());
 		site.setVille(vVille);
@@ -28,7 +28,7 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	public List<Site> getListSite() {
 		List<Site> listSite = getDaoFactory().getSiteDao().getListSite();
 		for (Site site : listSite) {
-			Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getNom());
+			Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getId());
 			Ville vVille = getDaoFactory().getVilleDao().getVille(site.getVille().getId());
 			site.setPays(vPays);
 			site.setVille(vVille);
@@ -98,10 +98,10 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	}
 
 	@Override
-	public List<Ville> getListVille(String paysNom) {
-		List<Ville> listVille = getDaoFactory().getVilleDao().getListVille(paysNom);
+	public List<Ville> getListVille(Integer paysId) {
+		List<Ville> listVille = getDaoFactory().getVilleDao().getListVille(paysId);
 		for (Ville ville : listVille) {
-			Pays vPays = getDaoFactory().getPaysDao().getPays(ville.getPays().getNom());
+			Pays vPays = getDaoFactory().getPaysDao().getPays(ville.getPays().getId());
 			ville.setPays(vPays);
 		}
 		return listVille;
@@ -113,18 +113,33 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	}
 
 	@Override
-	public void addNewPays(Pays vPays) {
-		getDaoFactory().getPaysDao().addNewPays(vPays);
-	}
-
-	@Override
-	public void addNewVille(Ville vVille) {
-		getDaoFactory().getVilleDao().addNewVille(vVille);
-	}
-
-	@Override
 	public void addNewSite(Site site) {
 		getDaoFactory().getSiteDao().addNewSite(site);
+	}
+
+	@Override
+	public void deleteSite(Integer siteId) {
+		getDaoFactory().getSiteDao().deleteSite(siteId);
+	}
+
+	@Override
+	public void deleteCommentairesSite(Integer siteId) {
+		getDaoFactory().getCommentaireSiteDao().deleteCommentairesSite(siteId);
+	}
+
+	@Override
+	public void deleteLongueursVoie(Integer voieId) {
+		getDaoFactory().getLongueurDao().deleteLongueursVoie(voieId);
+	}
+
+	@Override
+	public void deleteVoiesSecteur(Integer secteurId) {
+		getDaoFactory().getVoieDao().deleteVoiesSecteur(secteurId);
+	}
+
+	@Override
+	public void deleteSecteursSite(Integer siteId) {
+		getDaoFactory().getSecteurDao().deleteSecteursSite(siteId);
 	}
 
 }

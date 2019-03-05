@@ -7,6 +7,8 @@ import org.driss.ougrimper.consumer.impl.rowmapper.site.SecteurRM;
 import org.driss.ougrimper.model.bean.site.Secteur;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
 
@@ -30,6 +32,17 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
 		Secteur vSecteur = vJdbcTemplate.queryForObject(vSQL, new Object[] { secteurId }, vRowMapper);
 		
 		return vSecteur;
+	}
+
+	@Override
+	public void deleteSecteursSite(Integer siteId) {
+		String vSQL = "DELETE FROM public.secteur WHERE site_id = :site_id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("site_id", siteId);
+		
+		vJdbcTemplate.update(vSQL, vParams);
 	}
 
 }

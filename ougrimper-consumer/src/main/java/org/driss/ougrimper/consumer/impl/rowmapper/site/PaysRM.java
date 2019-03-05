@@ -11,6 +11,7 @@ public class PaysRM implements RowMapper<Pays> {
 	@Override
 	public Pays mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Pays vPays = new Pays();
+		vPays.setId(rs.getInt("id"));
 		vPays.setNom(rs.getString("nom"));
 		return vPays;
 	}

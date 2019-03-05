@@ -47,4 +47,15 @@ public class CommentaireSiteDaoImpl extends AbstractDaoImpl implements Commentai
 		return listCommentaire;
 	}
 
+	@Override
+	public void deleteCommentairesSite(Integer siteId) {
+		String vSQL = "DELETE FROM public.commentaire_site WHERE site_id = :site_id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("site_id", siteId);
+		
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
 }

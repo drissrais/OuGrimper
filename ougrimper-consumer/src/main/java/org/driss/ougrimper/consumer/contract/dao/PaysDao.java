@@ -6,8 +6,7 @@ import org.driss.ougrimper.model.bean.site.Pays;
 
 public interface PaysDao {
 	
-	Pays getPays(String paysNom);
+	Pays getPays(Integer paysId);
 	List<Pays> getListPays();
-	void addNewPays(Pays vPays);
 	
 }

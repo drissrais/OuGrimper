@@ -21,9 +21,9 @@ public class SiteRM implements RowMapper<Site> {
 		vSite.setPhoto(rs.getString("photo"));
 		vSite.setPlan(rs.getString("plan"));
 		
-		String paysNom = rs.getString("pays_nom");
+		Integer paysId = rs.getInt("pays");
 		Pays vPays = new Pays();
-		vPays.setNom(paysNom);
+		vPays.setId(paysId);
 		vSite.setPays(vPays);
 		
 		Integer villeId = rs.getInt("ville_plus_proche");

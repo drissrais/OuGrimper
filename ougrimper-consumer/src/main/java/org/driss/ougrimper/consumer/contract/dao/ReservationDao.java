@@ -9,5 +9,6 @@ public interface ReservationDao {
 	List<Reservation> getListReservation(Integer topoId);
 	void addNewReservation(Reservation reservation);
 	List<Reservation> getListReservation();
+	void deleteReservationsTopo(Integer topoId);
 
 }

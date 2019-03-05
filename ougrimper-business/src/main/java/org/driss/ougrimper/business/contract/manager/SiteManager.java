@@ -20,10 +20,13 @@ public interface SiteManager {
 	Voie getVoie(Integer voieId);
 	List<CommentaireSite> getListCommentaire();
 	List<Pays> getListPays();
-	List<Ville> getListVille(String paysNom);
+	List<Ville> getListVille(Integer paysId);
 	void updateSite(Site site);
-	void addNewPays(Pays vPays);
-	void addNewVille(Ville vVille);
 	void addNewSite(Site site);
+	void deleteSite(Integer siteId);
+	void deleteCommentairesSite(Integer siteId);
+	void deleteLongueursVoie(Integer voieId);
+	void deleteVoiesSecteur(Integer secteurId);
+	void deleteSecteursSite(Integer siteId);
 
 }

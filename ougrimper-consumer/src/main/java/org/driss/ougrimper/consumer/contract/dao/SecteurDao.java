@@ -8,5 +8,6 @@ public interface SecteurDao {
 	
 	List<Secteur> getListSecteur(Integer siteId);
 	Secteur getSecteur(Integer secteurId);
+	void deleteSecteursSite(Integer siteId);
 
 }

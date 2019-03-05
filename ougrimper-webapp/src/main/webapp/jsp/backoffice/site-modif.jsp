@@ -51,10 +51,13 @@
 								: </label>
 							<div class="col-lg-10">
 								<select id="region" class="form-control" name="site.region">
-									<option value="<s:property value="site.region"/>"><s:property
-											value="site.region" /></option>
 									<s:iterator value="listSite">
-										<option><s:property value="region" /></option>
+										<s:if test="region == site.region">
+											<option selected><s:property value="region" /></option>
+										</s:if>
+										<s:else>
+											<option><s:property value="region" /></option>
+										</s:else>
 									</s:iterator>
 								</select>
 							</div>
@@ -75,15 +78,15 @@
 						<div class="form-group">
 							<label for="pays" class="col-lg-2 control-label">Pays : </label>
 							<div class="col-lg-10">
-								<select id="pays" name="site.pays.nom" class="form-control"
+								<select id="pays" name="site.pays.id" class="form-control"
 									onchange="onSelectPaysChange()">
 									<s:iterator value="listPays">
-										<s:if test="nom == site.pays.nom">
-											<option value="<s:property value="nom"/>" selected><s:property
+										<s:if test="id == site.pays.id">
+											<option value="<s:property value="id"/>" selected><s:property
 												value="nom" /></option>
 										</s:if>
 										<s:else>
-											<option value="<s:property value="nom"/>"><s:property
+											<option value="<s:property value="id"/>"><s:property
 												value="nom" /></option>
 										</s:else>
 									</s:iterator>
@@ -131,9 +134,9 @@
 
 			// Paramètres de la requête AJAX
 			var params = {
-				paysNom : jQuery("#pays").val()
+				paysId : jQuery("#pays").val()
 			};
-			// 			alert(paysNom);
+			// alert(paysId);
 			// Action AJAX en POST
 			jQuery.post(
 					url,

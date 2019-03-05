@@ -40,10 +40,10 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 		String vSQL = "";
 		if (site.getPlan() == null)
 			vSQL = "UPDATE public.site "
-					+ "SET nom = :nom, description = :description, region = :region, localite = :localite , ville_plus_proche = :ville_plus_proche, pays_nom = :pays_nom WHERE id = :id";
+					+ "SET nom = :nom, description = :description, region = :region, localite = :localite , ville_plus_proche = :ville_plus_proche, pays = :pays WHERE id = :id";
 		else
 			vSQL = "UPDATE public.site "
-					+ "SET nom = :nom, description = :description, region = :region, localite = :localite, plan = :plan, ville_plus_proche = :ville_plus_proche, pays_nom = :pays_nom WHERE id = :id";
+					+ "SET nom = :nom, description = :description, region = :region, localite = :localite, plan = :plan, ville_plus_proche = :ville_plus_proche, pays = :pays WHERE id = :id";
 		
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
@@ -57,7 +57,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 			vParams.addValue("plan", site.getPlan());
 		
 		vParams.addValue("ville_plus_proche", site.getVille().getId());
-		vParams.addValue("pays_nom", site.getPays().getNom());
+		vParams.addValue("pays", site.getPays().getId());
 		vParams.addValue("id", site.getId());
 
 		vJdbcTemplate.update(vSQL, vParams);
@@ -67,13 +67,13 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 	public void addNewSite(Site site) {
 		String vSQL = "";
 		if (site.getPhoto() == null && site.getPlan() == null) {
-			vSQL = "INSERT INTO public.site (nom, description, localite, region, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :pays_nom, :ville_plus_proche)";
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, pays, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :pays, :ville_plus_proche)";
 		} else if (site.getPhoto() != null && site.getPlan() == null) {
-			vSQL = "INSERT INTO public.site (nom, description, localite, region, photo, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :photo, :pays_nom, :ville_plus_proche)";
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, photo, pays, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :photo, :pays, :ville_plus_proche)";
 		} else if (site.getPhoto() == null && site.getPlan() != null) {
-			vSQL = "INSERT INTO public.site (nom, description, localite, region, plan, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :plan, :pays_nom, :ville_plus_proche)";
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, plan, pays, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :plan, :pays, :ville_plus_proche)";
 		} else {
-			vSQL = "INSERT INTO public.site (nom, description, localite, region, photo, plan, pays_nom, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :photo, :plan, :pays_nom, :ville_plus_proche)";
+			vSQL = "INSERT INTO public.site (nom, description, localite, region, photo, plan, pays, ville_plus_proche) VALUES (:nom, :description, :localite, :region, :photo, :plan, :pays, :ville_plus_proche)";
 		}
 		
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
@@ -95,9 +95,20 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 			vParams.addValue("plan", site.getPlan());
 		}
 		
-		vParams.addValue("pays_nom", site.getPays().getNom());
+		vParams.addValue("pays", site.getPays().getId());
 		vParams.addValue("ville_plus_proche", site.getVille().getId());
 
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
+	@Override
+	public void deleteSite(Integer siteId) {
+		String vSQL = "DELETE FROM public.site WHERE id = :id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("id", siteId);
+		
 		vJdbcTemplate.update(vSQL, vParams);
 	}
 

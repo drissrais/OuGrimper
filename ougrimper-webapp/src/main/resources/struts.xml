@@ -208,6 +208,42 @@
 			method="doList">
 			<result>/jsp/backoffice/topo-gestion.jsp</result>
 		</action>
+		
+		<!-- Action renvoyant les données à modifier d'un topo d'escalade -->
+		<action name="topo_dataToEdit"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doDetailTopo">
+			<result name="success">/jsp/backoffice/topo-modif.jsp</result>
+		</action>
+
+		<!-- Action(s) permettant de modifier un topo d'escalade -->
+		<action name="topo_edit"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doEditTopo">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="params">
+				<param name="excludeParams">dojo\..*,^struts\..*</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="workflow">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirectAction">
+				<param name="actionName">topo_detail</param>
+				<param name="id">${topo.id}</param>
+			</result>
+		</action>
 
 		<!-- Action de gestion des utilisateurs -->
 		<action name="utilisateur_gestion"
@@ -286,6 +322,13 @@
 			<result name="success" type="json">
 				<param name="root">listVille</param>
 			</result>
+		</action>
+		
+		<!-- Action AJAX permettant a l'administrateur de supprimer un site -->
+		<action name="ajax_deleteSite"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxDeleteSite">
+			<result name="success" type="json"></result>
 		</action>
 	</package>
 </struts>

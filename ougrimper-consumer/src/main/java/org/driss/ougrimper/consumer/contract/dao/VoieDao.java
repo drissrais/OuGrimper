@@ -8,5 +8,6 @@ public interface VoieDao {
 	
 	List<Voie> getListVoie(Integer secteurId);
 	Voie getVoie(Integer voieId);
+	void deleteVoiesSecteur(Integer secteurId);
 
 }

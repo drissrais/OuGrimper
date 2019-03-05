@@ -28,7 +28,8 @@
 						</div>
 						<thead>
 							<tr>
-								<th>Nom de topo</th>
+								<th>ID Topo</th>
+								<th>Nom</th>
 								<th>Propriétaire</th>
 								<th></th>
 								<th></th>								
@@ -37,16 +38,20 @@
 						<tbody>
 							<s:iterator value="listTopo">
 								<tr>
+									<td><s:property value="id" /></td>
 									<td><s:property value="nom" /></td>
 									<td><s:property value="proprietaire.prenom" /> <s:property value="proprietaire.nom" /></td>
-									<td style="text-align: center;"><s:a action=""
-											title="Editer">
+									<td style="text-align: center;">
+										<s:a action="topo_dataToEdit" title="Editer">
 											<i class="far fa-edit" style="color: #698ABC;"></i>
-										</s:a></td>
-									<td style="text-align: center;"><s:a action=""
-											title="Supprimer">
+											<s:param name="id" value="id" />
+										</s:a>
+									</td>
+									<td style="text-align: center;">
+										<s:a action="" title="Supprimer">
 											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
-										</s:a></td>
+										</s:a>
+									</td>
 								</tr>
 							</s:iterator>
 						</tbody>

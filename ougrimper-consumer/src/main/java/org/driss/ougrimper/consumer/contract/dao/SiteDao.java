@@ -10,5 +10,6 @@ public interface SiteDao {
 	List<Site> getListSite();
 	void updateSite(Site site);
 	void addNewSite(Site site);
+	void deleteSite(Integer siteId);
 	
 }

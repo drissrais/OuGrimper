@@ -7,7 +7,7 @@ import org.driss.ougrimper.model.bean.site.Ville;
 public interface VilleDao {
 
 	Ville getVille(Integer villeId);
-	List<Ville> getListVille(String paysNom);
+	List<Ville> getListVille(Integer paysId);
 	void addNewVille(Ville vVille);
 	
 }

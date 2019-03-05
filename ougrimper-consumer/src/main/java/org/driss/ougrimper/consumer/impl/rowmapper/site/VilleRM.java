@@ -15,9 +15,9 @@ public class VilleRM implements RowMapper<Ville> {
 		vVille.setId(rs.getInt("id"));
 		vVille.setNom(rs.getString("nom"));
 		
-		String paysNom = rs.getString("pays");
+		Integer paysId = rs.getInt("pays");
 		Pays vPays = new Pays();
-		vPays.setNom(paysNom);
+		vPays.setId(paysId);
 		vVille.setPays(vPays);
 		
 		return vVille;

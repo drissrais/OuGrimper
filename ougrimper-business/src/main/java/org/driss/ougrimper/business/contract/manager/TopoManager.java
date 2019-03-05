@@ -12,5 +12,9 @@ public interface TopoManager {
 	List<Reservation> getListReservation(Integer id);
 	void addNewReservation(Reservation reservation);
 	List<Reservation> getListReservation();
+	Topo getTopoSite(Integer siteId);
+	void deleteReservationsTopo(Integer topoId);
+	void deleteTopo(Integer siteId);
+	void updateTopo(Topo topo);
 
 }

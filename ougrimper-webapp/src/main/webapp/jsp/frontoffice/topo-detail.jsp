@@ -10,6 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
+			<s:actionmessage class="label-success actionMessage"/>
 			<h1 class="topo-detail-h1">
 				<s:property value="topo.nom" />
 			</h1>

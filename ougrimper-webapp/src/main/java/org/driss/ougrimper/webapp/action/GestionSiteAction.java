@@ -3,11 +3,11 @@ package org.driss.ougrimper.webapp.action;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.xml.namespace.QName;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -19,6 +19,7 @@ import org.driss.ougrimper.model.bean.site.Secteur;
 import org.driss.ougrimper.model.bean.site.Site;
 import org.driss.ougrimper.model.bean.site.Ville;
 import org.driss.ougrimper.model.bean.site.Voie;
+import org.driss.ougrimper.model.bean.topo.Topo;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,7 +38,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private String textComment;
 	private Integer secteurId;
 	private Integer voieId;
-	private String paysNom;
+	private Integer paysId;
 
 	// ----- Eléments en entrée UPLOAD
 	private File fileUpload;
@@ -50,6 +51,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	// ----- Eléments en sortie
 	private List<Site> listSite;
 	private Site site;
+	private Topo topo;
 	private List<CommentaireSite> listCommentaire;
 	private CommentaireSite commentaireSite;
 	private List<Secteur> listSecteur;
@@ -157,28 +159,29 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	}
 
 	// ============== Getters/Setters BackOffice ===============
-	public String getPaysNom() {
-		return paysNom;
+	public Integer getPaysId() {
+		return paysId;
 	}
-
-	public void setPaysNom(String paysNom) {
-		this.paysNom = paysNom;
+	public void setPaysId(Integer paysId) {
+		this.paysId = paysId;
 	}
-
 	public List<Pays> getListPays() {
 		return listPays;
 	}
-
 	public void setListPays(List<Pays> listPays) {
 		this.listPays = listPays;
 	}
-
 	public List<Ville> getListVille() {
 		return listVille;
 	}
-
 	public void setListVille(List<Ville> listVille) {
 		this.listVille = listVille;
+	}
+	public Topo getTopo() {
+		return topo;
+	}
+	public void setTopo(Topo topo) {
+		this.topo = topo;
 	}
 
 	// ============== Getters/Setters UPLOAD ===============
@@ -456,10 +459,44 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 
 	// Action "AJAX" renvoyant la liste des villes d'un pays
 	public String doAjaxGetListVille() {
-		if (paysNom == null) {
+		if (paysId == null) {
 			addActionError("Le pays doit être précisé !");
 		} else {
-			listVille = managerFactory.getSiteManager().getListVille(paysNom);
+			listVille = managerFactory.getSiteManager().getListVille(paysId);
+		}
+		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+	
+	// Action "AJAX" permettant de supprimer un site d'escalade
+	public String doAjaxDeleteSite() {
+		if (id == null) {
+			addActionError("Veuillez préciser un site à supprimer !");
+		} else {
+			// Supprimer les commentaires du site à supprimer 
+			managerFactory.getSiteManager().deleteCommentairesSite(id);
+			
+			listSecteur = managerFactory.getSiteManager().getListSecteur(id);
+			for (Secteur secteur : listSecteur) {
+				listVoie = managerFactory.getSiteManager().getListVoie(secteur.getId());
+				for (Voie voie : listVoie) {
+					// Supprimer les longueurs de chaque voie de chaque secteur du site à supprimer
+					managerFactory.getSiteManager().deleteLongueursVoie(voie.getId());
+				}
+				// Supprimer les voies de chaque secteur du site à supprimer
+				managerFactory.getSiteManager().deleteVoiesSecteur(secteur.getId());
+			}
+			// Supprimer les secteurs du site à supprimer
+			managerFactory.getSiteManager().deleteSecteursSite(id);
+			
+			// Supprimer les réservations du topo du site à supprimer
+			topo = managerFactory.getTopoManager().getTopoSite(id);
+			managerFactory.getTopoManager().deleteReservationsTopo(topo.getId());
+			
+			// Supprimer le ou les topos du site à supprimer
+			managerFactory.getTopoManager().deleteTopo(id);
+			
+			// Supprimer le site donné
+			managerFactory.getSiteManager().deleteSite(id);
 		}
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}

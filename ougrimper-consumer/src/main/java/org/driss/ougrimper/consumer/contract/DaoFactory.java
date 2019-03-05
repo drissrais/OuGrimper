@@ -1,6 +1,7 @@
 package org.driss.ougrimper.consumer.contract;
 
 import org.driss.ougrimper.consumer.contract.dao.CommentaireSiteDao;
+import org.driss.ougrimper.consumer.contract.dao.LongueurDao;
 import org.driss.ougrimper.consumer.contract.dao.PaysDao;
 import org.driss.ougrimper.consumer.contract.dao.ProprietaireTopoDao;
 import org.driss.ougrimper.consumer.contract.dao.ReservationDao;
@@ -33,5 +34,7 @@ public interface DaoFactory {
 	void setReservationDao(ReservationDao reservationDao);
 	CommentaireSiteDao getCommentaireSiteDao();
 	void setCommentaireSiteDao(CommentaireSiteDao commentaireSiteDao);
+	LongueurDao getLongueurDao();
+	void setLongueurDao(LongueurDao longueurDao);
 
 }

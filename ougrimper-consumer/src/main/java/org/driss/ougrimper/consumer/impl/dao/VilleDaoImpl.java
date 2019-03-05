@@ -28,12 +28,12 @@ public class VilleDaoImpl extends AbstractDaoImpl implements VilleDao {
 	}
 
 	@Override
-	public List<Ville> getListVille(String paysNom) {
+	public List<Ville> getListVille(Integer paysId) {
 		String vSQL = "SELECT * FROM public.ville WHERE pays = ?";
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 		
 		RowMapper<Ville> vRowMapper = new VilleRM();
-		List<Ville> listVille = vJdbcTemplate.query(vSQL, new Object[] { paysNom }, vRowMapper);
+		List<Ville> listVille = vJdbcTemplate.query(vSQL, new Object[] { paysId }, vRowMapper);
 		
 		return listVille;
 	}

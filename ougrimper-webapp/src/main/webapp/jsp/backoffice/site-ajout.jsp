@@ -58,11 +58,11 @@
 						<div class="form-group">
 							<label for="pays" class="col-lg-3 control-label">Pays : </label>
 							<div class="col-lg-9">
-								<select id="pays" name="site.pays.nom" class="form-control"
+								<select id="pays" name="site.pays.id" class="form-control"
 									onchange="onSelectPaysChange()">
 									<option selected></option>
 									<s:iterator value="listPays">
-										<option value="<s:property value="nom"/>"><s:property value="nom" /></option>
+										<option value="<s:property value="id"/>"><s:property value="nom" /></option>
 									</s:iterator>
 								</select>
 							</div>
@@ -116,9 +116,9 @@
 
 		// Paramètres de la requête AJAX
 		var params = {
-			paysNom : jQuery("#pays").val()
+			paysId : jQuery("#pays").val()
 		};
-		// 			alert(paysNom);
+		// alert(paysId);
 		// Action AJAX en POST
 		jQuery.post(
 				url,

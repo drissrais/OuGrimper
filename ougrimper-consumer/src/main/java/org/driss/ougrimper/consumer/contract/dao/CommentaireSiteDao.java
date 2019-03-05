@@ -9,5 +9,6 @@ public interface CommentaireSiteDao {
 	void addNewComment(CommentaireSite commentaireSite);
 	List<CommentaireSite> getListCommentaire(Integer siteId);
 	List<CommentaireSite> getListCommentaire();
+	void deleteCommentairesSite(Integer siteId);
 
 }

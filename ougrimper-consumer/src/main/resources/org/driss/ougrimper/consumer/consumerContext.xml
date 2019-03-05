@@ -19,6 +19,8 @@
 		class="org.driss.ougrimper.consumer.impl.dao.SecteurDaoImpl" />
 	<bean id="voieDao"
 		class="org.driss.ougrimper.consumer.impl.dao.VoieDaoImpl" />
+	<bean id="longueurDao"
+		class="org.driss.ougrimper.consumer.impl.dao.LongueurDaoImpl" />
 	<bean id="utilisateurDao"
 		class="org.driss.ougrimper.consumer.impl.dao.UtilisateurDaoImpl" />
 	<bean id="proprietaireTopoDao"
@@ -37,6 +39,7 @@
 		<property name="villeDao" ref="villeDao" />
 		<property name="secteurDao" ref="secteurDao" />
 		<property name="voieDao" ref="voieDao" />
+		<property name="longueurDao" ref="longueurDao" />
 		<property name="utilisateurDao" ref="utilisateurDao" />
 		<property name="proprietaireTopoDao" ref="proprietaireTopoDao" />
 		<property name="topoDao" ref="topoDao" />
