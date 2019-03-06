@@ -79,8 +79,8 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 
 	@Override
-	public void deleteTopo(Integer siteId) {
-		getDaoFactory().getTopoDao().deleteTopo(siteId);
+	public void deleteTopoSite(Integer siteId) {
+		getDaoFactory().getTopoDao().deleteTopoSite(siteId);
 	}
 
 	@Override
@@ -91,6 +91,22 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addNewTopo(Topo topo) {
 		getDaoFactory().getTopoDao().addNewTopo(topo);
+	}
+
+	@Override
+	public void deleteTopoById(Integer topoId) {
+		getDaoFactory().getTopoDao().deleteTopoById(topoId);
+	}
+
+	@Override
+	public List<Topo> getListTopoUtilisateur(Integer userId) {
+		List<Topo> listTopo = getDaoFactory().getTopoDao().getListTopoUtilisateur(userId);
+		return listTopo;
+	}
+
+	@Override
+	public void deleteReservationsUtilisateur(Integer userId) {
+		getDaoFactory().getReservationDao().deleteReservationsUtilisateur(userId);
 	}
 
 }

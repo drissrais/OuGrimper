@@ -10,5 +10,6 @@ public interface UtilisateurDao {
 	void insertUtilisateur(Utilisateur utilisateur);
 	Utilisateur getUtilisateur(Integer id);
 	List<Utilisateur> getListUtilisateur();
+	void deleteUtilisateur(Integer userId);
 
 }

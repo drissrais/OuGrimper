@@ -41,12 +41,17 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 		
 		RowMapper<Topo> vRowMapper = new TopoRM();
-		topo = (Topo) vJdbcTemplate.queryForObject(vSQL, new Object[] { siteId }, vRowMapper);
+		try {
+			topo = (Topo) vJdbcTemplate.queryForObject(vSQL, new Object[] { siteId }, vRowMapper);
+		} catch (Exception e) {
+			return null;
+		}
+		
 		return topo;
 	}
 
 	@Override
-	public void deleteTopo(Integer siteId) {
+	public void deleteTopoSite(Integer siteId) {
 		String vSQL = "DELETE FROM public.topo WHERE site_id = :site_id";
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		
@@ -108,6 +113,31 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 		vParams.addValue("site_id", topo.getSite().getId());
 
 		vJdbcTemplate.update(vSQL, vParams);
+	}
+
+	@Override
+	public void deleteTopoById(Integer topoId) {
+		String vSQL = "DELETE FROM public.topo WHERE id = :id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("id", topoId);
+		
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
+	@Override
+	public List<Topo> getListTopoUtilisateur(Integer userId) {
+		String vSQL = "SELECT * FROM public.topo WHERE proprietaire_id = :proprietaire_id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("proprietaire_id", userId);
+
+		RowMapper<Topo> vRowMapper = new TopoRM();
+		List<Topo> vListTopo = vJdbcTemplate.query(vSQL, vParams, vRowMapper);
+
+		return vListTopo;
 	}
 
 }

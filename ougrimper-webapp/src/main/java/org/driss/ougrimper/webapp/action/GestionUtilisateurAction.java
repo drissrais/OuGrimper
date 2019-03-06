@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.driss.ougrimper.business.contract.ManagerFactory;
+import org.driss.ougrimper.model.bean.topo.Topo;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,20 +18,30 @@ import com.opensymphony.xwork2.ActionSupport;
 public class GestionUtilisateurAction extends ActionSupport implements SessionAware {
 
 	// ==================== Attributs ====================
-	
+
 	@Inject
 	private ManagerFactory managerFactory;
-	
+
 	// ----- Eléments Struts
 	private Map<String, Object> session;
 
+	// ----- Eléments en entrée
+	private Integer id;
+
 	// ----- Eléments en sortie
 	private List<Utilisateur> listUtilisateur;
+	private List<Topo> listTopo;
 
 	// ----- Eléments en entrée et en sortie
 	private Utilisateur utilisateur;
-	
+
 	// ==================== Getters/Setters ====================
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Utilisateur getUtilisateur() {
 		return this.utilisateur;
 	}
@@ -43,7 +54,12 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 	public void setListUtilisateur(List<Utilisateur> listUtilisateur) {
 		this.listUtilisateur = listUtilisateur;
 	}
-	
+	public List<Topo> getListTopo() {
+		return listTopo;
+	}
+	public void setListTopo(List<Topo> listTopo) {
+		this.listTopo = listTopo;
+	}
 
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -69,15 +85,15 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 			// Si pas d'erreur, ajout du projet...
 			if (!this.hasErrors()) {
 				managerFactory.getUtilisateurManager().insertUtilisateur(this.utilisateur);
-				
-				utilisateur = managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getEmail(), utilisateur.getMotDePasse());
+
+				utilisateur = managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getEmail(),
+						utilisateur.getMotDePasse());
 				// Ajout de l'utilisateur en session
 				this.session.put("user", utilisateur);
-				
+
 				// Si ajout avec succès -> Result "success"
 				vResult = ActionSupport.SUCCESS;
-				this.addActionMessage(
-						"Félicitations ! Votre nouveau compte a été créé avec succès.");
+				this.addActionMessage("Félicitations ! Votre nouveau compte a été créé avec succès.");
 //                try {
 //
 //                } catch (FunctionalException pEx) {
@@ -93,13 +109,58 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 //            }
 			}
 		}
-		
+
 		return vResult;
 	}
-	
+
 	public String doList() {
 		listUtilisateur = managerFactory.getUtilisateurManager().getListUtilisateur();
 		return ActionSupport.SUCCESS;
 	}
-	
+
+	// Action affichant les details à modifier d'un utilisateur donné
+	public String doDetailUtilisateur() {
+		if (id == null) {
+			this.addActionError("Veuillez sélectionner un topo à modifier !");
+		} else {
+			utilisateur = managerFactory.getUtilisateurManager().getUtilisateur(id);
+			listUtilisateur = managerFactory.getUtilisateurManager().getListUtilisateur();
+		}
+		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
+	// Action "AJAX" permettant de supprimer un utilisateur
+	public String doAjaxDeleteUtilisateur() {
+		if (id == null) {
+			addActionError("Veuillez préciser un utilisateur à supprimer !");
+		} else {
+			// Récupérer l'utilisateur à partir de son identifiant
+			utilisateur = managerFactory.getUtilisateurManager().getUtilisateur(id);
+			
+			// Si l'utilisateur est un propriétaire de topo 
+			if (utilisateur.getRole().equals("topo_owner")) {
+				// On récupére la liste de ses topos
+				listTopo = managerFactory.getTopoManager().getListTopoUtilisateur(id);
+				// On parcourt cette liste
+				for (Topo topo : listTopo) {
+					// On supprime les réservations de chaque topo de la liste 
+					managerFactory.getTopoManager().deleteReservationsTopo(topo.getId());
+					// On supprime chaque topo que posséde ce propriétaire 
+					managerFactory.getTopoManager().deleteTopoById(topo.getId());
+				}
+				// Et on supprime le propriétaire lui-même
+				managerFactory.getUtilisateurManager().deleteUtilisateur(id);
+			// Sinon, c-à-d soit un admin soit un user normal
+			} else {
+				// Supprimer les réservations de topo faites par cet utilisateur, s'il y en a
+				managerFactory.getTopoManager().deleteReservationsUtilisateur(id);
+				
+				// Supprimer l'utilisateur lui-même
+				managerFactory.getUtilisateurManager().deleteUtilisateur(id);
+			}
+
+		}
+		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
 }

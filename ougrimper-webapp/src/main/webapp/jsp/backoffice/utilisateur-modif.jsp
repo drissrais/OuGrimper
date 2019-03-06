@@ -4,25 +4,39 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Modifier Utilisateur</title>
+<title>Modifier Utilisateur <s:property value="utilisateur.id" /></title>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
-			<div class="col-lg-9">
-				<form class="well form-horizontal">
+			<div class="col-lg-10">
+				<form class="well form-horizontal" action="utilisateur_edit"
+					enctype="multipart/form-data" method="post">
+
+					<%
+						String id = request.getParameter("id");
+					%>
+					<input type="hidden" name="utilisateur.id" value="<%=id%>">
+
 					<div class="form-group">
-						<legend>Modifier Utilisateur</legend>
+						<legend>
+							Modifier Utilisateur :
+							<s:property value="utilisateur.pseudo" />
+						</legend>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="civilite" class="col-lg-4 control-label">Civilité : </label>
+							<label for="civilite" class="col-lg-4 control-label">Civilité
+								: </label>
 							<div class="col-lg-8">
-								<select id="civilite" class="form-control">
-									<option>M.</option>
-									<option>Mme.</option>
+								<select id="civilite" name="utilisateur.civilite"
+									class="form-control">
+									<option selected disabled><s:property
+											value='utilisateur.civilite' /></option>
 									<option>Mlle.</option>
+									<option>Mme.</option>
+									<option>Mr.</option>
 								</select>
 							</div>
 						</div>
@@ -31,82 +45,90 @@
 						<div class="form-group">
 							<label for="nom" class="col-lg-4 control-label">Nom : </label>
 							<div class="col-lg-8">
-								<input id="nom" type="text" class="form-control">
+								<input id="nom" name="utilisateur.nom"
+									value="<s:property value='utilisateur.nom' />" type="text"
+									class="form-control">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="prenom" class="col-lg-4 control-label">Prénom : </label>
-							<div class="col-lg-8">
-								<input id="prenom" type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="pseudo" class="col-lg-4 control-label">Pseudo : </label>
-							<div class="col-lg-8">
-								<input id="pseudo" type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="date" class="col-lg-4 control-label">Date de naissance : </label>
-							<div class="col-lg-8">
-								<input id="date" type="date" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="site-topo" class="col-lg-4 control-label">Role
+							<label for="prenom" class="col-lg-4 control-label">Prénom
 								: </label>
 							<div class="col-lg-8">
-								<select id="site-topo" class="form-control">
-									<option>user</option>
-									<option>climber</option>
-									<option>admin</option>
+								<input id="prenom" name="utilisateur.prenom"
+									value="<s:property value='utilisateur.prenom' />" type="text"
+									class="form-control" required>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="pseudo" class="col-lg-4 control-label">Pseudo
+								: </label>
+							<div class="col-lg-8">
+								<input id="pseudo" name="utilisateur.pseudo"
+									value="<s:property value='utilisateur.pseudo' />" type="text"
+									class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="date" class="col-lg-4 control-label">Date de
+								naissance : </label>
+							<div class="col-lg-8">
+								<input id="date" name="utilisateur.dateDeNaissance"
+									value="<s:property value='utilisateur.dateDeNaissance' />"
+									type="date" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="role" class="col-lg-4 control-label">Role : </label>
+							<div class="col-lg-8">
+								<select id="role" name="utilisateur.role" class="form-control">
+									<option selected disabled><s:property
+											value='utilisateur.role' /></option>
 									<option>topo_owner</option>
+									<option>user</option>
+									<option>admin</option>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="cotation" class="col-lg-4 control-label">Niveau actuel (Si vous êtes grimpeur) : </label>
+							<label for="email" class="col-lg-4 control-label">Email :
+							</label>
 							<div class="col-lg-8">
-								<select id="cotation" class="form-control">
-									<option value="" selected disabled hidden></option>
-									<option>3a</option>
-									<option>3b</option>
-									<option>3c</option>
-								</select>
+								<input id="email" name="utilisateur.email"
+									value="<s:property value='utilisateur.email' />" type="email"
+									class="form-control">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="email" class="col-lg-4 control-label">Email : </label>
+							<label for="password" class="col-lg-4 control-label">Mot
+								de passe : </label>
 							<div class="col-lg-8">
-								<input id="email" type="email" class="form-control">
+								<div class="input-group">
+									<input id="password" name="utilisateur.motDePasse"
+										value="<s:property value='utilisateur.motDePasse' />"
+										type="password" class="form-control"> <span
+										class="fa fa-fw fa-eye input-group-addon toggle-password"></span>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="password" class="col-lg-4 control-label">Mot de passe : </label>
+							<label for="password" class="col-lg-4 control-label">Confirmer
+								mot de passe : </label>
 							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="password" class="col-lg-4 control-label">Confirmer mot de passe : </label>
-							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control">
+								<input type="password" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -120,5 +142,17 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$("body").on('click', '.toggle-password', function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			var input = $("#password");
+			if (input.attr("type") === "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+
+		});
+	</script>
 </body>
 </html>

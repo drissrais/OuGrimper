@@ -11,5 +11,7 @@ public interface UtilisateurManager {
 	void insertUtilisateur(Utilisateur utilisateur);
 	List<Utilisateur> getListUtilisateur();
 	List<ProprietaireTopo> getListProprietaireTopo();
+	Utilisateur getUtilisateur(Integer utilisateurId);
+	void deleteUtilisateur(Integer userId);
 	
 }

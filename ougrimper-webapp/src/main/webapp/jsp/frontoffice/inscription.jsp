@@ -10,7 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-9">
 				<s:form class="well form-horizontal" action="inscription">
 					<input type="hidden" id="role" name="utilisateur.role" value="user">
 					<div class="form-group">
@@ -72,15 +72,18 @@
 						<div class="form-group">
 							<label for="password" class="col-lg-4 control-label">Mot de passe : </label>
 							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control" name="utilisateur.motDePasse">
+								<div class="input-group">
+									<input id="password" type="password" name="utilisateur.motDePasse" class="form-control">
+									<span class="fa fa-fw fa-eye input-group-addon toggle-password"></span>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="password" class="col-lg-4 control-label">Confirmer mot de passe : </label>
+							<label for="passConfirm" class="col-lg-4 control-label">Confirmer mot de passe : </label>
 							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control">
+								<input id="passConfirm" type="password" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -93,5 +96,17 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$("body").on('click', '.toggle-password', function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			var input = $("#password");
+			if (input.attr("type") === "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+
+		});
+	</script>
 </body>
 </html>

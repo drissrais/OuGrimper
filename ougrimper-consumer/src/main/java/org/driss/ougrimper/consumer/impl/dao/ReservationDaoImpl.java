@@ -60,4 +60,15 @@ public class ReservationDaoImpl extends AbstractDaoImpl implements ReservationDa
 		vJdbcTemplate.update(vSQL, vParams);
 	}
 
+	@Override
+	public void deleteReservationsUtilisateur(Integer userId) {
+		String vSQL = "DELETE FROM public.reservation WHERE utilisateur_id = :utilisateur_id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("utilisateur_id", userId);
+		
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
 }

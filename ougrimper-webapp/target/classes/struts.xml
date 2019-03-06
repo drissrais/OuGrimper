@@ -277,12 +277,21 @@
 				<param name="actionName">topo_list</param>
 			</result>
 		</action>
+		
+		<!-- Actions liées aux utilisateurs -->
 
 		<!-- Action de gestion des utilisateurs -->
 		<action name="utilisateur_gestion"
 			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
 			method="doList">
 			<result>/jsp/backoffice/utilisateur-gestion.jsp</result>
+		</action>
+		
+		<!-- Action renvoyant les données à modifier d'un utilisateur -->
+		<action name="utilisateur_dataToEdit"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doDetailUtilisateur">
+			<result name="success">/jsp/backoffice/utilisateur-modif.jsp</result>
 		</action>
 
 		<!-- Action de gestion des commentaires -->
@@ -368,6 +377,13 @@
 		<action name="ajax_deleteTopo"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
 			method="doAjaxDeleteTopo">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a l'administrateur de supprimer un utilisateur -->
+		<action name="ajax_deleteUtilisateur"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doAjaxDeleteUtilisateur">
 			<result name="success" type="json"></result>
 		</action>
 	</package>

@@ -9,8 +9,10 @@ public interface TopoDao {
 	Topo getTopo(Integer topoId);
 	List<Topo> getListTopo();
 	Topo getTopoSite(Integer siteId);
-	void deleteTopo(Integer siteId);
+	void deleteTopoSite(Integer siteId);
 	void updateTopo(Topo topo);
 	void addNewTopo(Topo topo);
+	void deleteTopoById(Integer topoId);
+	List<Topo> getListTopoUtilisateur(Integer userId);
 	
 }

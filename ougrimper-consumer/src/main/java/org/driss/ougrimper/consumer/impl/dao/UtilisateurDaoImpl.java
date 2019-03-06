@@ -8,6 +8,8 @@ import org.driss.ougrimper.consumer.impl.rowmapper.utilisateur.UtilisateurRM;
 import org.driss.ougrimper.model.bean.utilisateur.Utilisateur;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDao {
 
@@ -39,7 +41,6 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 //		} catch (DuplicateKeyException e) {
 //			
 //		}
-
 	}
 
 	@Override
@@ -67,6 +68,17 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 		List<Utilisateur> listUtilisateur = vJdbcTemplate.query(vSQL, vRowMapper);
 		
 		return listUtilisateur;
+	}
+
+	@Override
+	public void deleteUtilisateur(Integer userId) {
+		String vSQL = "DELETE FROM public.compte_utilisateur WHERE id = :id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("id", userId);
+		
+		vJdbcTemplate.update(vSQL, vParams);
 	}
 
 }

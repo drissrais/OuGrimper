@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.xml.namespace.QName;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -162,24 +161,31 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	public Integer getPaysId() {
 		return paysId;
 	}
+
 	public void setPaysId(Integer paysId) {
 		this.paysId = paysId;
 	}
+
 	public List<Pays> getListPays() {
 		return listPays;
 	}
+
 	public void setListPays(List<Pays> listPays) {
 		this.listPays = listPays;
 	}
+
 	public List<Ville> getListVille() {
 		return listVille;
 	}
+
 	public void setListVille(List<Ville> listVille) {
 		this.listVille = listVille;
 	}
+
 	public Topo getTopo() {
 		return topo;
 	}
+
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
@@ -320,7 +326,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 			if (!this.hasErrors()) {
 //						try {
 				String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
-				
+
 				if (fileUploadFileName == null)
 					this.site.setPlan(null);
 				else {
@@ -332,7 +338,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 					}
 					this.site.setPlan("jsp/images/" + fileUploadFileName);
 				}
-				
+
 				managerFactory.getSiteManager().updateSite(this.site);
 				this.addActionMessage("Vos modifications ont été enregistrées avec succès !");
 //						} catch (FunctionalException pEx) {
@@ -380,11 +386,12 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 					}
 					this.site.setPhoto("jsp/images/" + fileUploadFileName);
 				}
-				
+
 				if (file2UploadFileName == null) {
 					this.site.setPlan(null);
 				} else {
-					String file2Path = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
+					String file2Path = ServletActionContext.getServletContext().getRealPath("/")
+							.concat("jsp\\images\\");
 					File file2ToCreate = new File(file2Path, file2UploadFileName);
 					try {
 						FileUtils.copyFile(file2Upload, file2ToCreate);
@@ -466,15 +473,15 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 		}
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
-	
+
 	// Action "AJAX" permettant de supprimer un site d'escalade
 	public String doAjaxDeleteSite() {
 		if (id == null) {
 			addActionError("Veuillez préciser un site à supprimer !");
 		} else {
-			// Supprimer les commentaires du site à supprimer 
+			// Supprimer les commentaires du site à supprimer
 			managerFactory.getSiteManager().deleteCommentairesSite(id);
-			
+
 			listSecteur = managerFactory.getSiteManager().getListSecteur(id);
 			for (Secteur secteur : listSecteur) {
 				listVoie = managerFactory.getSiteManager().getListVoie(secteur.getId());
@@ -487,14 +494,16 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 			}
 			// Supprimer les secteurs du site à supprimer
 			managerFactory.getSiteManager().deleteSecteursSite(id);
-			
+
 			// Supprimer les réservations du topo du site à supprimer
 			topo = managerFactory.getTopoManager().getTopoSite(id);
-			managerFactory.getTopoManager().deleteReservationsTopo(topo.getId());
-			
-			// Supprimer le ou les topos du site à supprimer
-			managerFactory.getTopoManager().deleteTopo(id);
-			
+
+			if (topo != null) {
+				managerFactory.getTopoManager().deleteReservationsTopo(topo.getId());
+
+				// Supprimer le ou les topos du site à supprimer
+				managerFactory.getTopoManager().deleteTopoSite(id);
+			}
 			// Supprimer le site donné
 			managerFactory.getSiteManager().deleteSite(id);
 		}

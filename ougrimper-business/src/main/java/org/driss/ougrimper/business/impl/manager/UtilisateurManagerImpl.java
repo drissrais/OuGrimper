@@ -32,4 +32,16 @@ public class UtilisateurManagerImpl extends AbstractManager implements Utilisate
 		return listProprietaireTopo;
 	}
 
+	@Override
+	public Utilisateur getUtilisateur(Integer utilisateurId) {
+		Utilisateur utilisateur = null;
+		utilisateur = getDaoFactory().getUtilisateurDao().getUtilisateur(utilisateurId);
+		return utilisateur;
+	}
+
+	@Override
+	public void deleteUtilisateur(Integer userId) {
+		getDaoFactory().getUtilisateurDao().deleteUtilisateur(userId);
+	}
+
 }

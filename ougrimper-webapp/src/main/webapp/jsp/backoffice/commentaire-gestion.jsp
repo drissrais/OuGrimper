@@ -13,7 +13,7 @@
 			<h1>Gestion des commentaires</h1>
 		</header>
 		<div class="row">
-			<div class="col-lg-9">
+			<div class="col-lg-10">
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">

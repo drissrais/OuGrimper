@@ -19,8 +19,11 @@
 								class="form-control">
 						</div>
 						<div class="form-group">
-							<label for="password">Mot de passe : </label> <input id="password"
-								type="password" name="password" class="form-control">
+							<label for="password">Mot de passe : </label>
+							<div class="input-group">
+								<input id="password" name="password" type="password" class="form-control">
+								<span class="fa fa-fw fa-eye input-group-addon toggle-password"></span>
+							</div>
 						</div>
 						<s:a class="btn btn-warning" type="submit" action="inscription">Créer un compte</s:a>
 						<button class="btn btn-primary pull-right" type="submit">Suivant</button>
@@ -31,5 +34,17 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$("body").on('click', '.toggle-password', function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			var input = $("#password");
+			if (input.attr("type") === "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+
+		});
+	</script>
 </body>
 </html>

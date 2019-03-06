@@ -29,8 +29,7 @@
 						</div>
 						<thead>
 							<tr>
-								<th>Id site</th>
-								<th>Nom</th>
+								<th>Nom Site</th>
 								<th>Pays</th>
 								<th style="text-align: center;"></th>
 								<th style="text-align: center;"></th>
@@ -38,21 +37,25 @@
 						</thead>
 						<tbody>
 							<s:iterator value="listSite">
-								<tr>
-									<td id="siteId"><s:property value="id" /></td>
+								<tr id="t<s:property value='id' />">
 									<td><s:property value="nom" /></td>
 									<td><s:property value="pays.nom" /></td>
-									<td style="text-align: center;"><s:a
-											action="site_dataToEdit" title="Editer">
-											<i class="far fa-edit" style="color: #698ABC;"></i>
+									<td style="text-align: center;">
+										<s:a action="site_dataToEdit">
+											<i class="far fa-edit" data-toggle="tooltip" title="Editer"
+												style="color: #698ABC;"></i>
 											<s:param name="id" value="id" />
-										</s:a></td>
-									<td style="text-align: center;"><a class="linkDelete"
-										href="deleteSite(this)" title="Supprimer Site"
-										data-toggle="confirmation" data-title="Supprimer ce site?"
-										data-placement="right" data-popout="true">
-											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
-									</a></td>
+										</s:a>
+									</td>
+									<td style="text-align: center;">
+										<a data-toggle="confirmation" data-title="Supprimer le site?"
+											data-placement="right" data-popup="true"
+											data-on-confirm='deleteSite(<s:property value="id" />)'>
+												<i class="fas fa-trash-alt" data-toggle="tooltip"
+													title="Supprimer" style="color: #D60000;">
+												</i>
+										</a>
+									</td>
 								</tr>
 							</s:iterator>
 						</tbody>
@@ -68,24 +71,16 @@
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_deleteSite' />";
 
+			//alert(val);
+
 			// Paramètres de la requête AJAX
 			var params = {
-				siteId : jQuery(val).parent().prev().prev().prev().prev()
-						.text()
+				id : val
 			};
 
 			// Action AJAX en POST
-			jQuery.post(url, params, function(data) {
-				// 						alert(data);
-				$linkDelete = jQuery('.linkDelete');
-				$linkDelete.closest('tr').remove();
-			}).fail(function(data) {
-				if (typeof data.responseJSON === 'object') {
-					console.log(data.responseJSON);
-				} else {
-					console.log(data);
-				}
-				alert("Une erreur s'est produite.");
+			jQuery.post(url, params, function() {
+				$('#t' + val).remove();
 			});
 		}
 	</script>

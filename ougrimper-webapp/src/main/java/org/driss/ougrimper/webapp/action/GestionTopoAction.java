@@ -33,7 +33,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	private Integer id;
 	private Date dateDebut;
 	private Date dateFin;
-	
+
 	// ----- Eléments en entrée UPLOAD
 	private File fileUpload;
 	private String fileUploadFileName;
@@ -51,74 +51,96 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public List<Topo> getListTopo() {
 		return this.listTopo;
 	}
+
 	public void setListTopo(List<Topo> listTopo) {
 		this.listTopo = listTopo;
 	}
+
 	public Topo getTopo() {
 		return this.topo;
 	}
+
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
+
 	public List<Reservation> getListReservation() {
 		return listReservation;
 	}
+
 	public void setListReservation(List<Reservation> listReservation) {
 		this.listReservation = listReservation;
 	}
+
 	public Reservation getReservation() {
 		return reservation;
 	}
+
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
 	public Date getDateDebut() {
 		return dateDebut;
 	}
+
 	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
+
 	public Date getDateFin() {
 		return dateFin;
 	}
+
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
+
 	public List<Site> getListSite() {
 		return listSite;
 	}
+
 	public void setListSite(List<Site> listSite) {
 		this.listSite = listSite;
 	}
+
 	public List<ProprietaireTopo> getListProprietaireTopo() {
 		return listProprietaireTopo;
 	}
+
 	public void setListProprietaireTopo(List<ProprietaireTopo> listProprietaireTopo) {
 		this.listProprietaireTopo = listProprietaireTopo;
 	}
-	
+
 	// =============== Getters/Setters UPLOAD ==================
 	public File getFileUpload() {
 		return fileUpload;
 	}
+
 	public void setFileUpload(File fileUpload) {
 		this.fileUpload = fileUpload;
 	}
+
 	public String getFileUploadFileName() {
 		return fileUploadFileName;
 	}
+
 	public void setFileUploadFileName(String fileUploadFileName) {
 		this.fileUploadFileName = fileUploadFileName;
 	}
+
 	public String getFileUploadContentType() {
 		return fileUploadContentType;
 	}
+
 	public void setFileUploadContentType(String fileUploadContentType) {
 		this.fileUploadContentType = fileUploadContentType;
 	}
@@ -242,44 +264,44 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		}
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
-	
+
 	// Action permettant à l'administrateur d'ajouter un nouveau site d'escalade
-		public String doCreateTopo() {
-			// Si (this.topo == null) c'est que l'on entre dans l'ajout de topo
-			// Sinon, c'est que l'on vient de valider le formulaire d'ajout
+	public String doCreateTopo() {
+		// Si (this.topo == null) c'est que l'on entre dans l'ajout de topo
+		// Sinon, c'est que l'on vient de valider le formulaire d'ajout
 
-			// Par défaut, le result est "input"
-			String vResult = ActionSupport.INPUT;
-			listProprietaireTopo = managerFactory.getUtilisateurManager().getListProprietaireTopo();
-			listSite = managerFactory.getSiteManager().getListSite();
+		// Par défaut, le result est "input"
+		String vResult = ActionSupport.INPUT;
+		listProprietaireTopo = managerFactory.getUtilisateurManager().getListProprietaireTopo();
+		listSite = managerFactory.getSiteManager().getListSite();
 
-			// ===== Validation du nouveau topo (topo != null)
-			if (this.topo != null) {
-				// Récupération du nom
-				if (this.topo.getNom() == null) {
-					this.addFieldError("topo.nom", "ne doit pas être vide");
+		// ===== Validation du nouveau topo (topo != null)
+		if (this.topo != null) {
+			// Récupération du nom
+			if (this.topo.getNom() == null) {
+				this.addFieldError("topo.nom", "ne doit pas être vide");
+			}
+
+			// Si pas d'erreur, mise à jour du site...
+			if (!this.hasErrors()) {
+//								try {
+				if (fileUploadFileName == null) {
+					this.topo.setPlan(null);
+				} else {
+					String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
+					File fileToCreate = new File(filePath, fileUploadFileName);
+					try {
+						FileUtils.copyFile(fileUpload, fileToCreate);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					this.topo.setPlan("jsp/images/" + fileUploadFileName);
 				}
 
-				// Si pas d'erreur, mise à jour du site...
-				if (!this.hasErrors()) {
-//								try {
-					if (fileUploadFileName == null) {
-						this.topo.setPlan(null);
-					} else {
-						String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("jsp\\images\\");
-						File fileToCreate = new File(filePath, fileUploadFileName);
-						try {
-							FileUtils.copyFile(fileUpload, fileToCreate);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						this.topo.setPlan("jsp/images/" + fileUploadFileName);
-					}
-
-					managerFactory.getTopoManager().addNewTopo(this.topo);
-					// Si ajout avec succès -> Result "success"
-					vResult = ActionSupport.SUCCESS;
-					this.addActionMessage("Un nouveau topo d'escalade a été ajouté avec succès !");
+				managerFactory.getTopoManager().addNewTopo(this.topo);
+				// Si ajout avec succès -> Result "success"
+				vResult = ActionSupport.SUCCESS;
+				this.addActionMessage("Un nouveau topo d'escalade a été ajouté avec succès !");
 //								} catch (FunctionalException pEx) {
 //									// Sur erreur fonctionnelle on reste sur la page de saisie
 //									// et on affiche un message d'erreur
@@ -289,11 +311,11 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 //									this.addActionError(pEx.getMessage());
 //									vResult = ActionSupport.ERROR;
 //								}
-				}
 			}
-
-			return vResult;
 		}
+
+		return vResult;
+	}
 
 	/**
 	 * Action AJAX permettant de réserver un {@link Topo}
@@ -312,6 +334,20 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		}
 
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
+	// Action "AJAX" permettant de supprimer un topo d'escalade
+	public String doAjaxDeleteTopo() {
+		if (id == null) {
+			addActionError("Veuillez préciser un topo à supprimer !");
+		} else {
+			// Supprimer les réservations du topo du site à supprimer
+			managerFactory.getTopoManager().deleteReservationsTopo(id);
+
+			// Supprimer le ou les topos du site à supprimer
+			managerFactory.getTopoManager().deleteTopoById(id);
+		}
+		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
 
 }
