@@ -109,4 +109,9 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 		getDaoFactory().getReservationDao().deleteReservationsUtilisateur(userId);
 	}
 
+	@Override
+	public void deleteReservationById(Integer reservationId) {
+		getDaoFactory().getReservationDao().deleteReservationsById(reservationId);
+	}
+
 }

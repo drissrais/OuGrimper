@@ -33,6 +33,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	private Integer id;
 	private Date dateDebut;
 	private Date dateFin;
+	private Integer reservationId;
 
 	// ----- Eléments en entrée UPLOAD
 	private File fileUpload;
@@ -51,96 +52,80 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public List<Topo> getListTopo() {
 		return this.listTopo;
 	}
-
 	public void setListTopo(List<Topo> listTopo) {
 		this.listTopo = listTopo;
 	}
-
 	public Topo getTopo() {
 		return this.topo;
 	}
-
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
-
 	public List<Reservation> getListReservation() {
 		return listReservation;
 	}
-
 	public void setListReservation(List<Reservation> listReservation) {
 		this.listReservation = listReservation;
 	}
-
 	public Reservation getReservation() {
 		return reservation;
 	}
-
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-
 	public Date getDateDebut() {
 		return dateDebut;
 	}
-
 	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-
 	public Date getDateFin() {
 		return dateFin;
 	}
-
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-
 	public List<Site> getListSite() {
 		return listSite;
 	}
-
 	public void setListSite(List<Site> listSite) {
 		this.listSite = listSite;
 	}
-
 	public List<ProprietaireTopo> getListProprietaireTopo() {
 		return listProprietaireTopo;
 	}
-
 	public void setListProprietaireTopo(List<ProprietaireTopo> listProprietaireTopo) {
 		this.listProprietaireTopo = listProprietaireTopo;
 	}
-
+	public Integer getReservationId() {
+		return reservationId;
+	}
+	public void setReservationId(Integer reservationId) {
+		this.reservationId = reservationId;
+	}
+	
 	// =============== Getters/Setters UPLOAD ==================
 	public File getFileUpload() {
 		return fileUpload;
 	}
-
 	public void setFileUpload(File fileUpload) {
 		this.fileUpload = fileUpload;
 	}
-
 	public String getFileUploadFileName() {
 		return fileUploadFileName;
 	}
-
 	public void setFileUploadFileName(String fileUploadFileName) {
 		this.fileUploadFileName = fileUploadFileName;
 	}
-
 	public String getFileUploadContentType() {
 		return fileUploadContentType;
 	}
-
 	public void setFileUploadContentType(String fileUploadContentType) {
 		this.fileUploadContentType = fileUploadContentType;
 	}
@@ -151,16 +136,13 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 	}
 
 	// ==================== Méthodes ===========================
+	
 	public String doList() {
 		listTopo = managerFactory.getTopoManager().getListTopo();
 		return ActionSupport.SUCCESS;
 	}
 
-	/**
-	 * Action affichant les détails d'un {@link Topo}
-	 * 
-	 * @return success / error
-	 */
+	// Action affichant les détails d'un Topo
 	public String doDetail() {
 		if (id == null) {
 			this.addActionError("Vous devez sélectionner un topo !");
@@ -175,32 +157,20 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
 
-	/**
-	 * Action listant les réservations d'un {@link Topo}
-	 * 
-	 * @return success / error
-	 */
+	// Action listant les réservations d'un Topo
 	public String doListReservation() {
 		topo = managerFactory.getTopoManager().getTopo(id);
 		listReservation = managerFactory.getTopoManager().getListReservation(id);
 		return ActionSupport.SUCCESS;
 	}
 
-	/**
-	 * Action listant la liste de toutes les réservations
-	 * 
-	 * @return success / error
-	 */
+	// Action listant la liste de toutes les réservations
 	public String doListAllReservation() {
 		listReservation = managerFactory.getTopoManager().getListReservation();
 		return ActionSupport.SUCCESS;
 	}
 
-	/**
-	 * Action permettant de créer une nouvelle {@link Reservation} d'un {@link Topo}
-	 * 
-	 * @return success / error
-	 */
+	// Action permettant de créer une nouvelle Reservation d'un Topo
 	public String doAddNewReservation() {
 		Utilisateur vUtilisateur = (Utilisateur) session.get("user");
 		reservation = new Reservation(dateDebut, dateFin, vUtilisateur);
@@ -313,15 +283,10 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 //								}
 			}
 		}
-
 		return vResult;
 	}
 
-	/**
-	 * Action AJAX permettant de réserver un {@link Topo}
-	 * 
-	 * @return success / error
-	 */
+	// Action AJAX permettant de réserver Topo
 	public String doAjaxAddNewReservation() {
 		if (dateDebut == null || dateFin == null) {
 			this.addActionError("");
@@ -346,6 +311,16 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 
 			// Supprimer le ou les topos du site à supprimer
 			managerFactory.getTopoManager().deleteTopoById(id);
+		}
+		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+	
+	// Action "AJAX" permettant de supprimer une réservation
+	public String doAjaxDeleteReservation() {
+		if (reservationId == null) {
+			addActionError("Veuillez préciser une réservation à supprimer !");
+		} else {
+			managerFactory.getTopoManager().deleteReservationById(reservationId);
 		}
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}

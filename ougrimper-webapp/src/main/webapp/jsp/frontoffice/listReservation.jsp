@@ -95,7 +95,7 @@
 					url,
 					params,
 					function(data) {
-						alert(data);
+						// alert(data);
 						var $listReservation = jQuery("#listReservation");
 						$listReservation.append($('<tr>')
 							.append($('<td>').append(dateDebut))

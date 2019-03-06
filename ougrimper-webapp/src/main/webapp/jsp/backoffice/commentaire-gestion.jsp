@@ -28,13 +28,18 @@
 						</thead>
 						<tbody>
 							<s:iterator value="listCommentaire">
-								<tr>
+								<tr id="t<s:property value='id' />">
 									<td><s:property value="redacteur.pseudo" /></td>
 									<td><s:property value="contenu" /></td>
-									<td style="text-align: center;"><s:a action=""
-											title="Supprimer">
-											<i class="fas fa-trash-alt" style="color: #D60000;"></i>
-										</s:a></td>
+									<td style="text-align: center;">
+										<a data-toggle="confirmation" data-title="Supprimer ce commentaire?" 
+											data-placement="right" data-popup="true" 
+											data-on-confirm='deleteCommentaire(<s:property value="id" />)'>
+											<i class="fas fa-trash-alt" data-toggle="tooltip"
+												title="Supprimer" style="color: #D60000;">
+											</i>
+										</a>
+									</td>
 								</tr>
 							</s:iterator>
 						</tbody>
@@ -45,5 +50,23 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		function deleteCommentaire(val) {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_deleteCommentaire' />";
+
+			//alert(val);
+
+			// Paramètres de la requête AJAX
+			var params = {
+				commentaireId : val
+			};
+
+			// Action AJAX en POST
+			jQuery.post(url, params, function() {
+				$('#t' + val).remove();
+			});
+		}
+	</script>
 </body>
 </html>

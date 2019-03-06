@@ -142,4 +142,9 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		getDaoFactory().getSecteurDao().deleteSecteursSite(siteId);
 	}
 
+	@Override
+	public void deleteCommentairesSiteById(Integer commentaireId) {
+		getDaoFactory().getCommentaireSiteDao().deleteCommentairesSiteById(commentaireId);
+	}
+
 }

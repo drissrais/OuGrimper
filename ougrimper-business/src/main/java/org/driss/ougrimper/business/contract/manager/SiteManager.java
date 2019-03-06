@@ -28,5 +28,6 @@ public interface SiteManager {
 	void deleteLongueursVoie(Integer voieId);
 	void deleteVoiesSecteur(Integer secteurId);
 	void deleteSecteursSite(Integer siteId);
+	void deleteCommentairesSiteById(Integer commentaireId);
 
 }

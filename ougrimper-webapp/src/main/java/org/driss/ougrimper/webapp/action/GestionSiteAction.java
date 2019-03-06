@@ -38,6 +38,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private Integer secteurId;
 	private Integer voieId;
 	private Integer paysId;
+	private Integer commentaireId;
 
 	// ----- Eléments en entrée UPLOAD
 	private File fileUpload;
@@ -64,177 +65,142 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getTextComment() {
 		return textComment;
 	}
-
 	public void setTextComment(String textComment) {
 		this.textComment = textComment;
 	}
-
 	public List<Site> getListSite() {
 		return listSite;
 	}
-
 	public void setListSite(List<Site> listSite) {
 		this.listSite = listSite;
 	}
-
 	public Site getSite() {
 		return site;
 	}
-
 	public void setSite(Site site) {
 		this.site = site;
 	}
-
 	public CommentaireSite getCommentaireSite() {
 		return commentaireSite;
 	}
-
 	public void setCommentaireSite(CommentaireSite commentaireSite) {
 		this.commentaireSite = commentaireSite;
 	}
-
 	public List<CommentaireSite> getListCommentaire() {
 		return listCommentaire;
 	}
-
 	public void setListCommentaire(List<CommentaireSite> listCommentaire) {
 		this.listCommentaire = listCommentaire;
 	}
-
 	public List<Secteur> getListSecteur() {
 		return listSecteur;
 	}
-
 	public void setListSecteur(List<Secteur> listSecteur) {
 		this.listSecteur = listSecteur;
 	}
-
 	public Secteur getSecteur() {
 		return secteur;
 	}
-
 	public void setSecteur(Secteur secteur) {
 		this.secteur = secteur;
 	}
-
 	public Integer getSecteurId() {
 		return secteurId;
 	}
-
 	public void setSecteurId(Integer secteurId) {
 		this.secteurId = secteurId;
 	}
-
 	public List<Voie> getListVoie() {
 		return listVoie;
 	}
-
 	public void setListVoie(List<Voie> listVoie) {
 		this.listVoie = listVoie;
 	}
-
 	public Integer getVoieId() {
 		return voieId;
 	}
-
 	public void setVoieId(Integer voieId) {
 		this.voieId = voieId;
 	}
-
 	public Voie getVoie() {
 		return voie;
 	}
-
 	public void setVoie(Voie voie) {
 		this.voie = voie;
 	}
-
+	public Integer getCommentaireId() {
+		return commentaireId;
+	}
+	public void setCommentaireId(Integer commentaireId) {
+		this.commentaireId = commentaireId;
+	}
+	
 	// ============== Getters/Setters BackOffice ===============
 	public Integer getPaysId() {
 		return paysId;
 	}
-
 	public void setPaysId(Integer paysId) {
 		this.paysId = paysId;
 	}
-
 	public List<Pays> getListPays() {
 		return listPays;
 	}
-
 	public void setListPays(List<Pays> listPays) {
 		this.listPays = listPays;
 	}
-
 	public List<Ville> getListVille() {
 		return listVille;
 	}
-
 	public void setListVille(List<Ville> listVille) {
 		this.listVille = listVille;
 	}
-
 	public Topo getTopo() {
 		return topo;
 	}
-
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
-
+	
 	// ============== Getters/Setters UPLOAD ===============
 	public String getFileUploadFileName() {
 		return fileUploadFileName;
 	}
-
 	public void setFileUploadFileName(String fileUploadFileName) {
 		this.fileUploadFileName = fileUploadFileName;
 	}
-
 	public String getFileUploadContentType() {
 		return fileUploadContentType;
 	}
-
 	public void setFileUploadContentType(String fileUploadContentType) {
 		this.fileUploadContentType = fileUploadContentType;
 	}
-
 	public File getFileUpload() {
 		return fileUpload;
 	}
-
 	public void setFileUpload(File fileUpload) {
 		this.fileUpload = fileUpload;
 	}
-
 	public String getFile2UploadFileName() {
 		return file2UploadFileName;
 	}
-
 	public void setFile2UploadFileName(String file2UploadFileName) {
 		this.file2UploadFileName = file2UploadFileName;
 	}
-
 	public String getFile2UploadContentType() {
 		return file2UploadContentType;
 	}
-
 	public void setFile2UploadContentType(String file2UploadContentType) {
 		this.file2UploadContentType = file2UploadContentType;
 	}
-
 	public File getFile2Upload() {
 		return file2Upload;
 	}
-
 	public void setFile2Upload(File file2Upload) {
 		this.file2Upload = file2Upload;
 	}
@@ -506,6 +472,16 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 			}
 			// Supprimer le site donné
 			managerFactory.getSiteManager().deleteSite(id);
+		}
+		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
+	// Action "AJAX" permettant de supprimer un commentaire
+	public String doAjaxDeleteCommentaire() {
+		if (commentaireId == null) {
+			addActionError("Veuillez préciser un commentaire à supprimer !");
+		} else {
+			managerFactory.getSiteManager().deleteCommentairesSiteById(commentaireId);
 		}
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}

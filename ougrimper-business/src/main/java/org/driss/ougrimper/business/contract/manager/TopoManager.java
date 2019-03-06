@@ -20,5 +20,6 @@ public interface TopoManager {
 	void addNewTopo(Topo topo);
 	List<Topo> getListTopoUtilisateur(Integer userId);
 	void deleteReservationsUtilisateur(Integer userId);
+	void deleteReservationById(Integer reservationId);
 
 }

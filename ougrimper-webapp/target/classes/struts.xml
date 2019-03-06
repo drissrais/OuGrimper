@@ -366,24 +366,38 @@
 			</result>
 		</action>
 		
-		<!-- Action AJAX permettant a l'administrateur de supprimer un site -->
+		<!-- Action AJAX permettant a un administrateur de supprimer un site -->
 		<action name="ajax_deleteSite"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doAjaxDeleteSite">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<!-- Action AJAX permettant a l'administrateur de supprimer un topo -->
+		<!-- Action AJAX permettant a un administrateur de supprimer un topo -->
 		<action name="ajax_deleteTopo"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
 			method="doAjaxDeleteTopo">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<!-- Action AJAX permettant a l'administrateur de supprimer un utilisateur -->
+		<!-- Action AJAX permettant a un administrateur de supprimer un utilisateur -->
 		<action name="ajax_deleteUtilisateur"
 			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
 			method="doAjaxDeleteUtilisateur">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer un commentaire -->
+		<action name="ajax_deleteCommentaire"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxDeleteCommentaire">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer une réservation -->
+		<action name="ajax_deleteReservation"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAjaxDeleteReservation">
 			<result name="success" type="json"></result>
 		</action>
 	</package>

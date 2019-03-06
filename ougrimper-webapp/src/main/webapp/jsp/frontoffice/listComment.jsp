@@ -90,6 +90,7 @@
 					url,
 					params,
 					function(data) {
+						//alert(data);
 						var $listCommentaire = jQuery("#listCommentaire");
 					
 						$listCommentaire.append($('<tr>')
@@ -97,7 +98,6 @@
 							  .append($('<td>').append(textComment))
 							  .append($('<td>').append(data.date))
 						);
-						//alert(data);
 					}).fail(function() {
 				alert("Une erreur s'est produite.");
 			});
