@@ -19,7 +19,7 @@
 				</select>
 			</div>
 			<div class="col-lg-4">
-				<select class="form-control" name="ville">
+				<select class="form-control" onchange="redirectVille(this.value)">
 					<option value="" selected disabled hidden>Ville plus proche</option>
 					<s:iterator value="listVille">
 						<option value='<s:property value="id" />'><s:property value="nom" /></option>
@@ -27,7 +27,7 @@
 				</select>
 			</div>
 			<div class="col-lg-4">
-				<select class="form-control" name="site">
+				<select class="form-control" onchange="redirectSite(this.value)">
 					<option value="" selected disabled hidden>Site</option>
 					<s:iterator value="listSite">
 						<option value='<s:property value="id" />'><s:property value="nom" /></option>
@@ -243,6 +243,14 @@
 	<script type="text/javascript">
 		function redirect(selectedValue){
 		     window.location="site_list_pays.action?paysId="+selectedValue;
+		}
+		
+		function redirectVille(selectedValue){
+		     window.location="site_list_ville.action?villeId="+selectedValue;
+		}
+		
+		function redirectSite(selectedValue){
+		     window.location="site_detail.action?id="+selectedValue;
 		}
 	</script>
 </body>

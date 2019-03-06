@@ -132,14 +132,14 @@
 		<action name="site_list_pays"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doListSitePays">
-			<result>/jsp/frontoffice/recherchePays.jsp</result>
+			<result>/jsp/frontoffice/recherche-pays.jsp</result>
 		</action>
 		
 		<!-- Action listant les sites d'escalade d'une ville (recherche) -->
 		<action name="site_list_ville"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doListSiteVille">
-			<result>/jsp/frontoffice/rechercheVille.jsp</result>
+			<result>/jsp/frontoffice/recherche-ville.jsp</result>
 		</action>
 
 		<!-- Actions spécifiques à l'administrateur -->
