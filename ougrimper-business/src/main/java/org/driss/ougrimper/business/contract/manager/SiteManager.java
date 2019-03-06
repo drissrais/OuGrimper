@@ -30,5 +30,9 @@ public interface SiteManager {
 	void deleteSecteursSite(Integer siteId);
 	void deleteCommentairesSiteById(Integer commentaireId);
 	List<Ville> getListVille();
+	Pays getPays(Integer paysId);
+	List<Site> getListSitePays(Integer paysId);
+	Ville getVille(Integer villeId);
+	List<Site> getListSiteVille(Integer villeId);
 
 }

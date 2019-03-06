@@ -127,6 +127,20 @@
 				<param name="actionName">index</param>
 			</result>
 		</action>
+		
+		<!-- Action listant les sites d'escalade d'un pays (recherche) -->
+		<action name="site_list_pays"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListSitePays">
+			<result>/jsp/frontoffice/recherchePays.jsp</result>
+		</action>
+		
+		<!-- Action listant les sites d'escalade d'une ville (recherche) -->
+		<action name="site_list_ville"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListSiteVille">
+			<result>/jsp/frontoffice/rechercheVille.jsp</result>
+		</action>
 
 		<!-- Actions spécifiques à l'administrateur -->
 
@@ -301,7 +315,7 @@
 			<result>/jsp/backoffice/commentaire-gestion.jsp</result>
 		</action>
 
-		<!-- Action de gestion des commentaires -->
+		<!-- Action de gestion des reservations -->
 		<action name="reservation_gestion"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
 			method="doListAllReservation">

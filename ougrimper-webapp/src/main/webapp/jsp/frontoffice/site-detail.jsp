@@ -11,7 +11,7 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row recherche">
 			<div class="col-lg-4">
-				<select class="form-control" name="pays">
+				<select class="form-control" onchange="redirect(this.value)">
 					<option value="" selected disabled hidden>Pays</option>
 					<s:iterator value="listPays">
 						<option value='<s:property value="id" />'><s:property value="nom" /></option>
@@ -238,6 +238,11 @@
 				}
 				alert("Une erreur s'est produite.");
 			});
+		}
+	</script>
+	<script type="text/javascript">
+		function redirect(selectedValue){
+		     window.location="site_list_pays.action?paysId="+selectedValue;
 		}
 	</script>
 </body>

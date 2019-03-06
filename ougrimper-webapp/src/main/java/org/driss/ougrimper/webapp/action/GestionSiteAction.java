@@ -39,6 +39,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private Integer voieId;
 	private Integer paysId;
 	private Integer commentaireId;
+	private Integer villeId;
 
 	// ----- Eléments en entrée UPLOAD
 	private File fileUpload;
@@ -60,6 +61,10 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	private Voie voie;
 	private List<Pays> listPays;
 	private List<Ville> listVille;
+	private List<Site> listSitePays;
+	private Pays pays;
+	private List<Site> listSiteVille;
+	private Ville ville;
 
 	// ==================== Getters/Setters ====================
 	public Integer getId() {
@@ -139,6 +144,36 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	}
 	public void setCommentaireId(Integer commentaireId) {
 		this.commentaireId = commentaireId;
+	}
+	public List<Site> getListSitePays() {
+		return listSitePays;
+	}
+	public void setListSitePays(List<Site> listSitePays) {
+		this.listSitePays = listSitePays;
+	}
+	public Pays getPays() {
+		return pays;
+	}
+	public void setPays(Pays pays) {
+		this.pays = pays;
+	}
+	public List<Site> getListSiteVille() {
+		return listSiteVille;
+	}
+	public void setListSiteVille(List<Site> listSiteVille) {
+		this.listSiteVille = listSiteVille;
+	}
+	public Ville getVille() {
+		return ville;
+	}
+	public void setVille(Ville ville) {
+		this.ville = ville;
+	}
+	public Integer getVilleId() {
+		return villeId;
+	}
+	public void setVilleId(Integer villeId) {
+		this.villeId = villeId;
 	}
 	
 	// ============== Getters/Setters BackOffice ===============
@@ -237,6 +272,38 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 //            }
 		}
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+	
+	// Action renvoyant les résultats de recherche de sites d'escalade d'un pays 
+	public String doListSitePays() {
+		String paysIdString = ServletActionContext.getRequest().getParameter("paysId");
+		paysId = Integer.parseInt(paysIdString);
+		if (paysId == null) {
+			this.addActionError("Veuillez sélectionner un pays !");
+		} else {
+			pays = managerFactory.getSiteManager().getPays(paysId);
+			listSitePays = managerFactory.getSiteManager().getListSitePays(paysId);
+			listSite = managerFactory.getSiteManager().getListSite();
+			listPays = managerFactory.getSiteManager().getListPays();
+			listVille = managerFactory.getSiteManager().getListVille();
+		}
+		return ActionSupport.SUCCESS;
+	}
+	
+	// Action renvoyant les résultats de recherche de sites d'escalade d'un pays 
+	public String doListSiteVille() {
+		String villeIdString = ServletActionContext.getRequest().getParameter("villeId");
+		villeId = Integer.parseInt(villeIdString);
+		if (villeId == null) {
+			this.addActionError("Veuillez sélectionner une ville !");
+		} else {
+			ville = managerFactory.getSiteManager().getVille(villeId);
+			listSiteVille = managerFactory.getSiteManager().getListSiteVille(villeId);
+			listSite = managerFactory.getSiteManager().getListSite();
+			listPays = managerFactory.getSiteManager().getListPays();
+			listVille = managerFactory.getSiteManager().getListVille();
+		}
+		return ActionSupport.SUCCESS;
 	}
 
 	// Action permettant de créer un nouveau commentaire sur un site

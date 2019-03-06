@@ -11,7 +11,7 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row recherche">
 			<div class="col-lg-4">
-				<select class="form-control" name="pays">
+				<select class="form-control" onchange="redirect(this.value)">
 					<option value="" selected disabled hidden>Pays</option>
 					<s:iterator value="listPays">
 						<option value='<s:property value="id" />'><s:property value="nom" /></option>
@@ -19,7 +19,7 @@
 				</select>
 			</div>
 			<div class="col-lg-4">
-				<select class="form-control" name="ville">
+				<select class="form-control" onchange="redirectVille(this.value)">
 					<option value="" selected disabled hidden>Ville plus proche</option>
 					<s:iterator value="listVille">
 						<option value='<s:property value="id" />'><s:property value="nom" /></option>
@@ -65,5 +65,14 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		function redirect(selectedValue){
+		     window.location="site_list_pays.action?paysId="+selectedValue;
+		}
+		
+		function redirectVille(selectedValue){
+		     window.location="site_list_ville.action?villeId="+selectedValue;
+		}
+	</script>
 </body>
 </html>
