@@ -147,4 +147,14 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		getDaoFactory().getCommentaireSiteDao().deleteCommentairesSiteById(commentaireId);
 	}
 
+	@Override
+	public List<Ville> getListVille() {
+		List<Ville> listVille = getDaoFactory().getVilleDao().getListVille();
+		for (Ville ville : listVille) {
+			Pays vPays = getDaoFactory().getPaysDao().getPays(ville.getPays().getId());
+			ville.setPays(vPays);
+		}
+		return listVille;
+	}
+
 }

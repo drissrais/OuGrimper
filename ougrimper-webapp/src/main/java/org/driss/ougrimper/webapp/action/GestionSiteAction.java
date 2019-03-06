@@ -215,6 +215,8 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	// Action renvoyant la liste des sites d'escalade
 	public String doList() {
 		listSite = managerFactory.getSiteManager().getListSite();
+		listPays = managerFactory.getSiteManager().getListPays();
+		listVille = managerFactory.getSiteManager().getListVille();
 		return ActionSupport.SUCCESS;
 	}
 
@@ -225,6 +227,9 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 		} else {
 			site = managerFactory.getSiteManager().getSite(id);
 			listSecteur = managerFactory.getSiteManager().getListSecteur(id);
+			listPays = managerFactory.getSiteManager().getListPays();
+			listVille = managerFactory.getSiteManager().getListVille();
+			listSite = managerFactory.getSiteManager().getListSite();
 //            try {
 //            }
 //            catch (NotFoundException pE) {

@@ -50,4 +50,15 @@ public class VilleDaoImpl extends AbstractDaoImpl implements VilleDao {
 		vJdbcTemplate.update(vSQL, vParams);
 	}
 
+	@Override
+	public List<Ville> getListVille() {
+		String vSQL = "SELECT * FROM public.ville";
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		
+		RowMapper<Ville> vRowMapper = new VilleRM();
+		List<Ville> listVille = vJdbcTemplate.query(vSQL, vRowMapper);
+		
+		return listVille;
+	}
+
 }

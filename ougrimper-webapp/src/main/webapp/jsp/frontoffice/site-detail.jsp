@@ -11,18 +11,27 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row recherche">
 			<div class="col-lg-4">
-				<select class="form-control">
+				<select class="form-control" name="pays">
 					<option value="" selected disabled hidden>Pays</option>
+					<s:iterator value="listPays">
+						<option value='<s:property value="id" />'><s:property value="nom" /></option>
+					</s:iterator>
 				</select>
 			</div>
 			<div class="col-lg-4">
-				<select class="form-control">
-					<option value="" selected disabled hidden>Région</option>
+				<select class="form-control" name="ville">
+					<option value="" selected disabled hidden>Ville plus proche</option>
+					<s:iterator value="listVille">
+						<option value='<s:property value="id" />'><s:property value="nom" /></option>
+					</s:iterator>
 				</select>
 			</div>
 			<div class="col-lg-4">
-				<select class="form-control">
+				<select class="form-control" name="site">
 					<option value="" selected disabled hidden>Site</option>
+					<s:iterator value="listSite">
+						<option value='<s:property value="id" />'><s:property value="nom" /></option>
+					</s:iterator>
 				</select>
 			</div>
 		</section>

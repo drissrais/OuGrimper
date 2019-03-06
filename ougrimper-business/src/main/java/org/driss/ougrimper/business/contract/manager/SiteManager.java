@@ -29,5 +29,6 @@ public interface SiteManager {
 	void deleteVoiesSecteur(Integer secteurId);
 	void deleteSecteursSite(Integer siteId);
 	void deleteCommentairesSiteById(Integer commentaireId);
+	List<Ville> getListVille();
 
 }

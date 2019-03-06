@@ -21,7 +21,7 @@
 					<ul class="dropdown-menu">
 						<li><s:a action="site_list">LISTE SITES D'ESCALADE</s:a></li>
 						<li><a href="#">SITES D'ESCALADE PAR PAYS</a></li>
-						<li><a href="#">SITES D'ESCALADE PAR REGION</a></li>
+						<li><a href="#">SITES D'ESCALADE PAR VILLE PLUS PROCHE</a></li>
 					</ul></li>
 				<li><s:a action="topo_list">TOPOS</s:a></li>
 				<s:if test="%{#session.user.role=='admin'}">
