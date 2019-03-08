@@ -10,7 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row recherche">
-			<div class="col-lg-4">
+			<div class="col-xs-4">
 				<select class="form-control" onchange="redirect(this.value)">
 					<option value="" selected disabled hidden>Pays</option>
 					<s:iterator value="listPays">
@@ -18,7 +18,7 @@
 					</s:iterator>
 				</select>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-xs-4">
 				<select class="form-control" onchange="redirectVille(this.value)">
 					<option value="" selected disabled hidden>Ville plus proche</option>
 					<s:iterator value="listVille">
@@ -26,7 +26,7 @@
 					</s:iterator>
 				</select>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-xs-4">
 				<select class="form-control" onchange="redirectSite(this.value)">
 					<option value="" selected disabled hidden>Site</option>
 					<s:iterator value="listSite">
@@ -110,7 +110,7 @@
 			</div>
 		</section>
 		<div class="row">
-			<section class="col-lg-8">
+			<section class="col-xs-8">
 				<form action="addNewComment" class="well well-lg well-sm">
 					<s:hidden name="id" value="%{site.id}" />
 					<h4>
@@ -136,9 +136,9 @@
 					</fieldset>
 				</form>
 			</section>
-			<section class="col-sm-4">
+			<section class="col-xs-4">
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-xs-12">
 						<address class="well well-lg well-sm">
 							<p class="site-detail-p">
 								<s:a action="login">Connectez-vous</s:a>
@@ -147,17 +147,19 @@
 							</p>
 						</address>
 					</div>
-					<s:if test="#session.user">
-						<s:a class="btn btn-warning col-lg-offset-3 col-lg-6"
-							action="comment_list">
-							VOIR LES DISCUSSIONS
-							<s:param name="id" value="site.id" />
-						</s:a>
-					</s:if>
-					<s:else>
-						<button class="btn btn-warning col-lg-offset-3 col-lg-6" disabled>VOIR
-							LES DISCUSSIONS</button>
-					</s:else>
+					<div class="col-xs-12">
+						<s:if test="#session.user">
+							<s:a class="btn btn-warning btn-block"
+								action="comment_list">
+								VOIR LES DISCUSSIONS
+								<s:param name="id" value="site.id" />
+							</s:a>
+						</s:if>
+						<s:else>
+							<button class="btn btn-warning btn-block" disabled>VOIR
+								LES DISCUSSIONS</button>
+						</s:else>
+					</div>
 				</div>
 			</section>
 		</div>

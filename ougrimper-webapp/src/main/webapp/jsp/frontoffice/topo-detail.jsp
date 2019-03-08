@@ -61,7 +61,7 @@
 			</div>
 		</section>
 		<div class="row">
-			<section class="col-lg-8">
+			<section class="col-xs-8">
 				<form class="well well-lg well-sm" action="addNewReservation">
 					<s:hidden name="id" value="%{topo.id}" />
 					<h4>
@@ -91,9 +91,9 @@
 					</fieldset>
 				</form>
 			</section>
-			<section class="col-sm-4">
+			<section class="col-xs-4">
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-xs-12">
 						<address class="well well-lg well-sm">
 							<p class="topo-detail-p">
 								<s:a action="login">Connectez-vous</s:a>
@@ -102,17 +102,19 @@
 							</p>
 						</address>
 					</div>
-					<s:if test="#session.user">
-						<s:a class="btn btn-warning col-lg-offset-2 col-lg-8"
-							action="reservation_list">
-							LISTE DES RESERVATIONS
-							<s:param name="id" value="topo.id" />
-						</s:a>
-					</s:if>
-					<s:else>
-						<button class="btn btn-warning col-lg-offset-2 col-lg-8" disabled>LISTE
-							DES RESERVATIONS</button>
-					</s:else>
+					<div class="col-xs-12">
+						<s:if test="#session.user">
+							<s:a class="btn btn-warning btn-block"
+								action="reservation_list">
+								LISTE DES RESERVATIONS
+								<s:param name="id" value="topo.id" />
+							</s:a>
+						</s:if>
+						<s:else>
+							<button class="btn btn-warning btn-block" disabled>LISTE
+								DES RESERVATIONS</button>
+						</s:else>
+					</div>
 				</div>
 			</section>
 		</div>

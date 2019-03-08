@@ -3,6 +3,7 @@ package org.driss.ougrimper.business.impl.manager;
 import java.util.List;
 
 import org.driss.ougrimper.business.contract.manager.TopoManager;
+import org.driss.ougrimper.model.bean.site.Pays;
 import org.driss.ougrimper.model.bean.site.Site;
 import org.driss.ougrimper.model.bean.topo.Reservation;
 import org.driss.ougrimper.model.bean.topo.Topo;
@@ -20,6 +21,8 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 		topo.setProprietaire(vProprietaireTopo);
 		
 		Site vSite = getDaoFactory().getSiteDao().getSite(topo.getSite().getId());
+		Pays vPays = getDaoFactory().getPaysDao().getPays(vSite.getPays().getId());
+		vSite.setPays(vPays);
 		topo.setSite(vSite);
 		
 		return topo;

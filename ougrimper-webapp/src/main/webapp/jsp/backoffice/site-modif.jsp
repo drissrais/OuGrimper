@@ -11,7 +11,7 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
 			<div class="col-lg-12">
-				<form class="well form-horizontal" action="site_edit"
+				<form id="spotEditForm" class="well form-horizontal" action="site_edit"
 					enctype="multipart/form-data" method="post">
 
 					<%
@@ -27,20 +27,20 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="nom" class="col-lg-2 control-label">Nom : </label>
+							<label for="nom" class="col-lg-2 control-label">Nom : <span class="required">*</span></label>
 							<div class="col-lg-10">
 								<input id="nom" type="text" class="form-control"
-									value="<s:property value="site.nom" />" name="site.nom">
+									value="<s:property value="site.nom" />" name="site.nom" required>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="description" class="col-lg-2 control-label">Description
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-10">
 								<textarea class="form-control" id="description"
-									name="site.description" rows="4"><s:property
+									name="site.description" rows="4" required><s:property
 										value="site.description" /></textarea>
 							</div>
 						</div>
@@ -48,9 +48,9 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="region" class="col-lg-2 control-label">Région
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-10">
-								<select id="region" class="form-control" name="site.region">
+								<select id="region" class="form-control" name="site.region" required title="Veuillez choisir une région !">
 									<s:iterator value="listSite">
 										<s:if test="region == site.region">
 											<option selected><s:property value="region" /></option>
@@ -66,20 +66,20 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="localite" class="col-lg-2 control-label">Localité
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-10">
 								<textarea class="form-control" id="localite"
-									name="site.localite" rows="4"><s:property
+									name="site.localite" rows="4" required><s:property
 										value="site.localite" /></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="pays" class="col-lg-2 control-label">Pays : </label>
+							<label for="pays" class="col-lg-2 control-label">Pays : <span class="required">*</span></label>
 							<div class="col-lg-10">
 								<select id="pays" name="site.pays.id" class="form-control"
-									onchange="onSelectPaysChange()">
+									onchange="onSelectPaysChange()" required title="Veuillez choisir un pays !">
 									<s:iterator value="listPays">
 										<s:if test="id == site.pays.id">
 											<option value="<s:property value="id"/>" selected><s:property
@@ -97,9 +97,9 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="ville" class="col-lg-2 control-label">Ville
-								la plus proche : </label>
+								la plus proche : <span class="required">*</span></label>
 							<div class="col-lg-10">
-								<select id="ville" name="site.ville.id" class="form-control">
+								<select id="ville" name="site.ville.id" class="form-control" required title="Veuillez choisir une ville !">
 									<option value="<s:property value="site.ville.id"/>"><s:property
 											value="site.ville.nom" /></option>
 								</select>
@@ -158,6 +158,23 @@
 				alert("Une erreur s'est produite.");
 			});
 		}
+		
+		$( "#spotEditForm" ).validate({
+			errorClass: 'errors',
+			rules: {
+// 			  nom: "required",
+// 			  description: "required",
+// 			  region: "required",
+// 			  localite: "required",
+// 			  pays: "required",
+// 			  ville: "required"
+			}
+		});
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
 	</script>
 </body>
 </html>

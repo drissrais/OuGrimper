@@ -76,14 +76,19 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 		if (!StringUtils.isAllEmpty(email, password)) {
 //			try {
 			user = managerFactory.getUtilisateurManager().getUtilisateur(email, password);
+			if (user == null) {
+				this.addActionError("Identifiant ou mot de passe invalide !");
+				return vResult;
+			} else {
+				// Ajout de l'utilisateur en session
+				this.session.put("user", user);
 
-			// Ajout de l'utilisateur en session
-			this.session.put("user", user);
-
-			vResult = ActionSupport.SUCCESS;
+				vResult = ActionSupport.SUCCESS;
+				return vResult;
 //			} catch (NotFoundException pEx) {
 //				this.addActionError("Identifiant ou mot de passe invalide !");
 //			}
+			}
 		}
 		return vResult;
 	}

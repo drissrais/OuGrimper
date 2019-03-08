@@ -11,7 +11,7 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
 			<div class="col-lg-10">
-				<form class="well form-horizontal" action="topo_edit"
+				<form id="topoEditForm" class="well form-horizontal" action="topo_edit"
 					enctype="multipart/form-data" method="post">
 
 					<% String id = request.getParameter("id"); %>
@@ -25,21 +25,21 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="nom" class="col-lg-3 control-label">Nom : </label>
+							<label for="nom" class="col-lg-3 control-label">Nom : <span class="required">*</span></label>
 							<div class="col-lg-9">
 								<input id="nom" type="text"
 									value="<s:property value="topo.nom" />" name="topo.nom"
-									class="form-control">
+									class="form-control" required>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="description" class="col-lg-3 control-label">Description
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-9">
 								<textarea class="form-control" id="description"
-									name="topo.description" rows="4">
+									name="topo.description" rows="4" required>
 									<s:property value="topo.description" />
 								</textarea>
 							</div>
@@ -48,9 +48,9 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="owner" class="col-lg-3 control-label">Propriétaire
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<select id="owner" name="topo.proprietaire.id" class="form-control">
+								<select id="owner" name="topo.proprietaire.id" class="form-control" required title="Veuillez déterminer le propriétaire !">
 									<s:iterator value="listProprietaireTopo">
 										<s:if test="id == topo.proprietaire.id">
 											<option value="<s:property value="id" />" selected><s:property
@@ -69,7 +69,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="disponible" class="col-lg-3 control-label">Disponible pour Prêt : </label>
+							<label for="disponible" class="col-lg-3 control-label">Prêtable : <span class="required">*</span></label>
 							<div class="col-lg-9">
 								<s:if test="topo.disponible == true">
 									<label class="radio-inline"> <input type="radio"
@@ -90,9 +90,9 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="site-topo" class="col-lg-3 control-label">Site : </label>
+							<label for="site-topo" class="col-lg-3 control-label">Site : <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<select id="site-topo" name="topo.site.id" class="form-control">
+								<select id="site-topo" name="topo.site.id" class="form-control" required title="Veuillez déterminer le site correspondant !">
 									<s:iterator value="listSite">
 										<s:if test="id == topo.site.id">
 											<option value="<s:property value="id" />" selected>
@@ -127,5 +127,21 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$( "#topoEditForm" ).validate({
+			errorClass: 'errors',
+	//			rules: {
+	//			  nom: "required",
+	//			  description: "required",
+	//			  owner: "required",
+	//			  site-topo: "required"
+	//			}
+		});
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
+	</script>
 </body>
 </html>

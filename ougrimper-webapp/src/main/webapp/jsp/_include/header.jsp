@@ -14,18 +14,18 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><s:a action="index">ACCUEIL</s:a></li>
-				<li class="dropdown"><a id="site_dropdown"
+				<li id="home"><s:a action="index">ACCUEIL</s:a></li>
+				<li id="spots" class="dropdown"><a id="site_dropdown"
 					data-toggle="dropdown" href="#">SITES D'ESCALADE <b
 						class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><s:a action="site_list">LISTE SITES D'ESCALADE</s:a></li>
-						<li><a href="#">SITES D'ESCALADE PAR PAYS</a></li>
-						<li><a href="#">SITES D'ESCALADE PAR VILLE PLUS PROCHE</a></li>
+						<li><s:a action="pays_list">SITES D'ESCALADE PAR PAYS</s:a></li>
+						<li><s:a action="ville_list">SITES D'ESCALADE PAR VILLE PLUS PROCHE</s:a></li>
 					</ul></li>
-				<li><s:a action="topo_list">TOPOS</s:a></li>
+				<li id="topos"><s:a action="topo_list">TOPOS</s:a></li>
 				<s:if test="%{#session.user.role=='admin'}">
-					<li class="dropdown"><a id="admin_dropdown"
+					<li id="administration" class="dropdown"><a id="admin_dropdown"
 						data-toggle="dropdown" href="#">ADMINISTRATION <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><s:a action="site_gestion">GESTION SITES D'ESCALADE</s:a></li>

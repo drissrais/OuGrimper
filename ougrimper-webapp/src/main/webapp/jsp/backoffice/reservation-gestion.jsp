@@ -13,7 +13,7 @@
 			<h1>Gestion Réservation</h1>
 		</header>
 		<div class="row">
-			<div class="col-lg-10">
+			<div class="col-md-10 col-sm-12 col-xs-12">
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
@@ -71,6 +71,11 @@
 				$('#t' + val).remove();
 			});
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
 	</script>
 </body>
 </html>

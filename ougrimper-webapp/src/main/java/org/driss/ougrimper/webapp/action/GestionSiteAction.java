@@ -305,6 +305,22 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 		}
 		return ActionSupport.SUCCESS;
 	}
+	
+	// Action listant les pays contenant des sites d'escalade
+	public String doListPays() {
+		listPays = managerFactory.getSiteManager().getListPays();
+		listVille = managerFactory.getSiteManager().getListVille();
+		listSite = managerFactory.getSiteManager().getListSite();
+		return ActionSupport.SUCCESS;
+	}
+	
+	// Action listant les plus proches villes des sites d'escalade
+	public String doListVille() {
+		listVille = managerFactory.getSiteManager().getListVille();
+		listPays = managerFactory.getSiteManager().getListPays();
+		listSite = managerFactory.getSiteManager().getListSite();
+		return ActionSupport.SUCCESS;
+	}
 
 	// Action permettant de créer un nouveau commentaire sur un site
 	public String doAddNewComment() {

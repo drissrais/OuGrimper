@@ -12,16 +12,8 @@
 		<header class="page-header">
 			<h1>Gestion de topos d'escalade</h1>
 		</header>
-		<section class="row">
-			<div class="col-xs-1">
-				<s:a title="Nouveau topo" class="btn btn-success btn-lg"
-					id="topo-new" action="topo_new">
-					<i class="fas fa-folder-plus fa-2x"></i>
-				</s:a>
-			</div>
-		</section>
 		<div class="row">
-			<div class="col-lg-10">
+			<div class="col-md-10 col-sm-12 col-xs-12">
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
@@ -60,6 +52,12 @@
 					</table>
 				</div>
 			</div>
+			<div class="col-md-2">
+				<s:a title="Nouveau topo" class="btn btn-success btn-lg"
+					id="topo-new" action="topo_new">
+					Nouveau topo <i class="fas fa-folder-plus"></i>
+				</s:a>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript"
@@ -81,6 +79,11 @@
 				$('#t' + val).remove();
 			});
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
 	</script>
 </body>
 </html>

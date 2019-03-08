@@ -141,6 +141,20 @@
 			method="doListSiteVille">
 			<result>/jsp/frontoffice/recherche-ville.jsp</result>
 		</action>
+		
+		<!-- Action listant les pays contenant des sites d'escalade -->
+		<action name="pays_list"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListPays">
+			<result>/jsp/frontoffice/listPays.jsp</result>
+		</action>
+		
+		<!-- Action listant les plus proches villes des sites d'escalade -->
+		<action name="ville_list"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListVille">
+			<result>/jsp/frontoffice/listVille.jsp</result>
+		</action>
 
 		<!-- Actions spécifiques à l'administrateur -->
 

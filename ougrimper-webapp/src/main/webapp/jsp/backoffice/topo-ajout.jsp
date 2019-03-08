@@ -11,36 +11,36 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
 			<div class="col-lg-10">
-				<form class="well form-horizontal" enctype="multipart/form-data"
+				<form id="topoAddForm" class="well form-horizontal" enctype="multipart/form-data"
 					action="topo_new" method="post">
 					<div class="form-group">
 						<legend>Nouveau Topo</legend>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="nom" class="col-lg-4 control-label">Nom : </label>
+							<label for="nom" class="col-lg-4 control-label">Nom : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="nom" name="topo.nom" type="text" class="form-control">
+								<input id="nom" name="topo.nom" type="text" class="form-control" required>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="description" class="col-lg-4 control-label">Description
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-8">
 								<textarea class="form-control" id="description"
-									name="topo.description" rows="4"></textarea>
+									name="topo.description" rows="4" required></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="owner" class="col-lg-4 control-label">Propriétaire
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<select id="owner" name="topo.proprietaire.id"
-									class="form-control">
+								<select id="owner" name="topo.proprietaire.id" title="Veuillez déterminer le propriétaire !"
+									class="form-control" required>
 									<option selected></option>
 									<s:iterator value="listProprietaireTopo">
 										<option value="<s:property value="id"/>">
@@ -53,7 +53,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="disponible" class="col-lg-4 control-label">Disponible : </label>
+							<label for="disponible" class="col-lg-4 control-label">Prêtable : <span class="required">*</span></label>
 							<div class="col-lg-8">
 								<label class="radio-inline"> <input type="radio"
 									name="topo.disponible" id="disponible" value="true" checked> Oui
@@ -66,9 +66,9 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="site-topo" class="col-lg-4 control-label">Site
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<select id="site-topo" name="topo.site.id" class="form-control">
+								<select id="site-topo" name="topo.site.id" class="form-control" title="Veuillez déterminer le spot correspondant !" required>
 									<option selected></option>
 									<s:iterator value="listSite">
 										<option value="<s:property value="id"/>">
@@ -100,5 +100,21 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$( "#topoAddForm" ).validate({
+			errorClass: 'errors',
+// 			rules: {
+// 			  nom: "required",
+// 			  description: "required",
+// 			  owner: "required",
+// 			  site-topo: "required"
+// 			}
+		});
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
+	</script>
 </body>
 </html>

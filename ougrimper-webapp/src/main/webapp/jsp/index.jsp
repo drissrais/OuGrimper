@@ -11,7 +11,7 @@
 		<%@ include file="_include/header.jsp"%>
 		<header class="page-header">
 			<s:actionmessage class="label-success actionMessage"/>
-			<h1>GRIMPO.. le site de l'escalade</h1>
+			<h1 id="site-title-police">G R I M P O.. le site de l'escalade</h1>
 		</header>
 		<section class="row">
 			<div class="col-lg-12">
@@ -48,7 +48,7 @@
 			<div class="col-sm-8">
 				<div class="embed-responsive embed-responsive-16by9">
 					<iframe class="embed-responsive-item"
-						src="https://www.youtube.com/embed/A9d1OtIzOZw" frameborder="0"
+						src="https://www.youtube.com/embed/2TE7v1FH-qo" frameborder="0"
 						allowfullscreen></iframe>
 				</div>
 			</div>
@@ -61,5 +61,11 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#home').addClass('active');
+		});
+	</script>
 </body>
 </html>

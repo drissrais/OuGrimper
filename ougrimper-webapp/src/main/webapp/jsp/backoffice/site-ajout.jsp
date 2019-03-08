@@ -11,25 +11,25 @@
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
 			<div class="col-lg-10">
-				<form class="well form-horizontal" enctype="multipart/form-data"
+				<form id="spotAddForm" class="well form-horizontal" enctype="multipart/form-data"
 					action="site_new" method="post">
 					<div class="form-group">
 						<legend>Nouveau Site</legend>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="nom" class="col-lg-3 control-label">Nom : </label>
+							<label for="nom" class="col-lg-3 control-label">Nom : <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<input id="nom" name="site.nom" type="text" class="form-control">
+								<input id="nom" name="site.nom" type="text" class="form-control" required>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="description" class="col-lg-3 control-label">Description
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<textarea class="form-control" id="description" rows="4"
+								<textarea class="form-control" id="description" rows="4" required
 									name="site.description"></textarea>
 							</div>
 						</div>
@@ -37,9 +37,9 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="region" class="col-lg-3 control-label">Région
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<input id="region" name="site.region" type="text"
+								<input id="region" name="site.region" type="text" required
 									class="form-control">
 							</div>
 						</div>
@@ -47,19 +47,19 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="localite" class="col-lg-3 control-label">Localité
-								: </label>
+								: <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<textarea class="form-control" id="localite"
+								<textarea class="form-control" id="localite" required
 									name="site.localite" rows="4"></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="pays" class="col-lg-3 control-label">Pays : </label>
+							<label for="pays" class="col-lg-3 control-label">Pays : <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<select id="pays" name="site.pays.id" class="form-control"
-									onchange="onSelectPaysChange()">
+								<select id="pays" name="site.pays.id" class="form-control" title="Veuillez choisir un pays !"
+									onchange="onSelectPaysChange()" required>
 									<option selected></option>
 									<s:iterator value="listPays">
 										<option value="<s:property value="id"/>"><s:property value="nom" /></option>
@@ -71,9 +71,9 @@
 					<div class="row">
 						<div class="form-group">
 							<label for="ville" class="col-lg-3 control-label">Ville
-								la plus proche : </label>
+								la plus proche : <span class="required">*</span></label>
 							<div class="col-lg-9">
-								<select id="ville" name="site.ville.id" class="form-control">
+								<select id="ville" name="site.ville.id" class="form-control" title="Veuillez choisir une ville !" required>
 								</select>
 							</div>
 						</div>
@@ -110,36 +110,53 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
-	function onSelectPaysChange() {
-		// URL de l'action AJAX
-		var url = "<s:url action='ajax_getListVille'/>";
-
-		// Paramètres de la requête AJAX
-		var params = {
-			paysId : jQuery("#pays").val()
-		};
-		// alert(paysId);
-		// Action AJAX en POST
-		jQuery.post(
-				url,
-				params,
-				function(data) {
-					// alert(data);
-					var $selectVille = jQuery("#ville");
-					$selectVille.empty();
-					jQuery.each(data, function(key, val) {
-						$selectVille.append(jQuery("<option>")
-								.text(val.nom).val(val.id));
-					});
-				}).fail(function(data) {
-			if (typeof data.responseJSON === 'object') {
-				console.log(data.responseJSON);
-			} else {
-				console.log(data);
+		function onSelectPaysChange() {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_getListVille'/>";
+	
+			// Paramètres de la requête AJAX
+			var params = {
+				paysId : jQuery("#pays").val()
+			};
+			// alert(paysId);
+			// Action AJAX en POST
+			jQuery.post(
+					url,
+					params,
+					function(data) {
+						// alert(data);
+						var $selectVille = jQuery("#ville");
+						$selectVille.empty();
+						jQuery.each(data, function(key, val) {
+							$selectVille.append(jQuery("<option>")
+									.text(val.nom).val(val.id));
+						});
+					}).fail(function(data) {
+				if (typeof data.responseJSON === 'object') {
+					console.log(data.responseJSON);
+				} else {
+					console.log(data);
+				}
+				alert("Une erreur s'est produite.");
+			});
+		}
+		
+		$( "#spotAddForm" ).validate({
+			errorClass: 'errors',
+			rules: {
+// 			  nom: "required",
+// 			  description: "required",
+// 			  region: "required",
+// 			  localite: "required",
+// 			  pays: "required",
+// 			  ville: "required"
 			}
-			alert("Une erreur s'est produite.");
 		});
-	}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
 	</script>
 </body>
 </html>

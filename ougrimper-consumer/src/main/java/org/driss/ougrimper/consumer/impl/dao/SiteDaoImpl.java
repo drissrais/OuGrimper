@@ -15,11 +15,14 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 	@Override
 	public Site getSite(Integer siteId) {
 		Site site = null;
-		String vSQL = "SELECT * FROM public.site WHERE id = ?";
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		String vSQL = "SELECT * FROM public.site WHERE id = :id";
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("id", siteId);
 
 		RowMapper<Site> vRowMapper = new SiteRM();
-		site = (Site) vJdbcTemplate.queryForObject(vSQL, new Object[] { siteId }, vRowMapper);
+		site = (Site) vJdbcTemplate.queryForObject(vSQL, vParams, vRowMapper);
 
 		return site;
 	}

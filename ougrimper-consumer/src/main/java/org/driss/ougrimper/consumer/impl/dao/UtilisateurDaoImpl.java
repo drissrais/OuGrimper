@@ -20,8 +20,11 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 		RowMapper<Utilisateur> vRowMapper = new UtilisateurRM();
-
-		utilisateur = (Utilisateur) vJdbcTemplate.queryForObject(vSQL, new Object[] { email, motDePasse }, vRowMapper);
+		try {
+			utilisateur = (Utilisateur) vJdbcTemplate.queryForObject(vSQL, new Object[] { email, motDePasse }, vRowMapper);
+		} catch (Exception ex) {
+			return null;
+		}
 		return utilisateur;
 	}
 
@@ -61,12 +64,12 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 	@Override
 	public List<Utilisateur> getListUtilisateur() {
 		String vSQL = "SELECT * FROM public.compte_utilisateur";
-		
+
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 		RowMapper<Utilisateur> vRowMapper = new UtilisateurRM();
-		
+
 		List<Utilisateur> listUtilisateur = vJdbcTemplate.query(vSQL, vRowMapper);
-		
+
 		return listUtilisateur;
 	}
 
@@ -74,10 +77,10 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 	public void deleteUtilisateur(Integer userId) {
 		String vSQL = "DELETE FROM public.compte_utilisateur WHERE id = :id";
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		
+
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("id", userId);
-		
+
 		vJdbcTemplate.update(vSQL, vParams);
 	}
 

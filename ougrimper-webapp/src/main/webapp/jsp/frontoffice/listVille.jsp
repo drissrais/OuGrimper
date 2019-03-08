@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Sites d'escalade : liste des meilleurs spots d'escalade</title>
+<title>Sites escalade par ville plus proche</title>
 </head>
 <body>
 	<div class="container">
@@ -37,30 +37,22 @@
 		</section>
 		<header class="page-header">
 			<s:actionmessage class="label-success actionMessage"/>
-			<h1 id="site-title">Tous les sites d'escalade</h1>
-			<span class="listSite-span">Accédez à la liste des sites d'escalade que nous avons
-				répertorié pour vous.</span>
+			<h1 id="site-title">Sites d'escalade par ville plus proche</h1>
+			<span class="listSite-span">
+				Retrouvez la présentation du site d'escalade dans la ville à proximité de votre choix.
+			</span>
 		</header>
 		<section class="row">
-			<s:iterator value="listSite">
-				<div class="col-xs-6 col-sm-6 col-md-4 site">
-					<h3>
-						<s:a action="site_detail" class="site_name">
-							<s:param name="id" value="id" />
-							<s:property value="nom"/>
-						</s:a>
-					</h3>
-					<s:property value="pays.nom"/>  -  <s:property value="region"/>
-					<div class="row">
-						<div class="col-md-12">
-							<s:a action="site_detail">
-								<s:param name="id" value="id" />
-								<img title="<s:property value="nom"/>" src="<s:property value="photo"/>">
-							</s:a>
-						</div>
-					</div>
-				</div>
-			</s:iterator>
+			<div class="col-sm-4">
+				<ul class="list-group list-inline">
+					<s:iterator value="listVille">
+						<s:a action="site_list_ville" class="list-group-item">
+      						<s:property value="nom" />
+      						<s:param name="villeId" value="id" />
+  						</s:a>
+					</s:iterator>
+				</ul>
+			</div>
 		</section>
 	</div>
 	<script type="text/javascript"
