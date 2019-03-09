@@ -10,6 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
+			<s:actionmessage class="label-success actionMessage"/>
 			<h1>Gestion des utilisateurs</h1>
 		</header>
 		<div class="row">

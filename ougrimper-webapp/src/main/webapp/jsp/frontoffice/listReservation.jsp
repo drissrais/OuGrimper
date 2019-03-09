@@ -108,6 +108,11 @@
 				alert("Une erreur s'est produite.");
 			});
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#topos').addClass('active');
+		});
 	</script>
 </body>
 </html>

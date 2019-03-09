@@ -312,6 +312,10 @@
 		<action name="utilisateur_gestion"
 			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
 			method="doList">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 			<result>/jsp/backoffice/utilisateur-gestion.jsp</result>
 		</action>
 		
@@ -320,6 +324,19 @@
 			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
 			method="doDetailUtilisateur">
 			<result name="success">/jsp/backoffice/utilisateur-modif.jsp</result>
+		</action>
+		
+		<!-- Action(s) permettant de modifier un site d'escalade -->
+		<action name="utilisateur_edit"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doEditUtilisateur">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirectAction">
+				<param name="actionName">utilisateur_gestion</param>
+			</result>
 		</action>
 
 		<!-- Action de gestion des commentaires -->

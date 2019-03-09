@@ -38,5 +38,11 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#topos').addClass('active');
+		});
+	</script>
 </body>
 </html>

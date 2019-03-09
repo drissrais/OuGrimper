@@ -102,6 +102,11 @@
 				alert("Une erreur s'est produite.");
 			});
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#spots').addClass('active');
+		});
 	</script>
 </body>
 </html>

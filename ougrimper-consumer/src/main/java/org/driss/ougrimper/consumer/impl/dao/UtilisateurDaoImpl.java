@@ -21,7 +21,8 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 		RowMapper<Utilisateur> vRowMapper = new UtilisateurRM();
 		try {
-			utilisateur = (Utilisateur) vJdbcTemplate.queryForObject(vSQL, new Object[] { email, motDePasse }, vRowMapper);
+			utilisateur = (Utilisateur) vJdbcTemplate.queryForObject(vSQL, new Object[] { email, motDePasse },
+					vRowMapper);
 		} catch (Exception ex) {
 			return null;
 		}
@@ -80,6 +81,27 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("id", userId);
+
+		vJdbcTemplate.update(vSQL, vParams);
+	}
+
+	@Override
+	public void updateUtilisateur(Utilisateur utilisateur) {
+		String vSQL = "UPDATE public.compte_utilisateur "
+				+ "SET nom = :nom, prenom = :prenom, civilite = :civilite, date_de_naissance = :date_de_naissance, email = :email, role = :role, pseudo = :pseudo, mot_de_passe = :mot_de_passe WHERE id = :id";
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+
+		vParams.addValue("nom", utilisateur.getNom());
+		vParams.addValue("prenom", utilisateur.getPrenom());
+		vParams.addValue("civilite", utilisateur.getCivilite());
+		vParams.addValue("date_de_naissance", utilisateur.getDateDeNaissance());
+		vParams.addValue("email", utilisateur.getEmail());
+		vParams.addValue("role", utilisateur.getRole());
+		vParams.addValue("pseudo", utilisateur.getPseudo());
+		vParams.addValue("mot_de_passe", utilisateur.getMotDePasse());
+		vParams.addValue("id", utilisateur.getId());
 
 		vJdbcTemplate.update(vSQL, vParams);
 	}

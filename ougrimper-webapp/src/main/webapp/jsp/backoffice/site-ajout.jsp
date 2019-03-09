@@ -142,7 +142,9 @@
 		}
 		
 		$( "#spotAddForm" ).validate({
-			errorClass: 'errors',
+			debug: false,
+		    errorElement: "span",
+		    errorClass: "help-block",
 			rules: {
 // 			  nom: "required",
 // 			  description: "required",

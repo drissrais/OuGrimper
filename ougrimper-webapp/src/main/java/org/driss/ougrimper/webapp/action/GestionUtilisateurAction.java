@@ -34,6 +34,7 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 
 	// ----- Eléments en entrée et en sortie
 	private Utilisateur utilisateur;
+	private String passConfirm;
 
 	// ==================== Getters/Setters ====================
 	public Integer getId() {
@@ -60,6 +61,12 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 	public void setListTopo(List<Topo> listTopo) {
 		this.listTopo = listTopo;
 	}
+	public String getPassConfirm() {
+		return passConfirm;
+	}
+	public void setPassConfirm(String passConfirm) {
+		this.passConfirm = passConfirm;
+	}
 
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -80,6 +87,7 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 		// Par défaut, le result est "input"
 		String vResult = ActionSupport.INPUT;
 
+		passConfirm= null;
 		// ===== Validation de la creation d'utilisateur (utilisateur != null)
 		if (this.utilisateur != null) {
 			// Si pas d'erreur, ajout du projet...
@@ -136,31 +144,60 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
 		} else {
 			// Récupérer l'utilisateur à partir de son identifiant
 			utilisateur = managerFactory.getUtilisateurManager().getUtilisateur(id);
-			
-			// Si l'utilisateur est un propriétaire de topo 
+
+			// Si l'utilisateur est un propriétaire de topo
 			if (utilisateur.getRole().equals("topo_owner")) {
 				// On récupére la liste de ses topos
 				listTopo = managerFactory.getTopoManager().getListTopoUtilisateur(id);
 				// On parcourt cette liste
 				for (Topo topo : listTopo) {
-					// On supprime les réservations de chaque topo de la liste 
+					// On supprime les réservations de chaque topo de la liste
 					managerFactory.getTopoManager().deleteReservationsTopo(topo.getId());
-					// On supprime chaque topo que posséde ce propriétaire 
+					// On supprime chaque topo que posséde ce propriétaire
 					managerFactory.getTopoManager().deleteTopoById(topo.getId());
 				}
 				// Et on supprime le propriétaire lui-même
 				managerFactory.getUtilisateurManager().deleteUtilisateur(id);
-			// Sinon, c-à-d soit un admin soit un user normal
+				// Sinon, c-à-d soit un admin soit un user normal
 			} else {
 				// Supprimer les réservations de topo faites par cet utilisateur, s'il y en a
 				managerFactory.getTopoManager().deleteReservationsUtilisateur(id);
-				
+
 				// Supprimer l'utilisateur lui-même
 				managerFactory.getUtilisateurManager().deleteUtilisateur(id);
 			}
 
 		}
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
+	// Action permettant à l'administrateur de modifier les données un utilisateur
+	public String doEditUtilisateur() {
+		passConfirm = null;
+		// ===== Validation du nouveau utilisateur (utilisateur != null)
+		if (this.utilisateur != null) {
+			// Récupération du nom
+//				if (this.utilisateur.getNom() == null) {
+//					this.addFieldError("utilisateur.nom", "ne doit pas être vide");
+//				}
+
+			// Si pas d'erreur, mise à jour du site...
+			if (!this.hasErrors()) {
+//							try {
+				managerFactory.getUtilisateurManager().updateUtilisateur(this.utilisateur);
+				this.addActionMessage("Vos modifications ont été enregistrées avec succès !");
+//							} catch (FunctionalException pEx) {
+//								// Sur erreur fonctionnelle on reste sur la page de saisie
+//								// et on affiche un message d'erreur
+//								this.addActionError(pEx.getMessage());
+//							} catch (TechnicalException pEx) {
+//								// Sur erreur technique on part sur le result "error"
+//								this.addActionError(pEx.getMessage());
+//								vResult = ActionSupport.ERROR;
+//							}
+			}
+		}
+		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
 
 }

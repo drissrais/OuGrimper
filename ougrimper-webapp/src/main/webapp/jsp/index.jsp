@@ -9,6 +9,28 @@
 <body>
 	<div class="container">
 		<%@ include file="_include/header.jsp"%>
+		<section class="row">
+			<div class="col-md-12 hidden-xs hidden-sm">
+				<div class="carousel slide" id="carousel" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li class="active" data-target="#carousel" data-slide-to="0"></li>
+						<li data-target="#carousel" data-slide-to="1"></li>
+						<li data-target="#carousel" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner thumbnail">
+						<div class="item active">
+							<img alt="Escalade" style="width: 100%" title="ESCALADE" src="${pageContext.request.contextPath}/jsp/images/home.jpg" class="img-rounded">
+						</div>
+						<div class="item">
+							<img alt="Escalade" style="width: 100%" title="ESCALADE" src="${pageContext.request.contextPath}/jsp/images/home3.jpg" class="img-rounded">
+						</div>
+						<div class="item">
+							<img alt="Escalade" style="width: 100%" title="ESCALADE" src="${pageContext.request.contextPath}/jsp/images/home4.jpg" class="img-rounded">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<header class="page-header">
 			<s:actionmessage class="label-success actionMessage"/>
 			<h1 id="site-title-police">G R I M P O.. le site de l'escalade</h1>

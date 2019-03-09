@@ -43,8 +43,8 @@
 			</span>
 		</header>
 		<section class="row">
-			<div class="col-sm-4">
-				<ul class="list-group list-inline">
+			<div class="col-xs-5">
+				<ul class="list-group">
 					<s:iterator value="listVille">
 						<s:a action="site_list_ville" class="list-group-item">
       						<s:property value="nom" />
@@ -69,6 +69,11 @@
 		function redirectSite(selectedValue){
 		     window.location="site_detail.action?id="+selectedValue;
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#spots').addClass('active');
+		});
 	</script>
 </body>
 </html>

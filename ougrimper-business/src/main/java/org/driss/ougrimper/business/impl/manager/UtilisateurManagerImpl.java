@@ -44,4 +44,9 @@ public class UtilisateurManagerImpl extends AbstractManager implements Utilisate
 		getDaoFactory().getUtilisateurDao().deleteUtilisateur(userId);
 	}
 
+	@Override
+	public void updateUtilisateur(Utilisateur utilisateur) {
+		getDaoFactory().getUtilisateurDao().updateUtilisateur(utilisateur);
+	}
+
 }

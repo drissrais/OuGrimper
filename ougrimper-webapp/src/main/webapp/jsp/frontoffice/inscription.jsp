@@ -109,7 +109,9 @@
 		});
 		
 		$( "#signInForm" ).validate({
-			errorClass: 'errors',
+			debug: false,
+		    errorElement: "span",
+		    errorClass: "help-block",
 			rules: {
 				email: {
 			    	required: true,

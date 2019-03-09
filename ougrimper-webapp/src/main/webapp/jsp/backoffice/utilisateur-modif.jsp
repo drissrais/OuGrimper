@@ -35,12 +35,22 @@
 								: <span class="required">*</span></label>
 							<div class="col-lg-8">
 								<select id="civilite" name="utilisateur.civilite"
-									class="form-control">
-									<option selected disabled><s:property
-											value='utilisateur.civilite' /></option>
-									<option>Mlle.</option>
-									<option>Mme.</option>
-									<option>Mr.</option>
+									class="form-control" required>
+									<option selected>
+										<s:property value='utilisateur.civilite' />
+									</option>
+									<s:if test="%{utilisateur.civilite == 'M.'}">
+										<option>Mlle.</option>
+										<option>Mme.</option>
+									</s:if>
+									<s:if test="%{utilisateur.civilite == 'Mlle.'}">
+										<option>Mme.</option>
+										<option>Mr.</option>
+									</s:if>
+									<s:if test="%{utilisateur.civilite == 'Mme.'}">
+										<option>Mlle.</option>
+										<option>Mr.</option>
+									</s:if>
 								</select>
 							</div>
 						</div>
@@ -51,7 +61,7 @@
 							<div class="col-lg-8">
 								<input id="nom" name="utilisateur.nom"
 									value="<s:property value='utilisateur.nom' />" type="text"
-									class="form-control" required>
+									class="form-control">
 							</div>
 						</div>
 					</div>
@@ -62,7 +72,7 @@
 							<div class="col-lg-8">
 								<input id="prenom" name="utilisateur.prenom"
 									value="<s:property value='utilisateur.prenom' />" type="text"
-									class="form-control" required>
+									class="form-control">
 							</div>
 						</div>
 					</div>
@@ -73,7 +83,7 @@
 							<div class="col-lg-8">
 								<input id="pseudo" name="utilisateur.pseudo"
 									value="<s:property value='utilisateur.pseudo' />" type="text"
-									class="form-control" required>
+									class="form-control">
 							</div>
 						</div>
 					</div>
@@ -87,7 +97,7 @@
 							<label for="date" class="col-lg-4 control-label">Date de
 								naissance : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="date" name="utilisateur.dateDeNaissance" value="<%=d%>" type="date" class="form-control" required>
+								<input id="date" name="utilisateur.dateDeNaissance" value="<%=d%>" type="date" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -95,12 +105,20 @@
 						<div class="form-group">
 							<label for="role" class="col-lg-4 control-label">Role : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<select id="role" name="utilisateur.role" class="form-control" required title="Veuillez déterminer le rôle !">
-									<option selected disabled><s:property
-											value='utilisateur.role' /></option>
-									<option>topo_owner</option>
-									<option>user</option>
-									<option>admin</option>
+								<select id="role" name="utilisateur.role" class="form-control" title="Veuillez déterminer le rôle !">
+									<option selected><s:property value='utilisateur.role' /></option>
+									<s:if test="%{utilisateur.role == 'user'}">
+										<option>topo_owner</option>
+										<option>admin</option>
+									</s:if>
+									<s:if test="%{utilisateur.role == 'topo_owner'}">
+										<option>user</option>
+										<option>admin</option>
+									</s:if>
+									<s:if test="%{utilisateur.role == 'admin'}">
+										<option>user</option>
+										<option>topo_owner</option>
+									</s:if>
 								</select>
 							</div>
 						</div>
@@ -112,7 +130,7 @@
 							<div class="col-lg-8">
 								<input id="email" name="utilisateur.email"
 									value="<s:property value='utilisateur.email' />" type="email"
-									class="form-control" required>
+									class="form-control">
 							</div>
 						</div>
 					</div>
@@ -125,7 +143,7 @@
 									<input id="password" name="utilisateur.motDePasse"
 										value="<s:property value='utilisateur.motDePasse' />"
 										type="password" class="form-control"> <span
-										class="fa fa-fw fa-eye input-group-addon toggle-password" required></span>
+										class="fa fa-fw fa-eye input-group-addon toggle-password"></span>
 								</div>
 							</div>
 						</div>
@@ -160,18 +178,40 @@
 			}
 		});
 		
-		$( "#userUpdateForm" ).validate({
-			errorClass: 'errors',
-			rules: {
-				email: {
-			    	required: true,
-			    	email: true
-			    },
-				passConfirm: {
-					required: true,
-				  	equalTo: "#password"
+		$(function () {
+			$( "#userUpdateForm" ).validate({
+				debug: false,
+			    errorElement: "span",
+			    errorClass: "help-block",
+				rules: {
+					"utilisateur.nom": {
+						required: true
+					},
+					"utilisateur.prenom": {
+						required: true
+					},
+					"utilisateur.civilite": {
+						required: true
+					},
+					"utilisateur.dateDeNaissance": {
+						required: true
+					},
+					"utilisateur.pseudo": {
+						required: true
+					},
+					"utilisateur.email": {
+				    	required: true,
+				    	email: true
+				    },
+				    "utilisateur.motDePasse": {
+						required: true
+					},
+					passConfirm: {
+						required: true,
+						equalTo: "#password"
+					}
 				}
-			}
+			})
 		});
 		
 		$(document).ready(function () {

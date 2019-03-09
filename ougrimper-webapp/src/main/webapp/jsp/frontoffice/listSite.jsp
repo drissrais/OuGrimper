@@ -77,6 +77,11 @@
 		function redirectSite(selectedValue){
 		     window.location="site_detail.action?id="+selectedValue;
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#spots').addClass('active');
+		});
 	</script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row recherche">
-			<div class="col-lg-4">
+			<div class="col-xs-4">
 				<select class="form-control" onchange="redirect(this.value)">
 					<option value="" selected disabled hidden>Pays</option>
 					<s:iterator value="listPays">
@@ -19,7 +19,7 @@
 					</s:iterator>
 				</select>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-xs-4">
 				<select class="form-control" onchange="redirectVille(this.value)">
 					<option value="" selected disabled hidden>Ville plus
 						proche</option>
@@ -29,7 +29,7 @@
 					</s:iterator>
 				</select>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-xs-4">
 				<select class="form-control" onchange="redirectSite(this.value)">
 					<option value="" selected disabled hidden>Site</option>
 					<s:iterator value="listSite">
@@ -87,6 +87,11 @@
 		function redirectSite(selectedValue){
 		     window.location="site_detail.action?id="+selectedValue;
 		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#spots').addClass('active');
+		});
 	</script>
 </body>
 </html>
