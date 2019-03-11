@@ -130,11 +130,12 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 	}
 
 	@Override
-	public List<Site> getListSiteVille(Integer villeId) {
-		String vSQL = "SELECT * FROM public.site WHERE ville_plus_proche = :ville_plus_proche";
+	public List<Site> getListSiteVille(Integer paysId, Integer villeId) {
+		String vSQL = "SELECT * FROM public.site WHERE pays = :pays AND ville_plus_proche = :ville_plus_proche";
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("pays", paysId);
 		vParams.addValue("ville_plus_proche", villeId);
 
 		RowMapper<Site> vRowMapper = new SiteRM();

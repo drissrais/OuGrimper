@@ -9,32 +9,6 @@
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
-		<section class="row recherche">
-			<div class="col-xs-4">
-				<select class="form-control" onchange="redirect(this.value)">
-					<option value="" selected disabled hidden>Pays</option>
-					<s:iterator value="listPays">
-						<option value='<s:property value="id" />'><s:property value="nom" /></option>
-					</s:iterator>
-				</select>
-			</div>
-			<div class="col-xs-4">
-				<select class="form-control" onchange="redirectVille(this.value)">
-					<option value="" selected disabled hidden>Ville plus proche</option>
-					<s:iterator value="listVille">
-						<option value='<s:property value="id" />'><s:property value="nom" /></option>
-					</s:iterator>
-				</select>
-			</div>
-			<div class="col-xs-4">
-				<select class="form-control" onchange="redirectSite(this.value)">
-					<option value="" selected disabled hidden>Site</option>
-					<s:iterator value="listSite">
-						<option value='<s:property value="id" />'><s:property value="nom" /></option>
-					</s:iterator>
-				</select>
-			</div>
-		</section>
 		<header class="page-header">
 			<s:actionmessage class="label-success actionMessage"/>
 			<h1 class="site-detail-h1">
@@ -138,15 +112,17 @@
 			</section>
 			<section class="col-xs-4">
 				<div class="row">
-					<div class="col-xs-12">
-						<address class="well well-lg well-sm">
-							<p class="site-detail-p">
-								<s:a action="login">Connectez-vous</s:a>
-								pour pouvoir commencer une discussion... ou
-								<s:a action="inscription">inscrivez-vous</s:a>
-							</p>
-						</address>
-					</div>
+					<s:if test="!#session.user">
+						<div class="col-xs-12">
+							<address class="well well-lg well-sm">
+								<p class="site-detail-p">
+									<s:a action="login">Connectez-vous</s:a>
+									pour pouvoir commencer une discussion... ou
+									<s:a action="inscription">inscrivez-vous</s:a>
+								</p>
+							</address>
+						</div>
+					</s:if>
 					<div class="col-xs-12">
 						<s:if test="#session.user">
 							<s:a class="btn btn-warning btn-block"

@@ -128,20 +128,6 @@
 			</result>
 		</action>
 		
-		<!-- Action listant les sites d'escalade d'un pays (recherche) -->
-		<action name="site_list_pays"
-			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
-			method="doListSitePays">
-			<result>/jsp/frontoffice/recherche-pays.jsp</result>
-		</action>
-		
-		<!-- Action listant les sites d'escalade d'une ville (recherche) -->
-		<action name="site_list_ville"
-			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
-			method="doListSiteVille">
-			<result>/jsp/frontoffice/recherche-ville.jsp</result>
-		</action>
-		
 		<!-- Action listant les pays contenant des sites d'escalade -->
 		<action name="pays_list"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
@@ -230,6 +216,20 @@
 			<result name="success" type="redirectAction">
 				<param name="actionName">site_list</param>
 			</result>
+		</action>
+		
+		<!-- Action listant les sites d'escalade d'un pays (recherche) -->
+		<action name="site_list_pays"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListSitePays">
+			<result name="success">/jsp/frontoffice/recherche-pays.jsp</result>
+		</action>
+		
+		<!-- Action listant les sites d'escalade d'une ville (recherche) -->
+		<action name="site_list_ville"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListSiteVille">
+			<result name="success">/jsp/frontoffice/recherche-ville.jsp</result>
 		</action>
 
 		<!-- Actions liées aux topos d'escalade -->
@@ -444,6 +444,33 @@
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
 			method="doAjaxDeleteReservation">
 			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX listant les sites d'escalade d'un pays (recherche) -->
+		<action name="ajax_site_list_pays"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxListSitePays">
+			<result name="success" type="json">
+				<param name="includeProperties">listSitePays.*, pays.*, listVille.*</param>
+			</result>
+		</action>
+		
+		<!-- Action AJAX listant les sites d'escalade d'une ville (recherche) -->
+		<action name="ajax_site_list_ville"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxListSiteVille">
+			<result name="success" type="json">
+				<param name="includeProperties">listPays.*, pays.*, listSiteVille.*, ville.*</param>
+			</result>
+		</action>
+		
+		<!-- Action AJAX renvoyant le pays d'une ville -->
+		<action name="ajax_getPaysByVilleId"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxGetPaysByVilleId">
+			<result name="success" type="json">
+				<param name="root">pays</param>
+			</result>
 		</action>
 	</package>
 </struts>

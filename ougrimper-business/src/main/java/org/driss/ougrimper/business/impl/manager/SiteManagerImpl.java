@@ -169,6 +169,8 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		for (Site site : listSitePays) {
 			Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getId());
 			site.setPays(vPays);
+			Ville vVille = getDaoFactory().getVilleDao().getVille(site.getVille().getId());
+			site.setVille(vVille);
 		}
 		return listSitePays;
 	}
@@ -180,8 +182,8 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 	}
 
 	@Override
-	public List<Site> getListSiteVille(Integer villeId) {
-		List<Site> listSiteVille = getDaoFactory().getSiteDao().getListSiteVille(villeId);
+	public List<Site> getListSiteVille(Integer paysId, Integer villeId) {
+		List<Site> listSiteVille = getDaoFactory().getSiteDao().getListSiteVille(paysId, villeId);
 		for (Site site : listSiteVille) {
 			Pays vPays = getDaoFactory().getPaysDao().getPays(site.getPays().getId());
 			site.setPays(vPays);
@@ -190,5 +192,4 @@ public class SiteManagerImpl extends AbstractManager implements SiteManager {
 		}
 		return listSiteVille;
 	}
-
 }

@@ -33,6 +33,6 @@ public interface SiteManager {
 	Pays getPays(Integer paysId);
 	List<Site> getListSitePays(Integer paysId);
 	Ville getVille(Integer villeId);
-	List<Site> getListSiteVille(Integer villeId);
+	List<Site> getListSiteVille(Integer paysId, Integer villeId);
 
 }

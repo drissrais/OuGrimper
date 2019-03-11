@@ -70,172 +70,225 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getTextComment() {
 		return textComment;
 	}
+
 	public void setTextComment(String textComment) {
 		this.textComment = textComment;
 	}
+
 	public List<Site> getListSite() {
 		return listSite;
 	}
+
 	public void setListSite(List<Site> listSite) {
 		this.listSite = listSite;
 	}
+
 	public Site getSite() {
 		return site;
 	}
+
 	public void setSite(Site site) {
 		this.site = site;
 	}
+
 	public CommentaireSite getCommentaireSite() {
 		return commentaireSite;
 	}
+
 	public void setCommentaireSite(CommentaireSite commentaireSite) {
 		this.commentaireSite = commentaireSite;
 	}
+
 	public List<CommentaireSite> getListCommentaire() {
 		return listCommentaire;
 	}
+
 	public void setListCommentaire(List<CommentaireSite> listCommentaire) {
 		this.listCommentaire = listCommentaire;
 	}
+
 	public List<Secteur> getListSecteur() {
 		return listSecteur;
 	}
+
 	public void setListSecteur(List<Secteur> listSecteur) {
 		this.listSecteur = listSecteur;
 	}
+
 	public Secteur getSecteur() {
 		return secteur;
 	}
+
 	public void setSecteur(Secteur secteur) {
 		this.secteur = secteur;
 	}
+
 	public Integer getSecteurId() {
 		return secteurId;
 	}
+
 	public void setSecteurId(Integer secteurId) {
 		this.secteurId = secteurId;
 	}
+
 	public List<Voie> getListVoie() {
 		return listVoie;
 	}
+
 	public void setListVoie(List<Voie> listVoie) {
 		this.listVoie = listVoie;
 	}
+
 	public Integer getVoieId() {
 		return voieId;
 	}
+
 	public void setVoieId(Integer voieId) {
 		this.voieId = voieId;
 	}
+
 	public Voie getVoie() {
 		return voie;
 	}
+
 	public void setVoie(Voie voie) {
 		this.voie = voie;
 	}
+
 	public Integer getCommentaireId() {
 		return commentaireId;
 	}
+
 	public void setCommentaireId(Integer commentaireId) {
 		this.commentaireId = commentaireId;
 	}
+
 	public List<Site> getListSitePays() {
 		return listSitePays;
 	}
+
 	public void setListSitePays(List<Site> listSitePays) {
 		this.listSitePays = listSitePays;
 	}
+
 	public Pays getPays() {
 		return pays;
 	}
+
 	public void setPays(Pays pays) {
 		this.pays = pays;
 	}
+
 	public List<Site> getListSiteVille() {
 		return listSiteVille;
 	}
+
 	public void setListSiteVille(List<Site> listSiteVille) {
 		this.listSiteVille = listSiteVille;
 	}
+
 	public Ville getVille() {
 		return ville;
 	}
+
 	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
+
 	public Integer getVilleId() {
 		return villeId;
 	}
+
 	public void setVilleId(Integer villeId) {
 		this.villeId = villeId;
 	}
-	
+
 	// ============== Getters/Setters BackOffice ===============
 	public Integer getPaysId() {
 		return paysId;
 	}
+
 	public void setPaysId(Integer paysId) {
 		this.paysId = paysId;
 	}
+
 	public List<Pays> getListPays() {
 		return listPays;
 	}
+
 	public void setListPays(List<Pays> listPays) {
 		this.listPays = listPays;
 	}
+
 	public List<Ville> getListVille() {
 		return listVille;
 	}
+
 	public void setListVille(List<Ville> listVille) {
 		this.listVille = listVille;
 	}
+
 	public Topo getTopo() {
 		return topo;
 	}
+
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
-	
+
 	// ============== Getters/Setters UPLOAD ===============
 	public String getFileUploadFileName() {
 		return fileUploadFileName;
 	}
+
 	public void setFileUploadFileName(String fileUploadFileName) {
 		this.fileUploadFileName = fileUploadFileName;
 	}
+
 	public String getFileUploadContentType() {
 		return fileUploadContentType;
 	}
+
 	public void setFileUploadContentType(String fileUploadContentType) {
 		this.fileUploadContentType = fileUploadContentType;
 	}
+
 	public File getFileUpload() {
 		return fileUpload;
 	}
+
 	public void setFileUpload(File fileUpload) {
 		this.fileUpload = fileUpload;
 	}
+
 	public String getFile2UploadFileName() {
 		return file2UploadFileName;
 	}
+
 	public void setFile2UploadFileName(String file2UploadFileName) {
 		this.file2UploadFileName = file2UploadFileName;
 	}
+
 	public String getFile2UploadContentType() {
 		return file2UploadContentType;
 	}
+
 	public void setFile2UploadContentType(String file2UploadContentType) {
 		this.file2UploadContentType = file2UploadContentType;
 	}
+
 	public File getFile2Upload() {
 		return file2Upload;
 	}
+
 	public void setFile2Upload(File file2Upload) {
 		this.file2Upload = file2Upload;
 	}
@@ -273,39 +326,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 		}
 		return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
-	
-	// Action renvoyant les résultats de recherche de sites d'escalade d'un pays 
-	public String doListSitePays() {
-		String paysIdString = ServletActionContext.getRequest().getParameter("paysId");
-		paysId = Integer.parseInt(paysIdString);
-		if (paysId == null) {
-			this.addActionError("Veuillez sélectionner un pays !");
-		} else {
-			pays = managerFactory.getSiteManager().getPays(paysId);
-			listSitePays = managerFactory.getSiteManager().getListSitePays(paysId);
-			listSite = managerFactory.getSiteManager().getListSite();
-			listPays = managerFactory.getSiteManager().getListPays();
-			listVille = managerFactory.getSiteManager().getListVille();
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
-	// Action renvoyant les résultats de recherche de sites d'escalade d'un pays 
-	public String doListSiteVille() {
-		String villeIdString = ServletActionContext.getRequest().getParameter("villeId");
-		villeId = Integer.parseInt(villeIdString);
-		if (villeId == null) {
-			this.addActionError("Veuillez sélectionner une ville !");
-		} else {
-			ville = managerFactory.getSiteManager().getVille(villeId);
-			listSiteVille = managerFactory.getSiteManager().getListSiteVille(villeId);
-			listSite = managerFactory.getSiteManager().getListSite();
-			listPays = managerFactory.getSiteManager().getListPays();
-			listVille = managerFactory.getSiteManager().getListVille();
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
+
 	// Action listant les pays contenant des sites d'escalade
 	public String doListPays() {
 		listPays = managerFactory.getSiteManager().getListPays();
@@ -313,7 +334,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 		listSite = managerFactory.getSiteManager().getListSite();
 		return ActionSupport.SUCCESS;
 	}
-	
+
 	// Action listant les plus proches villes des sites d'escalade
 	public String doListVille() {
 		listVille = managerFactory.getSiteManager().getListVille();
@@ -473,6 +494,34 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 
 		return vResult;
 	}
+	
+	// Action renvoyant les résultats de recherche de sites d'escalade par pays
+	public String doListSitePays() {
+		if (paysId == null) {
+			this.addActionError("Veuillez sélectionner un pays !");
+		} else {
+			listSitePays = managerFactory.getSiteManager().getListSitePays(paysId);
+			listPays = managerFactory.getSiteManager().getListPays();
+			listVille = managerFactory.getSiteManager().getListVille();
+			listSite = managerFactory.getSiteManager().getListSite();
+		}
+		return ActionSupport.SUCCESS;
+	}
+
+	// Action renvoyant les résultats de recherche de sites d'escalade par ville
+	public String doListSiteVille() {
+		if (villeId == null) {
+			this.addActionError("Veuillez sélectionner une ville !");
+		} else {
+			ville = managerFactory.getSiteManager().getVille(villeId);
+			pays = managerFactory.getSiteManager().getPays(ville.getPays().getId());
+			listSiteVille = managerFactory.getSiteManager().getListSiteVille(pays.getId(), villeId);
+			listPays = managerFactory.getSiteManager().getListPays();
+			listVille = managerFactory.getSiteManager().getListVille();
+			listSite = managerFactory.getSiteManager().getListSite();
+		}
+		return ActionSupport.SUCCESS;
+	}
 
 	/*----------- Les actions "AJAX" -----------------------*/
 
@@ -570,6 +619,49 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 			addActionError("Veuillez préciser un commentaire à supprimer !");
 		} else {
 			managerFactory.getSiteManager().deleteCommentairesSiteById(commentaireId);
+		}
+		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+	}
+
+	// Action "AJAX" renvoyant les résultats de recherche de sites d'escalade d'un pays
+	public String doAjaxListSitePays() {
+		String paysIdString = ServletActionContext.getRequest().getParameter("paysId");
+		paysId = Integer.parseInt(paysIdString);
+		if (paysId == null) {
+			this.addActionError("Veuillez sélectionner un pays !");
+		} else {
+			pays = managerFactory.getSiteManager().getPays(paysId);
+			listSitePays = managerFactory.getSiteManager().getListSitePays(paysId);
+			listVille = managerFactory.getSiteManager().getListVille(paysId);
+		}
+		return ActionSupport.SUCCESS;
+	}
+
+	// Action "AJAX" renvoyant les résultats de recherche de sites d'escalade d'une ville
+	public String doAjaxListSiteVille() {
+		String villeIdString = ServletActionContext.getRequest().getParameter("villeId");
+		villeId = Integer.parseInt(villeIdString);
+		String paysIdString = ServletActionContext.getRequest().getParameter("paysId");
+		paysId = Integer.parseInt(paysIdString);
+		
+		if (villeId == null) {
+			this.addActionError("Veuillez sélectionner une ville !");
+		} else {
+			ville = managerFactory.getSiteManager().getVille(villeId);
+			pays = managerFactory.getSiteManager().getPays(paysId);
+			listSiteVille = managerFactory.getSiteManager().getListSiteVille(paysId, villeId);
+			listPays = managerFactory.getSiteManager().getListPays();
+		}
+		return ActionSupport.SUCCESS;
+	}
+
+	// Action "AJAX" renvoyant le pays d'une ville
+	public String doAjaxGetPaysByVilleId() {
+		if (villeId == null) {
+			addActionError("Veuillez préciser la ville !");
+		} else {
+			ville = managerFactory.getSiteManager().getVille(villeId);
+			pays = managerFactory.getSiteManager().getPays(ville.getPays().getId());
 		}
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
