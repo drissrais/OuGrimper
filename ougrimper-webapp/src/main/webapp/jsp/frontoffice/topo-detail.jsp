@@ -93,15 +93,17 @@
 			</section>
 			<section class="col-xs-4">
 				<div class="row">
-					<div class="col-xs-12">
-						<address class="well well-lg well-sm">
-							<p class="topo-detail-p">
-								<s:a action="login">Connectez-vous</s:a>
-								pour pouvoir réserver des topos... ou
-								<s:a action="inscription">inscrivez-vous</s:a>
-							</p>
-						</address>
-					</div>
+					<s:if test="!#session.user">
+						<div class="col-xs-12">
+							<address class="well well-lg well-sm">
+								<p class="topo-detail-p">
+									<s:a action="login">Connectez-vous</s:a>
+									pour pouvoir réserver des topos... ou
+									<s:a action="inscription">inscrivez-vous</s:a>
+								</p>
+							</address>
+						</div>
+					</s:if>
 					<div class="col-xs-12">
 						<s:if test="#session.user">
 							<s:a class="btn btn-warning btn-block"

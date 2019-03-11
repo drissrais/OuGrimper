@@ -39,6 +39,10 @@
 				</select>
 			</div>
 		</section>
+		<div id="load" align="center">
+			<img src="${pageContext.request.contextPath}/jsp/images/loading.gif"
+				width="28" height="28" /> Loading...
+		</div>
 		<header id="header" class="page-header">
 			<h1 id="site-title">
 				Sites escalade

@@ -35,6 +35,10 @@
 				</select>
 			</div>
 		</section>
+		<div id="load" align="center">
+			<img src="${pageContext.request.contextPath}/jsp/images/loading.gif"
+				width="28" height="28" /> Loading...
+		</div>
 		<header id="header" class="page-header">
 			<s:actionmessage class="label-success actionMessage"/>
 			<h1 id="site-title">Sites d'escalade par ville plus proche</h1>
