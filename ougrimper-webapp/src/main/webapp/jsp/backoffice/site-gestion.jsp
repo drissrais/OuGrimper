@@ -75,10 +75,10 @@
 			var params = {
 				id : val
 			};
-
+			
 			// Action AJAX en POST
 			jQuery.post(url, params, function() {
-				$('#t' + val).remove();
+				$('#t' + val).slideUp('slow', function() {$(this).remove();});
 			});
 		}
 		
