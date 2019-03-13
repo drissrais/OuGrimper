@@ -78,7 +78,7 @@
 							<label for="jusqu'a">Jusqu'à :</label> <input id="jusqu'a"
 								name="dateFin" class="form-control" type="date"></input>
 						</div>
-						<s:if test="#session.user">
+						<s:if test="%{#session.user && topo.disponible}">
 							<button class="btn btn-primary" type="submit">
 								<span class="glyphicon glyphicon-ok-sign"> Confirmer</span>
 							</button>

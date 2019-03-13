@@ -47,8 +47,8 @@
 					<s:a type="submit" class="btn navbar-btn btn-primary btn-sm" action="logout">Déconnexion</s:a>
 				</s:if>
 				<s:else>
-					<s:a type="submit" class="btn navbar-btn btn-primary btn-sm" action="login">Connexion</s:a>
-					<s:a type="submit" class="btn navbar-btn btn-warning btn-sm" action="inscription">Inscription</s:a>
+					<s:a type="submit" class="btn navbar-btn btn-success btn-sm" action="login">Connexion</s:a>
+					<s:a type="submit" class="btn navbar-btn btn-primary btn-sm" action="inscription">Inscription</s:a>
 				</s:else>
 			</div>
 		</div>
