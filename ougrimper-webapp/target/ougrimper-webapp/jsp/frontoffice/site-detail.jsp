@@ -9,24 +9,8 @@
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
-		<section class="row recherche">
-			<div class="col-lg-4">
-				<select class="form-control">
-					<option value="" selected disabled hidden>Pays</option>
-				</select>
-			</div>
-			<div class="col-lg-4">
-				<select class="form-control">
-					<option value="" selected disabled hidden>Région</option>
-				</select>
-			</div>
-			<div class="col-lg-4">
-				<select class="form-control">
-					<option value="" selected disabled hidden>Site</option>
-				</select>
-			</div>
-		</section>
 		<header class="page-header">
+			<s:actionmessage class="label-success actionMessage"/>
 			<h1 class="site-detail-h1">
 				<s:property value="site.nom" />
 			</h1>
@@ -73,26 +57,26 @@
 								<th>Secteurs</th>
 								<th>Voies</th>
 								<th>Cotation</th>
+								<th>Nombre de longueurs</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>
 									<select id="selectSecteur" name="secteur" onchange="onSelectSecteurChange()">
-										<option disabled selected></option>
+										<option selected disabled></option>
 										<s:iterator value="listSecteur">
-											<option><s:property value="nom" /></option>
+											<option value="<s:property value="id" />">
+												<s:property value="nom" />
+											</option>
 										</s:iterator>
 									</select>
-<%-- 									<s:select id="selectSecteur" name="secteur" --%>
-<%--               							list="listSecteur" listKey="id" listValue="nom" --%>
-<%--               							onchange="onSelectSecteurChange()"/> --%>
 								</td>
 								<td>
-									<select id="selectVoie">
-									</select>
+									<select id="selectVoie" name="voie" onchange="onSelectVoieChange(this)"></select>
 								</td>
-								<td></td>
+								<td><span id="cotation"></span></td>
+								<td><span id="nbLongueur"></span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -100,7 +84,7 @@
 			</div>
 		</section>
 		<div class="row">
-			<section class="col-lg-8">
+			<section class="col-xs-8">
 				<form action="addNewComment" class="well well-lg well-sm">
 					<s:hidden name="id" value="%{site.id}" />
 					<h4>
@@ -126,55 +110,71 @@
 					</fieldset>
 				</form>
 			</section>
-			<section class="col-sm-4">
+			<section class="col-xs-4">
 				<div class="row">
-					<div class="col-lg-12">
-						<address class="well well-lg well-sm">
-							<p class="site-detail-p">
-								<s:a action="login">Connectez-vous</s:a>
-								pour pouvoir commencer une discussion... ou
-								<s:a action="inscription">inscrivez-vous</s:a>
-							</p>
-						</address>
-					</div>
-					<s:if test="#session.user">
-						<s:a class="btn btn-warning col-lg-offset-3 col-lg-6"
-							action="comment_list">
-							VOIR LES DISCUSSIONS
-							<s:param name="id" value="site.id" />
-						</s:a>
+					<s:if test="!#session.user">
+						<div class="col-xs-12">
+							<address class="well well-lg well-sm">
+								<p class="site-detail-p">
+									<s:a action="login">Connectez-vous</s:a>
+									pour pouvoir commencer une discussion... ou
+									<s:a action="inscription">inscrivez-vous</s:a>
+								</p>
+							</address>
+						</div>
 					</s:if>
-					<s:else>
-						<button class="btn btn-warning col-lg-offset-3 col-lg-6" disabled>VOIR
-							LES DISCUSSIONS</button>
-					</s:else>
+					<div class="col-xs-12">
+						<s:if test="#session.user">
+							<s:a class="btn btn-warning btn-block"
+								action="comment_list">
+								VOIR LES DISCUSSIONS
+								<s:param name="id" value="site.id" />
+							</s:a>
+						</s:if>
+						<s:else>
+							<button class="btn btn-warning btn-block" disabled>VOIR
+								LES DISCUSSIONS</button>
+						</s:else>
+					</div>
 				</div>
 			</section>
 		</div>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
 		function onSelectSecteurChange() {
 			// URL de l'action AJAX
-			var url = "<s:url action='demo_ajax_getListVoie'/>";
-	
+			var url = "<s:url action='ajax_getListVoie'/>";
+
 			// Paramètres de la requête AJAX
 			var params = {
-				secteur : jQuery("#selectSecteur").val()
+				secteurId : jQuery("#selectSecteur").val()
 			};
-	
+			// alert(secteurId);
 			// Action AJAX en POST
 			jQuery.post(
 					url,
 					params,
 					function(data) {
+						// alert(data);
 						var $selectVoie = jQuery("#selectVoie");
+						var $cotation = jQuery("#cotation");
+						var $nbLongueur = jQuery("#nbLongueur");
 						$selectVoie.empty();
+
+						firstVoieCotation = "";
+						firstVoieNbLongueur = "";
 						jQuery.each(data, function(key, val) {
-							$selectVoie.append(jQuery("<option>")
-									.text(val.nom)
-									.val(val.nom));
+							$selectVoie.append(jQuery("<option>").text(val.nom)
+									.val(val.id));
+							if (firstVoieCotation == "") {
+								firstVoieCotation = val.cotation;
+								firstVoieNbLongueur = val.nbLongueur;
+							}
 						});
+						$cotation.html("<span class='label label-success'>" + firstVoieCotation + "</span>");
+						$nbLongueur.html("<span class='label label-warning'>" + firstVoieNbLongueur + "</span>");
 					}).fail(function(data) {
 				if (typeof data.responseJSON === 'object') {
 					console.log(data.responseJSON);
@@ -183,6 +183,57 @@
 				}
 				alert("Une erreur s'est produite.");
 			});
+		}
+	</script>
+	<script type="text/javascript">
+		function onSelectVoieChange(val) {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_getVoie'/>";
+
+			// Paramètres de la requête AJAX
+			var params = {
+				voieId : val.value
+			};
+			
+// 			alert(val.value);
+
+			// Action AJAX en POST
+			jQuery.post(
+					url,
+					params,
+					function(data) {
+// 						alert(data);
+						var $cotation = jQuery("#cotation");
+						var $nbLongueur = jQuery("#nbLongueur");
+						
+						$cotation.html("<span class='label label-success'>" + data.cotation + "</span>");
+						$nbLongueur.html("<span class='label label-warning'>" + data.nbLongueur + "</span>");
+					}).fail(function(data) {
+				if (typeof data.responseJSON === 'object') {
+					console.log(data.responseJSON);
+				} else {
+					console.log(data);
+				}
+				alert("Une erreur s'est produite.");
+			});
+		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#spots').addClass('active');
+		});
+	</script>
+	<script type="text/javascript">
+		function redirect(selectedValue){
+		     window.location="site_list_pays.action?paysId="+selectedValue;
+		}
+		
+		function redirectVille(selectedValue){
+		     window.location="site_list_ville.action?villeId="+selectedValue;
+		}
+		
+		function redirectSite(selectedValue){
+		     window.location="site_detail.action?id="+selectedValue;
 		}
 	</script>
 </body>

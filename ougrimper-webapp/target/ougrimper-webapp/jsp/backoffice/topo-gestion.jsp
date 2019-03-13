@@ -4,16 +4,16 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Gestion des topos d'escalade</title>
+<title>Gestion de topos d'escalade</title>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Gestion Topo</h1>
+			<h1>Gestion de topos d'escalade</h1>
 		</header>
 		<div class="row">
-			<div class="col-lg-9">
+			<div class="col-md-10 col-sm-12 col-xs-12">
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
@@ -21,28 +21,69 @@
 						</div>
 						<thead>
 							<tr>
-								<th>Nom de topo</th>
-								<th>Site</th>
-								<th>Modifier</th>
-								<th>Supprimer</th>								
+								<th>Nom Topo</th>
+								<th>Propriétaire</th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Taghia topo</td>
-								<td>Taghia</td>
-								<td><button class="btn btn-warning">Modifier</button></td>
-								<td><button class="btn btn-danger">Supprimer</button></td>
-							</tr>
+							<s:iterator value="listTopo">
+								<tr id="t<s:property value='id' />">
+									<td><s:property value="nom" /></td>
+									<td><s:property value="proprietaire.prenom" /> <s:property
+											value="proprietaire.nom" /></td>
+									<td style="text-align: center;"><s:a
+											action="topo_dataToEdit">
+											<i class="far fa-edit" data-toggle="tooltip" title="Editer"
+												style="color: #698ABC;"></i>
+											<s:param name="id" value="id" />
+										</s:a></td>
+									<td style="text-align: center;"><a
+										data-toggle="confirmation" data-title="Supprimer le topo?"
+										data-placement="right" data-popout="true"
+										data-on-confirm='deleteTopo(<s:property value="id" />)'> <i
+											class="fas fa-trash-alt" data-toggle="tooltip"
+											title="Supprimer" style="color: #D60000;"></i>
+									</a></td>
+								</tr>
+							</s:iterator>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="col-lg-2 col-lg-offset-1">
-				<button class="btn btn-success" id="topo-new">Nouveau topo</button>
+			<div class="col-md-2">
+				<s:a title="Nouveau topo" class="btn btn-success btn-lg"
+					id="topo-new" action="topo_new">
+					Nouveau topo <i class="fas fa-folder-plus"></i>
+				</s:a>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		function deleteTopo(val) {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_deleteTopo' />";
+
+			//alert(val);
+
+			// Paramètres de la requête AJAX
+			var params = {
+				id : val
+			};
+
+			// Action AJAX en POST
+			jQuery.post(url, params, function() {
+				$('#t' + val).remove();
+			});
+		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
+	</script>
 </body>
 </html>

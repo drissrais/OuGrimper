@@ -10,6 +10,12 @@
 
 		<!-- Action "index" -->
 		<action name="index">
+
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+
 			<result>/jsp/index.jsp</result>
 		</action>
 
@@ -17,6 +23,10 @@
 		<action name="site_list"
 			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
 			method="doList">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 			<result>/jsp/frontoffice/listSite.jsp</result>
 		</action>
 
@@ -48,7 +58,7 @@
 			method="doListComment">
 			<result>/jsp/frontoffice/listComment.jsp</result>
 		</action>
-		
+
 		<!-- Action permettant de reserver un topo d'escalade -->
 		<action name="addNewReservation"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
@@ -58,7 +68,7 @@
 				<param name="id">${topo.id}</param>
 			</result>
 		</action>
-		
+
 		<!-- Action listant les réservations des topos d'escalade -->
 		<action name="reservation_list"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
@@ -70,6 +80,10 @@
 		<action name="topo_list"
 			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
 			method="doList">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 			<result>/jsp/frontoffice/listTopo.jsp</result>
 		</action>
 
@@ -89,12 +103,6 @@
 		<action name="login"
 			class="org.driss.ougrimper.webapp.action.LoginAction"
 			method="doLogin">
-
-			<interceptor-ref name="store">
-				<param name="operationMode">RETRIEVE</param>
-			</interceptor-ref>
-			<interceptor-ref name="defaultStack" />
-
 			<result name="input">/jsp/frontoffice/connexion.jsp</result>
 			<result name="success" type="redirectAction">index</result>
 		</action>
@@ -116,14 +124,239 @@
 
 			<result name="input">/jsp/frontoffice/inscription.jsp</result>
 			<result name="success" type="redirectAction">
-				<param name="actionName">login</param>
+				<param name="actionName">index</param>
 			</result>
+		</action>
+		
+		<!-- Action listant les pays contenant des sites d'escalade -->
+		<action name="pays_list"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListPays">
+			<result>/jsp/frontoffice/listPays.jsp</result>
+		</action>
+		
+		<!-- Action listant les plus proches villes des sites d'escalade -->
+		<action name="ville_list"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListVille">
+			<result>/jsp/frontoffice/listVille.jsp</result>
+		</action>
+
+		<!-- Actions spécifiques à l'administrateur -->
+
+		<!-- Actions liées aux sites d'escalade -->
+
+		<!-- Action de gestion des sites d'escalade -->
+		<action name="site_gestion"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doList">
+			<result>/jsp/backoffice/site-gestion.jsp</result>
+		</action>
+
+		<!-- Action renvoyant les données à modifier d'un site d'escalade -->
+		<action name="site_dataToEdit"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doDetailSite">
+			<result name="success">/jsp/backoffice/site-modif.jsp</result>
+		</action>
+
+		<!-- Action(s) permettant de modifier un site d'escalade -->
+		<action name="site_edit"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doEditSite">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="params">
+				<param name="excludeParams">dojo\..*,^struts\..*</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="workflow">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirectAction">
+				<param name="actionName">site_detail</param>
+				<param name="id">${site.id}</param>
+			</result>
+		</action>
+		
+		<!-- Action(s) permettant d'ajouter un nouveau site d'escalade -->
+		<action name="site_new"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doCreateSite">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="params">
+				<param name="excludeParams">dojo\..*,^struts\..*</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="workflow">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="input">/jsp/backoffice/site-ajout.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">site_list</param>
+			</result>
+		</action>
+		
+		<!-- Action listant les sites d'escalade d'un pays (recherche) -->
+		<action name="site_list_pays"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListSitePays">
+			<result name="success">/jsp/frontoffice/recherche-pays.jsp</result>
+		</action>
+		
+		<!-- Action listant les sites d'escalade d'une ville (recherche) -->
+		<action name="site_list_ville"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListSiteVille">
+			<result name="success">/jsp/frontoffice/recherche-ville.jsp</result>
+		</action>
+
+		<!-- Actions liées aux topos d'escalade -->
+
+		<!-- Action de gestion des topos d'escalade -->
+		<action name="topo_gestion"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doList">
+			<result>/jsp/backoffice/topo-gestion.jsp</result>
+		</action>
+		
+		<!-- Action renvoyant les données à modifier d'un topo d'escalade -->
+		<action name="topo_dataToEdit"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doDetailTopo">
+			<result name="success">/jsp/backoffice/topo-modif.jsp</result>
+		</action>
+
+		<!-- Action(s) permettant de modifier un topo d'escalade -->
+		<action name="topo_edit"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doEditTopo">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="params">
+				<param name="excludeParams">dojo\..*,^struts\..*</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="workflow">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirectAction">
+				<param name="actionName">topo_detail</param>
+				<param name="id">${topo.id}</param>
+			</result>
+		</action>
+		
+		<!-- Action(s) permettant d'ajouter un nouveau topo d'escalade -->
+		<action name="topo_new"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doCreateTopo">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="params">
+				<param name="excludeParams">dojo\..*,^struts\..*</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="workflow">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="input">/jsp/backoffice/topo-ajout.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">topo_list</param>
+			</result>
+		</action>
+		
+		<!-- Actions liées aux utilisateurs -->
+
+		<!-- Action de gestion des utilisateurs -->
+		<action name="utilisateur_gestion"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doList">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/jsp/backoffice/utilisateur-gestion.jsp</result>
+		</action>
+		
+		<!-- Action renvoyant les données à modifier d'un utilisateur -->
+		<action name="utilisateur_dataToEdit"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doDetailUtilisateur">
+			<result name="success">/jsp/backoffice/utilisateur-modif.jsp</result>
+		</action>
+		
+		<!-- Action(s) permettant de modifier un site d'escalade -->
+		<action name="utilisateur_edit"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doEditUtilisateur">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirectAction">
+				<param name="actionName">utilisateur_gestion</param>
+			</result>
+		</action>
+
+		<!-- Action de gestion des commentaires -->
+		<action name="commentaire_gestion"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doListAllComment">
+			<result>/jsp/backoffice/commentaire-gestion.jsp</result>
+		</action>
+
+		<!-- Action de gestion des reservations -->
+		<action name="reservation_gestion"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doListAllReservation">
+			<result>/jsp/backoffice/reservation-gestion.jsp</result>
 		</action>
 	</package>
 
 	<!-- ===== Package pour les actions AJAX ===== -->
 	<package name="ajax" extends="struts-default, json-default">
-	
+
 		<global-results>
 			<result name="error" type="json">
 				<param name="statusCode">400</param>
@@ -132,14 +365,112 @@
 				<param name="ignoreHierarchy">false</param>
 			</result>
 		</global-results>
-		
+
 		<!-- Action renvoyant la liste des Voies d'un Secteur -->
-        <action name="demo_ajax_getListVoie"
-                class="org.driss.ougrimper.webapp.action.GestionSiteAction"
-                method="doAjaxGetListVoie">
-            <result name="success" type="json">
-                <param name="root">listVoie</param>
-            </result>
-        </action>
+		<action name="ajax_getListVoie"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxGetListVoie">
+			<result name="success" type="json">
+				<param name="root">listVoie</param>
+			</result>
+		</action>
+
+		<!-- Action renvoyant la cotation d'une Voie d'un Secteur -->
+		<action name="ajax_getVoie"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxGetVoie">
+			<result name="success" type="json">
+				<param name="root">voie</param>
+			</result>
+		</action>
+
+		<!-- Action AJAX permettant d'ajouter un commentaire sur un site -->
+		<action name="ajax_addNewComment"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxAddNewComment">
+			<result name="success" type="json">
+				<param name="root">commentaireSite</param>
+			</result>
+		</action>
+
+		<!-- Action AJAX permettant d'ajouter un commentaire sur un site -->
+		<action name="ajax_addNewReservation"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAjaxAddNewReservation">
+			<result name="success" type="json">
+				<param name="root">reservation</param>
+			</result>
+		</action>
+
+		<!-- Action AJAX renvoyant la liste des Villes d'un Pays -->
+		<action name="ajax_getListVille"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxGetListVille">
+			<result name="success" type="json">
+				<param name="root">listVille</param>
+			</result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer un site -->
+		<action name="ajax_deleteSite"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxDeleteSite">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer un topo -->
+		<action name="ajax_deleteTopo"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAjaxDeleteTopo">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer un utilisateur -->
+		<action name="ajax_deleteUtilisateur"
+			class="org.driss.ougrimper.webapp.action.GestionUtilisateurAction"
+			method="doAjaxDeleteUtilisateur">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer un commentaire -->
+		<action name="ajax_deleteCommentaire"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxDeleteCommentaire">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX permettant a un administrateur de supprimer une réservation -->
+		<action name="ajax_deleteReservation"
+			class="org.driss.ougrimper.webapp.action.GestionTopoAction"
+			method="doAjaxDeleteReservation">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- Action AJAX listant les sites d'escalade d'un pays (recherche) -->
+		<action name="ajax_site_list_pays"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxListSitePays">
+			<result name="success" type="json">
+				<param name="includeProperties">listSitePays.*, pays.*, listVille.*</param>
+			</result>
+		</action>
+		
+		<!-- Action AJAX listant les sites d'escalade d'une ville (recherche) -->
+		<action name="ajax_site_list_ville"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxListSiteVille">
+			<result name="success" type="json">
+				<param name="includeProperties">listPays.*, pays.*, listSiteVille.*, ville.*</param>
+			</result>
+		</action>
+		
+		<!-- Action AJAX renvoyant le pays d'une ville -->
+		<action name="ajax_getPaysByVilleId"
+			class="org.driss.ougrimper.webapp.action.GestionSiteAction"
+			method="doAjaxGetPaysByVilleId">
+			<result name="success" type="json">
+				<param name="root">pays</param>
+			</result>
+		</action>
 	</package>
 </struts>

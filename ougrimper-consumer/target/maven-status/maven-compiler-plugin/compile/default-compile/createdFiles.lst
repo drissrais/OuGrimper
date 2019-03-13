@@ -1,6 +1,7 @@
 org\driss\ougrimper\consumer\impl\dao\ReservationDaoImpl.class
 org\driss\ougrimper\consumer\contract\dao\CommentaireSiteDao.class
 org\driss\ougrimper\consumer\impl\dao\AbstractDaoImpl.class
+org\driss\ougrimper\consumer\impl\rowmapper\site\LongueurRM.class
 org\driss\ougrimper\consumer\contract\dao\SiteDao.class
 org\driss\ougrimper\consumer\impl\dao\VoieDaoImpl.class
 org\driss\ougrimper\consumer\impl\rowmapper\site\PaysRM.class
@@ -18,8 +19,10 @@ org\driss\ougrimper\consumer\contract\dao\SecteurDao.class
 org\driss\ougrimper\consumer\impl\rowmapper\site\VilleRM.class
 org\driss\ougrimper\consumer\impl\rowmapper\topo\TopoRM.class
 org\driss\ougrimper\consumer\impl\dao\SecteurDaoImpl.class
+org\driss\ougrimper\consumer\contract\dao\LongueurDao.class
 org\driss\ougrimper\consumer\impl\dao\UtilisateurDaoImpl.class
 org\driss\ougrimper\consumer\impl\DaoFactoryImpl.class
+org\driss\ougrimper\consumer\impl\dao\LongueurDaoImpl.class
 org\driss\ougrimper\consumer\impl\rowmapper\site\SiteRM.class
 org\driss\ougrimper\consumer\impl\rowmapper\site\VoieRM.class
 org\driss\ougrimper\consumer\contract\dao\VoieDao.class

@@ -10,6 +10,7 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
+			<s:actionmessage class="label-success actionMessage"/>
 			<h1 id="topo-title">Tous les topos</h1>
 			<span class="listTopo-span">Accédez à la liste des topos que nous avons répertorié pour vous.</span>
 		</header>
@@ -35,6 +36,13 @@
 			</s:iterator>
 		</section>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#topos').addClass('active');
+		});
+	</script>
 </body>
 </html>

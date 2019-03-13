@@ -500,6 +500,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 		if (paysId == null) {
 			this.addActionError("Veuillez sélectionner un pays !");
 		} else {
+			pays = managerFactory.getSiteManager().getPays(paysId);
 			listSitePays = managerFactory.getSiteManager().getListSitePays(paysId);
 			listPays = managerFactory.getSiteManager().getListPays();
 			listVille = managerFactory.getSiteManager().getListVille();

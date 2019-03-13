@@ -1,5 +1,29 @@
 @charset "UTF-8";
 
+/* Définition des polices personnalisées */
+
+@font-face
+{
+	font-family: 'BallparkWeiner';
+	src: url('polices/ballpark.eot') format('embedded-opentype'),
+		 url('polices/ballpark.woff') format('woff'),
+		 url('polices/ballpark.svg') format('svg'),
+		 url('polices/ballpark.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face
+{
+	font-family: 'Dayrom';
+	src : url('polices/dayrom.eot') format('embedded-opentype'),
+		  url('polices/dayrom.woff') format('woff'),
+		  url('polices/dayrom.svg') format('svg'),
+		  url('polices/dayrom.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
 	background-color: #ddd;
 /* 	background: url('${pageContext.request.contextPath}/jsp/images/home.jpg') no-repeat; */
@@ -12,6 +36,18 @@ section {
 .well {
 	background-color: #CCC;
 	padding: 20px;
+}
+
+.navbar-brand {
+	font-family: 'Dayrom', serif;
+	font-weight: normal;
+	font-size: 2.5em;
+}
+
+#site-title-police {
+	font-family: 'BallparkWeiner', serif;
+	font-weight: normal;
+	font-size: 3.5em;
 }
 
 .centered {
@@ -41,7 +77,7 @@ section {
 	font-weight: bold;
 }
 
-.site-detail-p, .topo-detail-p, .listSite-span, .listTopo-span {
+.site-detail-p, .topo-detail-p, .listSite-span, .listTopo-span, .actionMessage {
 	font-weight: bold;
 	font-size: 1.1em;
 }
@@ -68,4 +104,55 @@ section {
 
 #site-new, #topo-new {
 	width: 100%;
+}
+
+.list-group .list-group-item
+{
+ 	text-align: center;
+ 	font-size: 1.5em;
+ 	display : inline-block;
+ 	border: 1px solid black;
+ 	margin-right: 5px;
+ 	margin-bottom: 5px;
+ 	border-radius: 8px;
+}
+
+.list-group .list-group-item:hover
+{
+	color: #fff;
+	background-color: #286090;
+	border-color: #204d74;
+}
+
+.required {
+  content:"*";
+  color:red;
+}
+
+#password + .glyphicon {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+span.help-block {
+  color: #F00;
+  background-color: #CCC;
+}
+
+#load {
+	position:absolute;
+	background-image:url(images/loading-bg.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	width:159px;
+	color:#999;
+	font-size:18px;
+	font-family:Arial, Helvetica, sans-serif;
+	height:40px;
+	font-weight:300;
+	padding-top:7px;
+/* 	top: 50%; */
+ 	left: 50%;
+/*  margin-top: -20px; */
+ 	margin-left: -80px;
 }

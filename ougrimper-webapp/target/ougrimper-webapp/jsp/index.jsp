@@ -9,8 +9,31 @@
 <body>
 	<div class="container">
 		<%@ include file="_include/header.jsp"%>
+		<section class="row">
+			<div class="col-md-12 hidden-xs hidden-sm">
+				<div class="carousel slide" id="carousel" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li class="active" data-target="#carousel" data-slide-to="0"></li>
+						<li data-target="#carousel" data-slide-to="1"></li>
+						<li data-target="#carousel" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner thumbnail">
+						<div class="item active">
+							<img alt="Escalade" style="width: 100%" title="ESCALADE" src="${pageContext.request.contextPath}/jsp/images/home.jpg" class="img-rounded">
+						</div>
+						<div class="item">
+							<img alt="Escalade" style="width: 100%" title="ESCALADE" src="${pageContext.request.contextPath}/jsp/images/home3.jpg" class="img-rounded">
+						</div>
+						<div class="item">
+							<img alt="Escalade" style="width: 100%" title="ESCALADE" src="${pageContext.request.contextPath}/jsp/images/home4.jpg" class="img-rounded">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<header class="page-header">
-			<h1>GRIMPO.. le site de l'escalade</h1>
+			<s:actionmessage class="label-success actionMessage"/>
+			<h1 id="site-title-police">G R I M P O.. le site de l'escalade</h1>
 		</header>
 		<section class="row">
 			<div class="col-lg-12">
@@ -47,17 +70,24 @@
 			<div class="col-sm-8">
 				<div class="embed-responsive embed-responsive-16by9">
 					<iframe class="embed-responsive-item"
-						src="https://www.youtube.com/embed/A9d1OtIzOZw" frameborder="0"
+						src="https://www.youtube.com/embed/2TE7v1FH-qo" frameborder="0"
 						allowfullscreen></iframe>
 				</div>
 			</div>
 		</section>
 		<section class="row">
-			<div class="col-xs-3 center-block centered">
-				<s:a class="btn btn-warning" id="btn-voir-site" action="site_list">voir les sites</s:a>
+			<div class="col-xs-4 col-xs-offset-4">
+				<s:a class="btn btn-warning btn-block" id="btn-voir-site" action="site_list">voir les sites d'escalade</s:a>
 			</div>
 		</section>
 	</div>
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#home').addClass('active');
+		});
+	</script>
 </body>
 </html>

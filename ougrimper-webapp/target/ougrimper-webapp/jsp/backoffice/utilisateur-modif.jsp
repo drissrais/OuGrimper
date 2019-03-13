@@ -1,112 +1,159 @@
+<%@page import="org.driss.ougrimper.model.bean.utilisateur.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Modifier Utilisateur</title>
+<title>Modifier Utilisateur <s:property value="utilisateur.id" /></title>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
-			<div class="col-lg-9">
-				<form class="well form-horizontal">
+			<div class="col-lg-10">
+				<form id="userUpdateForm" class="well form-horizontal" action="utilisateur_edit"
+					enctype="multipart/form-data" method="post">
+
+					<%
+						String id = request.getParameter("id");
+					%>
+					<input type="hidden" name="utilisateur.id" value="<%=id%>">
+
 					<div class="form-group">
-						<legend>Modifier Utilisateur</legend>
+						<legend>
+							Modifier Utilisateur :
+							<s:property value="utilisateur.pseudo" />
+						</legend>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="civilite" class="col-lg-4 control-label">Civilité : </label>
+							<label for="civilite" class="col-lg-4 control-label">Civilité
+								: <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<select id="civilite" class="form-control">
-									<option>M.</option>
-									<option>Mme.</option>
-									<option>Mlle.</option>
+								<select id="civilite" name="utilisateur.civilite"
+									class="form-control" required>
+									<option selected>
+										<s:property value='utilisateur.civilite' />
+									</option>
+									<s:if test="%{utilisateur.civilite == 'M.'}">
+										<option>Mlle.</option>
+										<option>Mme.</option>
+									</s:if>
+									<s:if test="%{utilisateur.civilite == 'Mlle.'}">
+										<option>Mme.</option>
+										<option>Mr.</option>
+									</s:if>
+									<s:if test="%{utilisateur.civilite == 'Mme.'}">
+										<option>Mlle.</option>
+										<option>Mr.</option>
+									</s:if>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="nom" class="col-lg-4 control-label">Nom : </label>
+							<label for="nom" class="col-lg-4 control-label">Nom : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="nom" type="text" class="form-control">
+								<input id="nom" name="utilisateur.nom"
+									value="<s:property value='utilisateur.nom' />" type="text"
+									class="form-control">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="prenom" class="col-lg-4 control-label">Prénom : </label>
+							<label for="prenom" class="col-lg-4 control-label">Prénom
+								: <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="prenom" type="text" class="form-control">
+								<input id="prenom" name="utilisateur.prenom"
+									value="<s:property value='utilisateur.prenom' />" type="text"
+									class="form-control">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="pseudo" class="col-lg-4 control-label">Pseudo : </label>
+							<label for="pseudo" class="col-lg-4 control-label">Pseudo
+								: <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="pseudo" type="text" class="form-control">
+								<input id="pseudo" name="utilisateur.pseudo"
+									value="<s:property value='utilisateur.pseudo' />" type="text"
+									class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<%
+							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+							Date dateDeNaissance = ((Utilisateur)request.getAttribute("utilisateur")).getDateDeNaissance();
+							String d = dateFormat.format(dateDeNaissance);
+						%>
+						<div class="form-group">
+							<label for="date" class="col-lg-4 control-label">Date de
+								naissance : <span class="required">*</span></label>
+							<div class="col-lg-8">
+								<input id="date" name="utilisateur.dateDeNaissance" value="<%=d%>" type="date" class="form-control">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="date" class="col-lg-4 control-label">Date de naissance : </label>
+							<label for="role" class="col-lg-4 control-label">Role : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="date" type="date" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="site-topo" class="col-lg-4 control-label">Role
-								: </label>
-							<div class="col-lg-8">
-								<select id="site-topo" class="form-control">
-									<option>user</option>
-									<option>climber</option>
-									<option>admin</option>
-									<option>topo_owner</option>
+								<select id="role" name="utilisateur.role" class="form-control" title="Veuillez déterminer le rôle !">
+									<option selected><s:property value='utilisateur.role' /></option>
+									<s:if test="%{utilisateur.role == 'user'}">
+										<option>topo_owner</option>
+										<option>admin</option>
+									</s:if>
+									<s:if test="%{utilisateur.role == 'topo_owner'}">
+										<option>user</option>
+										<option>admin</option>
+									</s:if>
+									<s:if test="%{utilisateur.role == 'admin'}">
+										<option>user</option>
+										<option>topo_owner</option>
+									</s:if>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="cotation" class="col-lg-4 control-label">Niveau actuel (Si vous êtes grimpeur) : </label>
+							<label for="email" class="col-lg-4 control-label">Email :
+							<span class="required">*</span></label>
 							<div class="col-lg-8">
-								<select id="cotation" class="form-control">
-									<option value="" selected disabled hidden></option>
-									<option>3a</option>
-									<option>3b</option>
-									<option>3c</option>
-								</select>
+								<input id="email" name="utilisateur.email"
+									value="<s:property value='utilisateur.email' />" type="email"
+									class="form-control">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="email" class="col-lg-4 control-label">Email : </label>
+							<label for="password" class="col-lg-4 control-label">Mot
+								de passe : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="email" type="email" class="form-control">
+								<div class="input-group">
+									<input id="password" name="utilisateur.motDePasse"
+										value="<s:property value='utilisateur.motDePasse' />"
+										type="password" class="form-control"> <span
+										class="fa fa-fw fa-eye input-group-addon toggle-password"></span>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="password" class="col-lg-4 control-label">Mot de passe : </label>
+							<label for="passConfirm" class="col-lg-4 control-label">Confirmer
+								mot de passe : <span class="required">*</span></label>
 							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="password" class="col-lg-4 control-label">Confirmer mot de passe : </label>
-							<div class="col-lg-8">
-								<input id="password" type="password" class="form-control">
+								<input type="password" id="passConfirm" name="passConfirm" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -118,6 +165,59 @@
 			</div>
 		</section>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		$("body").on('click', '.toggle-password', function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			var input = $("#password");
+			if (input.attr("type") === "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+		});
+		
+		$(function () {
+			$( "#userUpdateForm" ).validate({
+				debug: false,
+			    errorElement: "span",
+			    errorClass: "help-block",
+				rules: {
+					"utilisateur.nom": {
+						required: true
+					},
+					"utilisateur.prenom": {
+						required: true
+					},
+					"utilisateur.civilite": {
+						required: true
+					},
+					"utilisateur.dateDeNaissance": {
+						required: true
+					},
+					"utilisateur.pseudo": {
+						required: true
+					},
+					"utilisateur.email": {
+				    	required: true,
+				    	email: true
+				    },
+				    "utilisateur.motDePasse": {
+						required: true
+					},
+					passConfirm: {
+						required: true,
+						equalTo: "#password"
+					}
+				}
+			})
+		});
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
+	</script>
 </body>
 </html>

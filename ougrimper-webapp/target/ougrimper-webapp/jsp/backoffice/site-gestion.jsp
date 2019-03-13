@@ -4,16 +4,16 @@
 <html>
 <head>
 <%@ include file="../_include/head.jsp"%>
-<title>Gestion des sites d'escalade</title>
+<title>Gestion de sites d'escalade</title>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<header class="page-header">
-			<h1>Gestion Site</h1>
+			<h1>Gestion de sites d'escalade</h1>
 		</header>
 		<div class="row">
-			<div class="col-lg-9">
+			<div class="col-md-10 col-sm-12 col-xs-12">
 				<div class="panel panel-primary">
 					<table class="table table-striped table-condensed">
 						<div class="panel-heading">
@@ -21,28 +21,71 @@
 						</div>
 						<thead>
 							<tr>
-								<th>Nom de site</th>
+								<th>Nom Site</th>
 								<th>Pays</th>
-								<th>Modifier</th>
-								<th>Supprimer</th>								
+								<th style="text-align: center;"></th>
+								<th style="text-align: center;"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Taghia</td>
-								<td>Maroc</td>
-								<td><button class="btn btn-warning">Modifier</button></td>
-								<td><button class="btn btn-danger">Supprimer</button></td>
-							</tr>
+							<s:iterator value="listSite">
+								<tr id="t<s:property value='id' />">
+									<td><s:property value="nom" /></td>
+									<td><s:property value="pays.nom" /></td>
+									<td style="text-align: center;">
+										<s:a action="site_dataToEdit">
+											<i class="far fa-edit" data-toggle="tooltip" title="Editer"
+												style="color: #698ABC;"></i>
+											<s:param name="id" value="id" />
+										</s:a>
+									</td>
+									<td style="text-align: center;">
+										<a data-toggle="confirmation" data-title="Supprimer le site?"
+											data-placement="right" data-popup="true"
+											data-on-confirm='deleteSite(<s:property value="id" />)'>
+												<i class="fas fa-trash-alt" data-toggle="tooltip"
+													title="Supprimer" style="color: #D60000;">
+												</i>
+										</a>
+									</td>
+								</tr>
+							</s:iterator>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="col-lg-2 col-lg-offset-1">
-				<button class="btn btn-success" id="site-new">Nouveau site</button>
+			<div class="col-md-2">
+				<s:a title="Nouveau site" class="btn btn-success btn-lg"
+					id="site-new" action="site_new">
+					Nouveau site <i class="fas fa-folder-plus"></i>
+				</s:a>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		function deleteSite(val) {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_deleteSite' />";
+
+			//alert(val);
+
+			// Paramètres de la requête AJAX
+			var params = {
+				id : val
+			};
+
+			// Action AJAX en POST
+			jQuery.post(url, params, function() {
+				$('#t' + val).remove();
+			});
+		}
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
+	</script>
 </body>
 </html>

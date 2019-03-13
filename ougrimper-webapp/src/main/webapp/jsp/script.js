@@ -23,9 +23,10 @@ $(function() {
 	});
 });
 
-var $loading = $('#load').hide();
-$(document).ajaxStart(function() {
-	$loading.show();
-}).ajaxStop(function() {
+var $loading = $('#load');
+$(document).ready(function() {
+	$loading.hide();
+});
+$(document).ajaxStop(function() {
 	$loading.hide();
 });

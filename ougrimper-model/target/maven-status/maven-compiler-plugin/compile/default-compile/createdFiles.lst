@@ -5,9 +5,7 @@ org\driss\ougrimper\model\exception\NotFoundException.class
 org\driss\ougrimper\model\bean\site\Secteur.class
 org\driss\ougrimper\model\bean\topo\Reservation.class
 org\driss\ougrimper\model\bean\utilisateur\Utilisateur.class
-org\driss\ougrimper\model\bean\site\Cotation.class
 org\driss\ougrimper\model\bean\utilisateur\ProprietaireTopo.class
-org\driss\ougrimper\model\bean\topo\CommentaireTopo.class
 org\driss\ougrimper\model\bean\site\CommentaireSite.class
 org\driss\ougrimper\model\bean\site\Voie.class
 org\driss\ougrimper\model\bean\site\Longueur.class

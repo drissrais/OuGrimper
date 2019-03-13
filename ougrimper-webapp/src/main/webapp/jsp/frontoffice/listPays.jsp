@@ -37,7 +37,7 @@
 		</section>
 		<div id="load" align="center">
 			<img src="${pageContext.request.contextPath}/jsp/images/loading.gif"
-				width="28" height="28" /> Loading...
+				width="28" height="28" /> Chargement...
 		</div>
 		<header id="header" class="page-header">
 			<h1 id="site-title">Sites d'escalade par pays</h1>
@@ -59,12 +59,27 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/jsp/script.js"></script>
 	<script type="text/javascript">
+		var paysId;
+		var villeId;
+		
 		function redirect(selectedValue) {
+			$loading.show();
+			paysId = selectedValue;
+			setTimeout("getListSiteByPaysId()",1000)
+		}
+		
+		function redirectVille(selectedValue) {
+			$loading.show();
+			villeId = selectedValue;
+			setTimeout("getPaysByVilleId()",1000)
+		}
+	
+		function getListSiteByPaysId() {
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_site_list_pays'/>";
 			// Paramètres de la requête AJAX
 			var params = {
-				paysId : selectedValue
+				paysId : paysId
 			};
 			// alert(selectedValue);
 			// Action AJAX en POST
@@ -145,13 +160,13 @@
 					});
 		}
 	
-		function redirectVille(selectedValue) {
+		function getPaysByVilleId(selectedValue) {
 			// URL de l'action AJAX
 			var url = "<s:url action='ajax_getPaysByVilleId'/>";
 			
 			// Paramètres de la requête AJAX
 			var params = {
-				villeId : selectedValue
+				villeId : villeId
 			};
 			
 			// Action AJAX en POST

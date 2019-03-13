@@ -10,87 +10,93 @@
 	<div class="container">
 		<%@ include file="../_include/header.jsp"%>
 		<section class="row">
-			<div class="col-lg-9">
-				<form class="well form-horizontal">
+			<div class="col-lg-10">
+				<form id="spotAddForm" class="well form-horizontal" enctype="multipart/form-data"
+					action="site_new" method="post">
 					<div class="form-group">
 						<legend>Nouveau Site</legend>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="nom" class="col-lg-4 control-label">Nom : </label>
-							<div class="col-lg-8">
-								<input id="nom" type="text" class="form-control">
+							<label for="nom" class="col-lg-3 control-label">Nom : <span class="required">*</span></label>
+							<div class="col-lg-9">
+								<input id="nom" name="site.nom" type="text" class="form-control" required>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="description" class="col-lg-4 control-label">Description : </label>
-							<div class="col-lg-8">
-								<textarea class="form-control" id="description" rows="4"></textarea>
+							<label for="description" class="col-lg-3 control-label">Description
+								: <span class="required">*</span></label>
+							<div class="col-lg-9">
+								<textarea class="form-control" id="description" rows="4" required
+									name="site.description"></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="civilite" class="col-lg-4 control-label">Région
-								: </label>
-							<div class="col-lg-8">
-								<select id="civilite" class="form-control">
-									<option>Région 1</option>
-									<option>Région 2</option>
-									<option>Région 3</option>
+							<label for="region" class="col-lg-3 control-label">Région
+								: <span class="required">*</span></label>
+							<div class="col-lg-9">
+								<input id="region" name="site.region" type="text" required
+									class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="localite" class="col-lg-3 control-label">Localité
+								: <span class="required">*</span></label>
+							<div class="col-lg-9">
+								<textarea class="form-control" id="localite" required
+									name="site.localite" rows="4"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="pays" class="col-lg-3 control-label">Pays : <span class="required">*</span></label>
+							<div class="col-lg-9">
+								<select id="pays" name="site.pays.id" class="form-control" title="Veuillez choisir un pays !"
+									onchange="onSelectPaysChange()" required>
+									<option selected></option>
+									<s:iterator value="listPays">
+										<option value="<s:property value="id"/>"><s:property value="nom" /></option>
+									</s:iterator>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="localite" class="col-lg-4 control-label">Localité : </label>
-							<div class="col-lg-8">
-								<textarea class="form-control" id="localite" rows="4"></textarea>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="civilite" class="col-lg-4 control-label">Pays
-								: </label>
-							<div class="col-lg-8">
-								<select id="civilite" class="form-control">
-									<option>Pays 1</option>
-									<option>Pays 2</option>
-									<option>Pays 3</option>
+							<label for="ville" class="col-lg-3 control-label">Ville
+								la plus proche : <span class="required">*</span></label>
+							<div class="col-lg-9">
+								<select id="ville" name="site.ville.id" class="form-control" title="Veuillez choisir une ville !" required>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="civilite" class="col-lg-4 control-label">Ville
-								la plus proche : </label>
-							<div class="col-lg-8">
-								<select id="civilite" class="form-control">
-									<option>Ville 1</option>
-									<option>Ville 2</option>
-									<option>Ville 3</option>
-								</select>
+							<label for="fileUpload" class="col-lg-3 control-label">Choisir
+								photo (317 x 212) : </label>
+							<div class="col-lg-9">
+								<s:file id="fileUpload" name="fileUpload"
+									label="Select a File to upload" size="40" requiredLabel="false"
+									class="form-control-file" />
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<label for="photo" class="col-lg-4 control-label">Choisir photo (317 x 212) : </label>
-							<div class="col-lg-8">
-								<input id="photo" type="file" class="form-control-file">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="plan" class="col-lg-4 control-label">Choisir photo (670 x 378) : </label>
-							<div class="col-lg-8">
-								<input id="plan" type="file" class="form-control-file">
+							<label for="file2Upload" class="col-lg-3 control-label">Choisir
+								photo (670 x 378) : </label>
+							<div class="col-lg-9">
+								<s:file id="file2Upload" name="file2Upload"
+									label="Select a File to upload" size="40" requiredLabel="false"
+									class="form-control-file" />
 							</div>
 						</div>
 					</div>
@@ -101,6 +107,58 @@
 			</div>
 		</section>
 	</div>
-	<script type="text/javascript" src="../script.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jsp/script.js"></script>
+	<script type="text/javascript">
+		function onSelectPaysChange() {
+			// URL de l'action AJAX
+			var url = "<s:url action='ajax_getListVille'/>";
+	
+			// Paramètres de la requête AJAX
+			var params = {
+				paysId : jQuery("#pays").val()
+			};
+			// alert(paysId);
+			// Action AJAX en POST
+			jQuery.post(
+					url,
+					params,
+					function(data) {
+						// alert(data);
+						var $selectVille = jQuery("#ville");
+						$selectVille.empty();
+						jQuery.each(data, function(key, val) {
+							$selectVille.append(jQuery("<option>")
+									.text(val.nom).val(val.id));
+						});
+					}).fail(function(data) {
+				if (typeof data.responseJSON === 'object') {
+					console.log(data.responseJSON);
+				} else {
+					console.log(data);
+				}
+				alert("Une erreur s'est produite.");
+			});
+		}
+		
+		$( "#spotAddForm" ).validate({
+			debug: false,
+		    errorElement: "span",
+		    errorClass: "help-block",
+			rules: {
+// 			  nom: "required",
+// 			  description: "required",
+// 			  region: "required",
+// 			  localite: "required",
+// 			  pays: "required",
+// 			  ville: "required"
+			}
+		});
+		
+		$(document).ready(function () {
+			$("div.nav > li").removeClass("active");
+			$('#administration').addClass('active');
+		});
+	</script>
 </body>
 </html>
